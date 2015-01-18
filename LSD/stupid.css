@@ -1,0 +1,83 @@
+body{
+	background: url(bg.png);
+	background-size:200px 110px;
+	letter-spacing:5.0em;
+	word-spacing:0.1em;
+	line-height:75%;
+	text-decoration:overline;
+}
+div{
+	background-color:red;
+	color:yellow;
+	font-size:14px;
+}
+div#pagewrapper{
+	position:relative;
+	margin:auto;
+	width:1200px;
+	top:175px;
+	padding:20px;
+}
+div.header{
+	position:absolute;
+	background-color:green;
+	color:purple;
+	font-size:50px;
+	left:0;
+	right:0;
+	top:0;
+	padding-top:0px;
+	text-align:center;
+	font-family:"comic sans";
+	z-index:5000;
+}
+div#about{
+	float:left;
+	margin-left:10px;
+	width: 250px;
+	border-style:solid;
+}
+p.about{
+	padding-left:10px;
+}
+div#content{
+	margin-left:275px;
+	border-style:dashed;
+}
+div.post{
+	border-style:solid;
+	border-color:#aff0aa;
+	margin-bottom:10px;
+}
+div.postheader{
+	text-align:center;
+	border-color:blue;
+	border-style:solid;
+	background-color:#C72E99;
+	color:green;
+	z-index:3000;
+}
+div.postheader p{
+	font-size:30px;
+}
+div.postcontent{
+	padding-left:30px;
+	position:relative;
+	left:-200px;
+	z-index:0;
+}
+h1{
+	font-size:70px;
+}
+div#footer{
+	position:relative;
+	top:180px;
+	background-color:#a3b567;
+	color:#AFF4eb;
+	width:auto;
+	text-transform:capitalize;
+	text-align:center;
+	border-style: solid dashed solid dashed;
+	border-color: #40afe3 #3ecb02 #234566 #afecba;
+	z-index:9000;
+}
