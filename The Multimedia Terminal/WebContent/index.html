@@ -6,6 +6,79 @@
 		<link rel="stylesheet" href="tmi.css" />
 		<script src="jquery-2.1.1.js"></script>
 		<script src="tmi.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#trendingBook").hide();
+				$("#trendingGame").hide();
+				$("#trendingAnime").hide();
+				$("#trendingMovie").hide();
+				
+				$("li#all").click(function() {
+					setFilterCrit($(this),true);
+					setFilterCrit($("li#book"),false);
+					setFilterCrit($("li#anime"),false);
+					setFilterCrit($("li#vg"),false);
+					setFilterCrit($("li#movie"),false);
+					$("#trendingAll").show();
+					$("#trendingBook").hide();
+					$("#trendingGame").hide();
+					$("#trendingAnime").hide();
+					$("#trendingMovie").hide();
+				});
+				
+				$("li#vg").click(function() {
+					setFilterCrit($(this),true);
+					setFilterCrit($("li#book"),false);
+					setFilterCrit($("li#anime"),false);
+					setFilterCrit($("li#all"),false);
+					setFilterCrit($("li#movie"),false);
+					$("#trendingGame").show();
+					$("#trendingBook").hide();
+					$("#trendingAll").hide();
+					$("#trendingAnime").hide();
+					$("#trendingMovie").hide();
+				});
+				
+				$("li#book").click(function() {
+					setFilterCrit($(this),true);
+					setFilterCrit($("li#all"),false);
+					setFilterCrit($("li#anime"),false);
+					setFilterCrit($("li#vg"),false);
+					setFilterCrit($("li#movie"),false);
+					$("#trendingBook").show();
+					$("#trendingAll").hide();
+					$("#trendingGame").hide();
+					$("#trendingAnime").hide();
+					$("#trendingMovie").hide();
+				});
+				
+				$("li#anime").click(function() {
+					setFilterCrit($(this),true);
+					setFilterCrit($("li#book"),false);
+					setFilterCrit($("li#all"),false);
+					setFilterCrit($("li#vg"),false);
+					setFilterCrit($("li#movie"),false);
+					$("#trendingAnime").show();
+					$("#trendingBook").hide();
+					$("#trendingGame").hide();
+					$("#trendingAll").hide();
+					$("#trendingMovie").hide();
+				});
+				
+				$("li#movie").click(function() {
+					setFilterCrit($(this),true);
+					setFilterCrit($("li#book"),false);
+					setFilterCrit($("li#anime"),false);
+					setFilterCrit($("li#vg"),false);
+					setFilterCrit($("li#all"),false);
+					$("#trendingMovie").show();
+					$("#trendingBook").hide();
+					$("#trendingGame").hide();
+					$("#trendingAnime").hide();
+					$("#trendingAll").hide();
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<header>
@@ -28,13 +101,49 @@
 			<h1>Trending</h1>
 			<ul id="filterMenu">
 				<li id="filterLabel">Filter By: </li>
-				<li class="filterCritActive">All</li>
-				<li class="filterCritInactive">Video Games</li>
-				<li class="filterCritInactive">Anime</li>
-				<li class="filterCritInactive">Movies</li>
-				<li class="filterCritInactive">Books</li>
+				<li id="all" class="filterCritActive">All</li>
+				<li id="vg" class="filterCritInactive">Video Games</li>
+				<li id="anime" class="filterCritInactive">Anime</li>
+				<li id="movie" class="filterCritInactive">Movies</li>
+				<li id="book" class="filterCritInactive">Books</li>
 			</ul>
 			<div id="trendingAll" class="trendingContent">
+				<div class="trendingWork">
+					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
+					<div class="trendLink">
+						<a href="anime.html">Tell Me More</a>
+					</div>
+					<span>Shingeki No Potato</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div>
+					<div class="description">
+						<p>Humans defend themselves from giant attacking Potatoes.</p>
+						<p>Created by: Potato Urobutchi</p>
+					</div>
+				</div>
+				<div class="trendingWork">
+					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
+					<div class="trendLink">
+						<a href="book.html">Tell Me More</a>
+					</div>
+					<span>A Tale of Two Potatoes</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+					</div>
+					<div class="description">
+						<p>It was the best of potatoes; it was the worst of potatoes.</p>
+						<p>Written by: Charles Potato</p>
+					</div>
+				</div>
 				<div class="trendingWork">
 					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
 					<div class="trendLink">
@@ -71,12 +180,14 @@
 						<p>Developed by: PotatoSoft</p>
 					</div>
 				</div>
+			</div> <!-- end of trendingAll -->
+			<div id="trendingMovie" class="trendingContent">
 				<div class="trendingWork">
 					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
 					<div class="trendLink">
-						<a href="anime.html">Tell Me More</a>
+						<a href="movie.html">Tell Me More</a>
 					</div>
-					<span>Shingeki No Potato</span>
+					<span>Tomato Movie</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
@@ -85,11 +196,47 @@
 						<img src="Website Assets/Empty Star.png" class="star" />
 					</div>
 					<div class="description">
-						<p>Humans defend themselves from giant attacking Potatoes.</p>
-						<p>Created by: Potato Urobutchi</p>
+						<p>It is the story of a tomato.</p>
+						<p>Directed by: A Potato</p>
 					</div>
 				</div>
-			</div> <!-- end of trendingAll -->
+				<div class="trendingWork">
+					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
+					<div class="trendLink">
+						<a href="movie.html">Tell Me More</a>
+					</div>
+					<span>Tomato Movie</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div>
+					<div class="description">
+						<p>It is the story of a tomato.</p>
+						<p>Directed by: A Potato</p>
+					</div>
+				</div>
+				<div class="trendingWork">
+					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
+					<div class="trendLink">
+						<a href="movie.html">Tell Me More</a>
+					</div>
+					<span>Tomato Movie</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div>
+					<div class="description">
+						<p>It is the story of a tomato.</p>
+						<p>Directed by: A Potato</p>
+					</div>
+				</div>
+			</div> <!-- end of trendingMovie -->
 			<div id="trendingGame" class="trendingContent">
 				<div class="trendingWork">
 					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
@@ -208,7 +355,7 @@
 					<div class="trendLink">
 						<a href="book.html">Tell Me More</a>
 					</div>
-					<span>A Tale of Two Potatos</span>
+					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
@@ -226,7 +373,7 @@
 					<div class="trendLink">
 						<a href="book.html">Tell Me More</a>
 					</div>
-					<span>A Tale of Two Potatos</span>
+					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
@@ -244,25 +391,7 @@
 					<div class="trendLink">
 						<a href="book.html">Tell Me More</a>
 					</div>
-					<span>A Tale of Two Potatos</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-					</div>
-					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Written by: Charles Potato</p>
-					</div>
-				</div>
-				<div class="trendingWork">
-					<div class="trendingImg"><img src="Website Assets/blank.png" /></div>
-					<div class="trendLink">
-						<a href="book.html">Tell Me More</a>
-					</div>
-					<span>A Tale of Two Potatos</span>
+					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
