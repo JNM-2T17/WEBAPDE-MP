@@ -4,8 +4,9 @@ body {
 }
 
 header {
-	margin:10px 180px;
-	margin-bottom:10px;
+	width:950px;
+	min-width:950px;
+	margin:10px auto;
 	padding:0;
 	color:white;
 }
@@ -69,8 +70,9 @@ span#searchBar {
 
 div#mainContent {
 	background-color:#2C2C2C;
-	margin:10px 180px;
-	margin-top:10px;
+	width:850px;
+	min-width:850px;
+	margin:10px auto;
 	padding:50px;
 	padding-top:10px;
 	color:white;
@@ -81,15 +83,14 @@ ul#filterMenu li {
 	padding:15px;
 }
 
-/*"filterLabel">Filter By: </li>
-				<li class="filterCritActive">All</li>*/
-
 li#filterLabel, li.filterCritActive {
 	color:#DD461A;
+	cursor:default;
 }
 
 li.filterCritInactive {
 	color:white;
+	cursor:pointer;
 }
 
 div.trendingWork {
