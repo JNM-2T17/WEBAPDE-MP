@@ -1,5 +1,6 @@
+/*for the entire site*/
 body {
-	background-color:#0D0D0D;	
+	background-color:#0D0D0D;
 	font-family:Calibri, Arial, "Century Gothic";
 }
 
@@ -70,7 +71,7 @@ span#searchBar {
 	top:13px;
 }
 
-div#mainContent {
+div#mainContent, div#mainLogin {
 	background-color:#2C2C2C;
 	width:850px;
 	min-width:850px;
@@ -79,6 +80,8 @@ div#mainContent {
 	padding-top:10px;
 	color:white;
 }
+
+/*for index.html*/
 
 ul#filterMenu li {
 	display:inline;
@@ -133,4 +136,38 @@ div.trendLink {
 div.trendLink a {
 	color:white;
 	text-decoration:none;
+}
+
+/*for login.html*/
+
+div#mainLogin {
+	text-align:center;
+	padding:50px;
+	position:relative;
+}
+
+div#mainLogin h1 {
+	color:#F8440C;
+	font-size:2.5em;
+	font-weight:normal;
+}
+
+div#mainLogin input {
+	border: solid 1px #F8440C;
+	margin:15px;
+	font-size:1.5em;
+	width:500px;
+}
+
+div#login {
+	position:relative;
+	left:20%;
+}
+
+div#mainLogin input[type="submit"] {
+	background-color:#F8440C;
+	color:#FFF;
+	font-size:1.3em;
+	width:170px;
+	padding:10px 50px;
 }
