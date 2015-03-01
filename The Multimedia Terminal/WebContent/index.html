@@ -13,6 +13,14 @@
 				$("#trendingAnime").hide();
 				$("#trendingMovie").hide();
 				
+				$("#homeLink").click(function() {
+					setLoc("index.html");
+				});
+				
+				$("span#searchBar img").click(function() {
+					setLoc('search.html?s=' + $("#search").val());
+				});
+				
 				$("li#all").click(function() {
 					setFilterCrit($(this),true);
 					setFilterCrit($("li#book"),false);
@@ -85,16 +93,18 @@
 			<h1>The Multimedia Terminal</h1>
 			<div id="homeLink"><a href="index.html">Home</a></div>
 			<div id="menubar">
-				<ul id="menu">
-					<li class="menuitem"><a href="login.html">Login</a></li>
-					<li class="menuitem"><a href="favorites.html">Favorites</a></li>
-					<li class="menuitem"><a href="admin.html">Admin</a></li>
-					<li class="menuitem"><a href="propose.html">Propose Media</a></li>
-				</ul> <!-- end of menu -->
-				<span id="searchBar">
-					<img src="Website Assets/search.png" />
-					<input type="text" />
-				</span> <!-- end of searchBar -->
+				<form action="search.html">
+					<ul id="menu">
+						<li class="menuitem"><a href="login.html">Login</a></li>
+						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
+						<li class="menuitem"><a href="admin.html">Admin</a></li>
+						<li class="menuitem"><a href="propose.html">Propose Media</a></li>
+					</ul> <!-- end of menu -->
+					<span id="searchBar">
+						<img src="Website Assets/search.png" />
+						<input type="text" id="search" name="s" />
+					</span> <!-- end of searchBar -->
+				</form>
 			</div> <!--  end of menubar -->
 		</header>
 		<div id="mainContent">

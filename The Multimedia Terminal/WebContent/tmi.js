@@ -1,3 +1,7 @@
+function setLoc(a) {
+	location = a;
+}
+
 function switchClass(a, b, c) {
 	a.addClass(b);
 	a.removeClass(c);

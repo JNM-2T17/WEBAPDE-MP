@@ -21,6 +21,7 @@ div#homeLink {
 	float:left;
 	width:165px;
 	text-align:center;
+	cursor:pointer;
 }
 
 div#homeLink a {
@@ -56,6 +57,7 @@ span#searchBar img {
 	height:20px;
 	position:relative;
 	top:6px;
+	cursor:pointer;
 }
 
 li.menuitem a {
