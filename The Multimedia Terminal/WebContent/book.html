@@ -36,6 +36,10 @@
 						$("#" + $(this).attr("id") + " div.arrow img").attr("src","Website Assets/Up Arrow.png");
 					}
 				});
+				
+				$("img[id $= \"recommend\"]").click(function() {
+					setLoc($(this).attr("id") + ".html" );
+				});
 			});
 		</script>
 	</head>
