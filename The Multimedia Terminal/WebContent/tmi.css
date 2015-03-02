@@ -173,3 +173,93 @@ div#mainLogin input[type="submit"] {
 	width:170px;
 	padding:10px 50px;
 }
+
+/*for workpages*/
+h2#ratingCtr {
+	display:inline;
+}
+
+div#screenshots {
+	text-align:center;
+}
+
+div#screenshots img {
+	width: 800px;
+}
+
+div.workSection {
+	width: 600px;
+}
+
+div.workSection span {
+	font-size:1.2em;	
+	position:relative;
+	top:5px;
+}
+
+div.arrow {
+	display:inline;
+	float:right;
+}
+
+div.orangeLine {
+	background-color:#EC6C25;
+	height:2px;
+	width:600px;
+	position:relative;
+	top:7px;
+}
+
+div#workTechCont {
+	font-size:0.8em;
+}
+
+div#workTechCont ul {
+	position:relative;
+	left:-35px;
+}
+
+div#workTechCont li {
+	list-style-type:none;
+}
+
+span.info {
+	color:#F55519;
+}
+
+div#workReviewCont {
+	position:relative;
+	top:10px;
+	padding:3px 0;
+}
+
+div.review {
+	border-bottom:#595959 2px solid;
+	margin:4px 0;
+}
+
+div.work {
+	font-size:0.8em;
+	padding:5px;
+	padding-bottom:1px;
+}
+
+div#reco {
+	width:400px;
+	border-bottom:#595959 2px solid;
+	padding-bottom:23px;
+}
+
+div#unreco {
+	width:400px;
+}
+
+div.work {
+	background-color:#404040;
+	margin-bottom:4px;
+}
+
+div.recImg {
+	float:left;
+	margin-right:10px;
+}

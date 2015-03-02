@@ -15,6 +15,27 @@
 				$("span#searchBar img").click(function() {
 					setLoc('search.html?s=' + $("#search").val());
 				});
+				
+				$("div.work").mousedown(function(e) {
+					//console.log(this.attr("data-link"));
+					if( e.which == 1 ) {
+						setLoc($(this).attr("data-link"));
+					}
+				});
+				
+				$("div.content").hide();
+				
+				$("div.workSection").click(function() {
+					if($(this).attr("data-visible") == "true") {
+						$("#" + $(this).attr("id") + "Cont").slideUp(1000);
+						$(this).attr("data-visible", "false" );
+						$("#" + $(this).attr("id") + " div.arrow img").attr("src","Website Assets/Down Arrow.png");
+					} else {
+						$("#" + $(this).attr("id") + "Cont").slideDown(1000);
+						$(this).attr("data-visible", "true" );
+						$("#" + $(this).attr("id") + " div.arrow img").attr("src","Website Assets/Up Arrow.png");
+					}
+				});
 			});
 		</script>
 	</head>
@@ -32,13 +53,136 @@
 					</ul> <!-- end of menu -->
 					<span id="searchBar">
 						<img src="Website Assets/search.png" />
-						<input type="text" id="search" name="s" />
+						<input type="text" id="search" placeholder="Search..." name="s" />
 					</span> <!-- end of searchBar -->
 				</form>
 			</div> <!--  End of menubar -->
 		</header>
 		<div id="mainContent">
-		
+			<h1>A Tale of Two Potatoes</h1>
+			<span class="rating">
+				<img src="Website Assets/Filled Star.png" class="star" />
+				<img src="Website Assets/Filled Star.png" class="star" />
+				<img src="Website Assets/Filled Star.png" class="star" />
+				<img src="Website Assets/Filled Star.png" class="star" />
+				<img src="Website Assets/Filled Star.png" class="star" />
+			</span> <!-- end of rating -->
+			<h2 id="ratingCtr">1634 ratings</h2>
+			<div id="screenshots"><img src="Website Assets/Screenshots.png" /></div><br />
+			<div class="workSection" id="workDesc" data-visible="false">
+				<span>Description</span>
+				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
+				<div class="orangeLine"></div>
+				<div class="content" id="workDescCont">
+					<p>
+						Charles Potato and Sydney Tomato fight for Lucie Burger's affection
+						amidst the turmoil of the Vegetative Revolution in FranceFry.
+					</p>
+					<p>Written by: Charles Potato</p>
+				</div> <!-- end of workDescCont -->
+			</div> <!-- end of workDesc --> <br />
+			<div class="workSection" id="workTech" data-visible="false">
+				<span>Technical Information</span>
+				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
+				<div class="orangeLine"></div>
+				<div class="content" id="workTechCont">
+					<ul>
+						<li><span class="info">Page Count: </span><span class="data">24601</span></li>
+						<li><span class="info">Publisher: </span><span class="data">Potato Books</span></li>
+					</ul>
+				</div> <!-- end of workTechCont -->
+			</div>  <!-- end of workTech --> <br />
+			<div class="workSection" id="workReview" data-visible="false">
+				<span>Reviews</span>
+				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
+				<div class="orangeLine"></div>
+				<div class="content" id="workReviewCont">
+					<div class="review">
+						<span class="rating">
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+						</span> <!-- end of rating -->
+						<b>Instant Classic</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;April 3, 2012
+						<p>By French Fry (USA)</p>
+						<p>This story feels so real. Amazing!</p>
+					</div> <!-- end of review -->
+					<div class="review">
+						<span class="rating">
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Empty Star.png" class="star" />
+							<img src="Website Assets/Empty Star.png" class="star" />
+							<img src="Website Assets/Empty Star.png" class="star" />
+						</span>
+						<b>Eh...</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;June 27, 2013
+						<p>By Vanilla (UK)</p>
+						<p>Charles Potato is too boring...</p>
+					</div> <!-- end of review -->
+				</div> <!-- end of workReviewCont -->
+			</div> <!-- end of workReview --> <br />
+			<div class="workSection" id="workRec" data-visible="false">
+				<span>Recommendations</span>
+				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
+				<div class="orangeLine"></div>
+				<div class="content" id="workRecCont">
+					<div id="reco">
+						<h3>Recommended</h3>
+						<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
+						<div class="work" data-link="game.html">
+							<div class="recImg"><img src="Website Assets/blank.png" /></div>
+							<span>Tomato Game X2</span>
+							<div class="rating">
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Empty Star.png" class="star" />
+								<img src="Website Assets/Empty Star.png" class="star" />
+							</div> <!-- end of rating -->
+							<div class="description">
+								<p>It is the game of a tomato.</p>
+								<p>Developed by: PotatoSoft</p>
+							</div> <!-- end of description -->
+						</div> <!-- end of work -->
+						<div class="work" data-link="movie.html">
+							<div class="recImg"><img src="Website Assets/blank.png" /></div>
+							<span>Tomato Movie</span>
+							<div class="rating">
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Empty Star.png" class="star" />
+								<img src="Website Assets/Empty Star.png" class="star" />
+							</div> <!-- end of rating -->
+							<div class="description">
+								<p>It is the story of a tomato.</p>
+								<p>Directed by: A Potato</p>
+							</div> <!-- end of description -->
+						</div> <!-- end of work -->
+					</div> <!-- end of reco -->
+					<div id="unreco">
+						<h3>Unrecommended</h3>
+						<img src="Website Assets/Plus Sign.png" id="unrecommend" /> Make an Unrecommendation<br /><br />
+						<div class="work" data-link="anime.html">
+							<div class="recImg"><img src="Website Assets/blank.png" /></div>
+							<span>Shingeki No Potato</span>
+							<div class="rating">
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<img src="Website Assets/Empty Star.png" class="star" />
+								<img src="Website Assets/Empty Star.png" class="star" />
+							</div> <!-- end of rating -->
+							<div class="description">
+								<p>Humans defend themselves from giant attacking Potatoes.</p>
+								<p>Created by: Potato Urobutchi</p>
+							</div> <!-- end of description -->
+						</div> <!-- end of work -->
+					</div> <!-- end of unreco -->
+				</div> <!-- end of workRecContent -->
+			</div> <!-- end of workRec -->
 		</div><!-- end of mainContent -->
 	</body>
 </html>
