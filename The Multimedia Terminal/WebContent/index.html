@@ -13,6 +13,9 @@
 				$("#trendingAnime").hide();
 				$("#trendingMovie").hide();
 				
+				var active = $("#trendingAll");
+				var filter = $("li#all");
+				
 				$("#homeLink").click(function() {
 					setLoc("#");
 				});
@@ -22,68 +25,48 @@
 				});
 				
 				$("li#all").click(function() {
-					setFilterCrit($(this),true);
-					setFilterCrit($("li#book"),false);
-					setFilterCrit($("li#anime"),false);
-					setFilterCrit($("li#vg"),false);
-					setFilterCrit($("li#movie"),false);
-					$("#trendingAll").show();
-					$("#trendingBook").hide();
-					$("#trendingGame").hide();
-					$("#trendingAnime").hide();
-					$("#trendingMovie").hide();
+					setFilterCrit(filter, false);
+					filter = setFilterCrit($(this),true);
+					if( active.attr("id") != "trendingAll" ) {
+						active.hide();
+						active = $("#trendingAll").show();
+					}
 				});
 				
 				$("li#vg").click(function() {
-					setFilterCrit($(this),true);
-					setFilterCrit($("li#book"),false);
-					setFilterCrit($("li#anime"),false);
-					setFilterCrit($("li#all"),false);
-					setFilterCrit($("li#movie"),false);
-					$("#trendingGame").show();
-					$("#trendingBook").hide();
-					$("#trendingAll").hide();
-					$("#trendingAnime").hide();
-					$("#trendingMovie").hide();
+					setFilterCrit(filter, false);
+					filter = setFilterCrit($(this),true);
+					if( active.attr("id") != "trendingGame" ) {
+						active.hide();
+						active = $("#trendingGame").show();
+					}
 				});
 				
 				$("li#book").click(function() {
-					setFilterCrit($(this),true);
-					setFilterCrit($("li#all"),false);
-					setFilterCrit($("li#anime"),false);
-					setFilterCrit($("li#vg"),false);
-					setFilterCrit($("li#movie"),false);
-					$("#trendingBook").show();
-					$("#trendingAll").hide();
-					$("#trendingGame").hide();
-					$("#trendingAnime").hide();
-					$("#trendingMovie").hide();
+					setFilterCrit(filter, false);
+					filter = setFilterCrit($(this),true);
+					if( active.attr("id") != "trendingBook" ) {
+						active.hide();
+						active = $("#trendingBook").show();
+					}
 				});
 				
 				$("li#anime").click(function() {
-					setFilterCrit($(this),true);
-					setFilterCrit($("li#book"),false);
-					setFilterCrit($("li#all"),false);
-					setFilterCrit($("li#vg"),false);
-					setFilterCrit($("li#movie"),false);
-					$("#trendingAnime").show();
-					$("#trendingBook").hide();
-					$("#trendingGame").hide();
-					$("#trendingAll").hide();
-					$("#trendingMovie").hide();
+					setFilterCrit(filter, false);
+					filter = setFilterCrit($(this),true);
+					if( active.attr("id") != "trendingAnime" ) {
+						active.hide();
+						active = $("#trendingAnime").show();
+					}
 				});
 				
 				$("li#movie").click(function() {
-					setFilterCrit($(this),true);
-					setFilterCrit($("li#book"),false);
-					setFilterCrit($("li#anime"),false);
-					setFilterCrit($("li#vg"),false);
-					setFilterCrit($("li#all"),false);
-					$("#trendingMovie").show();
-					$("#trendingBook").hide();
-					$("#trendingGame").hide();
-					$("#trendingAnime").hide();
-					$("#trendingAll").hide();
+					setFilterCrit(filter, false);
+					filter = setFilterCrit($(this),true);
+					if( active.attr("id") != "trendingMovie" ) {
+						active.hide();
+						active = $("#trendingMovie").show();
+					}
 				});
 			});
 		</script>
@@ -112,9 +95,9 @@
 			<ul id="filterMenu">
 				<li id="filterLabel">Filter By: </li>
 				<li id="all" class="filterCritActive">All</li>
+				<li id="movie" class="filterCritInactive">Movies</li>
 				<li id="vg" class="filterCritInactive">Video Games</li>
 				<li id="anime" class="filterCritInactive">Anime</li>
-				<li id="movie" class="filterCritInactive">Movies</li>
 				<li id="book" class="filterCritInactive">Books</li>
 			</ul> <!--  end of filterMenu -->
 			<div id="trendingAll" class="trendingContent">

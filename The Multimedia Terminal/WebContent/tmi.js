@@ -7,7 +7,8 @@ function switchClass(a, b, c) {
 	a.removeClass(c);
 }
 
-function setFilterCrit( a, b ){
+function setFilterCrit( a, b ) {
 	switchClass( a, b == true ? 'filterCritActive' : 'filterCritInactive',
-				b == false ? 'filterCritActive' : 'filterCritInactive')
+				b == false ? 'filterCritActive' : 'filterCritInactive');
+	return a;
 }
