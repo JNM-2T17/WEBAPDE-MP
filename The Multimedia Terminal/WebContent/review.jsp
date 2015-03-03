@@ -61,6 +61,7 @@
 					for( ; i <= 5; i++ ) {
 						$("img#star" + i).attr("src","Website Assets/Empty Star.png");
 					}
+					$("input#ratingVal").val("" + n);
 					ratingSet = true;
 				});
 			});
@@ -105,6 +106,10 @@
 					</div>
 					<input type="hidden" id="ratingVal" name="r" />
 					<textarea name="reviewContent" class="reviewField" name="rev"></textarea>
+					<div id="formButtons">
+						<input type="submit" class="orangeBox" />
+						<button class="orangeBox">Cancel</button>
+					</div>
 				</form>
 			</div>
 		</div><!-- end of mainContent -->

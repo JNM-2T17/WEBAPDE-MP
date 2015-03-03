@@ -55,6 +55,7 @@ li.menuitem, span#searchBar {
 
 span#searchBar img {
 	width:20px;
+	min-width:20px;
 	height:20px;
 	position:relative;
 	top:5px;
@@ -111,6 +112,7 @@ li.filterCritInactive {
 div.work {
 	background-color:#404040;
 	width:600px;
+	min-width:600px;
 	padding:10px;
 	margin-bottom:20px;
 }
@@ -192,6 +194,7 @@ div#mainLogin input {
 	margin:15px;
 	font-size:1.5em;
 	width:500px;
+	min-width:500px;
 }
 
 div#login {
@@ -204,6 +207,7 @@ div#mainLogin input[type="submit"] {
 	color:#FFF;
 	font-size:1.3em;
 	width:170px;
+	min-width:170px;
 	padding:10px 50px;
 }
 
@@ -222,6 +226,7 @@ div#screenshots img {
 
 div.workSection {
 	width: 600px;
+	min-width: 600px;
 }
 
 div.workSection span {
@@ -239,6 +244,7 @@ div.orangeLine {
 	background-color:#EC6C25;
 	height:2px;
 	width:600px;
+	min-width:600px;
 	position:relative;
 	top:7px;
 }
@@ -256,7 +262,7 @@ div#workTechCont li {
 	list-style-type:none;
 }
 
-span.info {
+.info {
 	color:#F55519;
 }
 
@@ -288,12 +294,14 @@ div.workSmall {
 
 div#reco {
 	width:400px;
+	min-width:400px;
 	border-bottom:#595959 2px solid;
 	padding-bottom:23px;
 }
 
 div#unreco {
 	width:400px;
+	min-width:400px;
 }
 
 div.recImg {
@@ -309,7 +317,7 @@ span#reviewTitle {
 	color:#EC6C25;
 }
 
-.reviewField {
+.formField {
 	border:1px #EC6C25 solid;
 	background-color:#AFABAB;
 	font-size:1em;
@@ -342,21 +350,80 @@ textarea.reviewField {
 	top:10px;
 }
 
+div#formButtons {
+	width:600px;
+	min-width:600px;
+	text-align:right;
+	margin-top:10px;
+}
+
+.orangeBox {
+	color:#FFF;
+	border:none;
+	background-color:#EC6C25;
+	font-size:1em;
+	padding:5px 10px;
+	margin:3px;
+	margin-right:0;
+	position:relative;
+	left:6px;
+}
+
 /*for proposals*/
 p#proposeTitle {
-	display:inline; 
-	padding:5px; 
-} 
+	display:inline;
+	padding:5px;
+}
 
-div.imgPropose { 
-	text-align:center; 
-} 
+div.imgPropose {
+	text-align:center;
+}
 
-div.proposeTop { 
-	background-color:#404040; 
-	color:#FFF; 
-	width:550px; 
-	min-width:550px; 
-	padding:20px; 
-	padding-top:10px; 
-} 
+div.proposeTop {
+	background-color:#404040;
+	color:#FFF;
+	text-align:center;
+	width:600px;
+	min-width:600px;
+	padding:20px;
+	padding-top:10px;
+	font-size:1.5em;
+}
+
+div.proposeDesc {
+	background-color:#222222;
+	color:#FFF;
+	width:600px;
+	min-width:600px;
+	padding:20px;
+	padding-top:10px;
+	font-size:1.5em;
+}
+
+div.proposeDesc div.info {
+	margin-left:50px;
+}
+
+#descBox {
+	position:relative;
+	top:5px;
+}
+
+#descBox {
+    height:200px;
+	width:400px;
+    min-width:400px;
+}
+
+table#proposeForm {
+	margin:10px 50px 0 0;
+	font-size:1em;
+}
+
+table#proposeForm td {
+	padding:3px;
+}
+
+td.info {
+	text-align:right;
+}
