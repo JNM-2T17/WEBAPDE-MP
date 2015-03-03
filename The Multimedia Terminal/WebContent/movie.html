@@ -16,7 +16,7 @@
 					setLoc('search.html?s=' + $("#search").val());
 				});
 				
-				$("div.work").mousedown(function(e) {
+				$("div.workSmall").mousedown(function(e) {
 					//console.log(this.attr("data-link"));
 					if( e.which == 1 ) {
 						setLoc($(this).attr("data-link"));
@@ -101,7 +101,7 @@
 				<span>Reviews</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
-				<div class="content" id="workReviewCont">><br />
+				<div class="content" id="workReviewCont"><br />
 					<a href="review.jsp?title=Tomato Movie" id="writeRev">Write a Review</a><br />
 					<div class="review">
 						<span class="rating">
@@ -137,7 +137,7 @@
 					<div id="reco">
 						<h3>Recommended</h3>
 						<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
-						<div class="work" data-link="game.html">
+						<div class="workSmall" data-link="game.html">
 							<div class="recImg"><img src="Website Assets/blank.png" /></div>
 							<span>Tomato Game X2</span>
 							<div class="rating">
@@ -151,8 +151,8 @@
 								<p>It is the game of a tomato.</p>
 								<p>Developed by: PotatoSoft</p>
 							</div> <!-- end of description -->
-						</div> <!-- end of work -->
-						<div class="work" data-link="book.html">
+						</div> <!-- end of workSmall -->
+						<div class="workSmall" data-link="book.html">
 							<div class="recImg"><img src="Website Assets/blank.png" /></div>
 							<span>A Tale of Two Potatoes</span>
 							<div class="rating">
@@ -166,12 +166,12 @@
 								<p>It was the best of potatoes; it was the worst of potatoes.</p>
 								<p>Written by: Charles Potato</p>
 							</div> <!-- end of description -->
-						</div> <!-- end of work -->
+						</div> <!-- end of workSmall -->
 					</div> <!-- end of reco -->
 					<div id="unreco">
 						<h3>Unrecommended</h3>
 						<img src="Website Assets/Plus Sign.png" id="unrecommend" /> Make an Unrecommendation<br /><br />
-						<div class="work" data-link="anime.html">
+						<div class="workSmall" data-link="anime.html">
 							<div class="recImg"><img src="Website Assets/blank.png" /></div>
 							<span>Shingeki No Potato</span>
 							<div class="rating">
@@ -185,7 +185,7 @@
 								<p>Humans defend themselves from giant attacking Potatoes.</p>
 								<p>Created by: Potato Urobutchi</p>
 							</div> <!-- end of description -->
-						</div> <!-- end of work -->
+						</div> <!-- end of workSmall -->
 					</div> <!-- end of unreco -->
 				</div> <!-- end of workRecContent -->
 			</div> <!-- end of workRec -->

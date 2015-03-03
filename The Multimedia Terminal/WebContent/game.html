@@ -16,7 +16,7 @@
 					setLoc('search.html?s=' + $("#search").val());
 				});
 				
-				$("div.work").mousedown(function(e) {
+				$("div.workSmall").mousedown(function(e) {
 					//console.log(this.attr("data-link"));
 					if( e.which == 1 ) {
 						setLoc($(this).attr("data-link"));
@@ -133,7 +133,7 @@
 					<div id="reco">
 						<h3>Recommended</h3>
 						<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
-						<div class="work" data-link="book.html">
+						<div class="workSmall" data-link="book.html">
 							<div class="recImg"><img src="Website Assets/blank.png" /></div>
 							<span>A Tale of Two Potatoes</span>
 							<div class="rating">
@@ -148,7 +148,7 @@
 								<p>Written by: Charles Potato</p>
 							</div> <!-- end of description -->
 						</div> <!-- end of work -->
-						<div class="work" data-link="movie.html">
+						<div class="workSmall" data-link="movie.html">
 							<div class="recImg"><img src="Website Assets/blank.png" /></div>
 							<span>Tomato Movie</span>
 							<div class="rating">
@@ -167,7 +167,7 @@
 					<div id="unreco">
 						<h3>Unrecommended</h3>
 						<img src="Website Assets/Plus Sign.png" id="unrecommend" /> Make an Unrecommendation<br /><br />
-						<div class="work" data-link="anime.html">
+						<div class="workSmall" data-link="anime.html">
 							<div class="recImg"><img src="Website Assets/blank.png" /></div>
 							<span>Shingeki No Potato</span>
 							<div class="rating">
