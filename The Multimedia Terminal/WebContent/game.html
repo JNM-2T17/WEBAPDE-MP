@@ -8,6 +8,8 @@
 		<script src="tmi.js"></script>
 		<script>
 			$(document).ready(function() {
+				$("img#logo").attr("src","Website Assets/logo" + Math.floor(Math.random() * 4 + 1) + ".png");
+				
 				$("#homeLink").click(function() {
 					setLoc("index.html");
 				});
@@ -45,7 +47,7 @@
 	</head>
 	<body>
 		<header>
-			<h1>The Multimedia Terminal</h1>
+			<img id="logo" src="Website Assets/logo2.png" /><br />
 			<div id="homeLink"><a href="index.html">Home</a></div>
 			<div id="menubar">
 				<form action="search.html">
@@ -71,7 +73,7 @@
 				<img src="Website Assets/Empty Star.png" class="star" />
 				<img src="Website Assets/Empty Star.png" class="star" />
 			</span> <!-- end of rating -->
-			<h2 id="ratingCtr">1634 ratings</h2>
+			<h2 id="ratingCtr">1634 ratings</h2><br /><br />
 			<div id="screenshots"><img src="Website Assets/Screenshots.png" /></div><br />
 			<div class="workSection" id="workDesc" data-visible="false">
 				<span>Description</span>

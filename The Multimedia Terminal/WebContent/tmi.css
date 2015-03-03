@@ -428,3 +428,40 @@ table#proposeForm td {
 td.info {
 	text-align:right;
 }
+
+/*for admin apporve*/
+div.apprDesc p {
+	margin:0;	
+}
+
+div.apprWork {
+	height:110px;
+	background-color:#404040;
+	width:600px;
+	padding:10px;
+	padding-bottom:0;
+	margin-bottom:10px;
+	margin-top:5px;
+}
+
+/*for admin page*/
+div.adminBox{
+	background-color:#404040;
+	width:600px;
+	padding:30px 20px;
+	font-size:1.5em;
+	margin:5px 0 10px 0;
+}
+
+div.adminLink {
+	background-color:#EC6C25;
+	float:right;
+	padding:2px 75px;
+	position:relative;
+	top:-2px;
+}
+
+div.adminLink a {
+	text-decoration:none;
+	color:#FFF;
+}

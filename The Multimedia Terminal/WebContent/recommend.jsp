@@ -8,6 +8,8 @@
 		<script src="tmi.js"></script>
 		<script>
 			$(document).ready(function() {
+				$("img#logo").attr("src","Website Assets/logo" + Math.floor(Math.random() * 4 + 1) + ".png");
+				
 				$("#searchGenre").hide();
 				$("#searchAlphabetical").hide();
 				$("#searchRating").hide();
@@ -80,7 +82,7 @@
 	</head>
 	<body>
 		<header>
-			<h1>The Multimedia Terminal</h1>
+			<img id="logo" src="Website Assets/logo2.png" /><br />
 			<div id="homeLink"><a href="index.html">Home</a></div>
 			<div id="menubar">
 				<form action="search.html">
