@@ -81,6 +81,16 @@ div#mainContent, div#mainLogin {
 	color:white;
 }
 
+div.recoHead{
+	background-color:#404040;
+	color:#FFF;
+	width:750px;
+	min-width:750px;
+	margin:20px auto;
+	padding:20px;
+	padding-top:10px;
+}
+
 /*for index.html*/
 
 ul#filterMenu li {
@@ -98,18 +108,18 @@ li.filterCritInactive {
 	cursor:pointer;
 }
 
-div.trendingWork, div.searchWork {
+div.work {
 	background-color:#404040;
 	width:600px;
 	padding:10px;
 	margin-bottom:20px;
 }
 
-div.trendingImg {
+div.img {
 	float:left;
 }
 
-div.trendingImg img {
+div.img img {
 	width:100px;
 	height:100px;
 	margin-right:20px;
@@ -126,7 +136,7 @@ img.star {
 	width:15px;
 }
 
-div.trendLink {
+div.link {
 	background-color:#EC6C25;
 	float:right;
 	padding:6px;
@@ -135,7 +145,30 @@ div.trendLink {
 	left:-3px;
 }
 
-div.trendLink a {
+div.addWork {
+	background-color:#EC6C25;
+	float:right;
+	padding:7px 25px;
+	position:relative;
+	top:70px;
+	left:-3px;
+}
+
+div.addWork p {
+	margin:0;
+}
+
+div.recoWork {
+	background-color:#272727;
+	color:#FFF;
+	float:right;
+	padding:6px;
+	position:relative;
+	top:70px;
+	left:-3px;
+}
+
+div.link a {
 	color:white;
 	text-decoration:none;
 }
@@ -245,10 +278,12 @@ div.review {
 	margin:4px 0;
 }
 
-div.work {
+div.workSmall {
 	font-size:0.8em;
 	padding:5px;
 	padding-bottom:1px;
+	background-color:#404040;
+	margin-bottom:4px;
 }
 
 div#reco {
@@ -261,12 +296,67 @@ div#unreco {
 	width:400px;
 }
 
-div.work {
-	background-color:#404040;
-	margin-bottom:4px;
-}
-
 div.recImg {
 	float:left;
 	margin-right:10px;
 }
+
+/*for review*/
+form#reviewForm {
+	font-size:1.5em;
+}
+span#reviewTitle {
+	color:#EC6C25;
+}
+
+.reviewField {
+	border:1px #EC6C25 solid;
+	background-color:#AFABAB;
+	font-size:1em;
+}
+
+input#reviewTitle:active {
+	border:1px #EC6C25 solid;
+	background-color:#AFABAB;	
+}
+
+div#reviewRating p {
+	display:inline;
+	color:#EC6C25;
+}
+
+span#reviewRating {
+	position:relative;
+	top:4px;
+}
+
+img[id^="star"] {
+	height:20px;
+	width:20px;
+}
+
+textarea.reviewField {
+	width:600px;
+	height:300px;
+	position:relative;
+	top:10px;
+}
+
+/*for proposals*/
+p#proposeTitle {
+	display:inline; 
+	padding:5px; 
+} 
+
+div.imgPropose { 
+	text-align:center; 
+} 
+
+div.proposeTop { 
+	background-color:#404040; 
+	color:#FFF; 
+	width:550px; 
+	min-width:550px; 
+	padding:20px; 
+	padding-top:10px; 
+} 

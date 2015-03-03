@@ -8,15 +8,15 @@
 		<script src="tmi.js"></script>
 		<script>
 			$(document).ready(function() {
-				$("#trendingBook").hide();
-				$("#trendingGame").hide();
-				$("#trendingAnime").hide();
-				$("#trendingMovie").hide();
+				$("#searchGenre").hide();
+				$("#searchAlphabetical").hide();
+				$("#searchRating").hide();
+				$("#searchDate").hide();
 				
-				var active = $("#trendingAll");
-				var filter = $("li#all");
+				var active = $("#searchMedia");
+				var filter = $("li#media");
 				
-				$("#homeLink").click(function() {
+				$("#homeaddWork").click(function() {
 					setLoc("#");
 				});
 				
@@ -24,49 +24,56 @@
 					setLoc('search.html?s=' + $("#search").val());
 				});
 				
-				$("li#all").click(function() {
+				$("li#media").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "trendingAll" ) {
+					if( active.attr("id") != "searchMedia" ) {
 						active.hide();
-						active = $("#trendingAll").show();
+						active = $("#searchMedia").show();
 					}
 				});
 				
-				$("li#vg").click(function() {
+				$("li#genre").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "trendingGame" ) {
+					if( active.attr("id") != "searchGenre" ) {
 						active.hide();
-						active = $("#trendingGame").show();
+						active = $("#searchGenre").show();
 					}
 				});
 				
-				$("li#book").click(function() {
+				$("li#alphabetical").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "trendingBook" ) {
+					if( active.attr("id") != "searchAlphabetical" ) {
 						active.hide();
-						active = $("#trendingBook").show();
+						active = $("#searchAlphabetical").show();
 					}
 				});
 				
-				$("li#anime").click(function() {
+				$("li#rating").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "trendingAnime" ) {
+					if( active.attr("id") != "searchRating" ) {
 						active.hide();
-						active = $("#trendingAnime").show();
+						active = $("#searchRating").show();
 					}
 				});
 				
-				$("li#movie").click(function() {
+				$("li#date").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "trendingMovie" ) {
+					if( active.attr("id") != "searchDate" ) {
 						active.hide();
-						active = $("#trendingMovie").show();
+						active = $("#searchDate").show();
 					}
+				});
+				
+				$("div[class$=\"Work\"]").click(function() {
+					var str = $(this).attr('class');
+					str.substring(0,str.length - 4) == "add" ? 
+					toggleRec( $(this), true ).text('Unrecommended') : 
+					toggleRec( $(this), false ).text('Add');
 				});
 			});
 		</script>
@@ -91,22 +98,195 @@
 			</div> <!--  end of menubar -->
 		</header>
 		<div id="mainContent">
-			<h1>Trending</h1>
-			<ul id="filterMenu">
+		<ul id="filterMenu">
 				<li id="filterLabel">Filter By: </li>
-				<li id="all" class="filterCritActive">All</li>
-				<li id="movie" class="filterCritInactive">Movies</li>
-				<li id="vg" class="filterCritInactive">Video Games</li>
-				<li id="anime" class="filterCritInactive">Anime</li>
-				<li id="book" class="filterCritInactive">Books</li>
+				<li id="media" class="filterCritActive">Media</li>
+				<li id="genre" class="filterCritInactive">Genre</li>
+				<li id="alphabetical" class="filterCritInactive">Alphabetical</li>
+				<li id="rating" class="filterCritInactive">Rating</li>
+				<li id="date" class="filterCritInactive">Date</li>
 			</ul> <!--  end of filterMenu -->
-			<div id="trendingAll" class="trendingContent">
+			<div class = "recoHead" align = "center">
+				<h1>Unrecommend For: <%=request.getParameter("title")%></h1>
+			</div><!-- end of recoHead -->
+			<div id="searchMedia" class="searchContent">
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
+					<div class="addWork">
+						<p>Add</p>
 					</div> <!-- end of link -->
-					<span>Shingeki No Potato</span>
+					<span>Tomato Movie</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It is the story of a tomato.</p>
+						<p>Written by: A Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class = "orangeLine"></div><br />
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Tomato Game X2</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>An anthropomorphic fruit and vegetable fighting game.</p>
+						<p>Developed by: PotatoSoft</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class = "orangeLine"></div><br />
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Shingeki no Potato</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>Humans defend themselves from giant attacking Potatoes.</p>
+						<p>Created by: Potato Urobutchi</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class = "orangeLine"></div><br />
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>A Tale of Two Potatoes</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It was the best of potatoes; it was the worst of potatoes.</p>
+						<p>Created by: Charles Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+			</div> <!-- end of searchMedia -->
+			<div id="searchGenre" class="searchContent">
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Tomato Movie</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It is the story of a tomato.</p>
+						<p>Written by: A Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class = "orangeLine"></div><br />
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Tomato Game X2</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>An anthropomorphic fruit and vegetable fighting game.</p>
+						<p>Developed by: PotatoSoft</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+								<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>A Tale of Two Potatoes</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It was the best of potatoes; it was the worst of potatoes.</p>
+						<p>Created by: Charles Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class = "orangeLine"></div><br />
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Shingeki no Potato</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>Humans defend themselves from giant attacking Potatoes.</p>
+						<p>Created by: Potato Urobutchi</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+			</div> <!-- end of searchGenre -->
+			<div id="searchAlphabetical" class="searchContent">
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>A Tale of Two Potatoes</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It was the best of potatoes; it was the worst of potatoes.</p>
+						<p>Created by: Charles Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Shingeki no Potato</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
@@ -121,8 +301,46 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Tomato Game X2</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>An anthropomorphic fruit and vegetable fighting game.</p>
+						<p>Developed by: PotatoSoft</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Tomato Movie</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It is the story of a tomato.</p>
+						<p>Written by: A Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+			</div> <!-- end of searchAlphabetical -->
+			<div id="searchRating" class="searchContent">
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
 					</div> <!-- end of link -->
 					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
@@ -134,165 +352,33 @@
 					</div> <!-- end of rating -->
 					<div class="description">
 						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Written by: Charles Potato</p>
+						<p>Created by: Charles Potato</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="movie.html">Tell Me More</a>
+					<div class="addWork">
+						<p>Add</p>
 					</div> <!-- end of link -->
 					<span>Tomato Movie</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Empty Star.png" class="star" />
 					</div> <!-- end of rating -->
 					<div class="description">
 						<p>It is the story of a tomato.</p>
-						<p>Directed by: A Potato</p>
+						<p>Written by: A Potato</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
+					<div class="addWork">
+						<p>Add</p>
 					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the game of a tomato.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-			</div> <!-- end of trendingAll -->
-			<div id="trendingMovie" class="trendingContent">
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="movie.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Directed by: A Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="movie.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Directed by: A Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="movie.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Directed by: A Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-			</div> <!-- end of trendingMovie -->
-			<div id="trendingGame" class="trendingContent">
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the game of a tomato.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the game of a tomato.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the game of a tomato.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-			</div> <!-- end of trendingGame -->
-			<div id="trendingAnime" class="trendingContent">
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Shingeki No Potato</span>
+					<span>Shingeki no Potato</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
@@ -307,10 +393,84 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
+					<div class="addWork">
+						<p>Add</p>
 					</div> <!-- end of link -->
-					<span>Shingeki No Potato</span>
+					<span>Tomato Game X2</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>An anthropomorphic fruit and vegetable fighting game.</p>
+						<p>Developed by: PotatoSoft</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+			</div> <!-- end of searchRating -->
+			<div id="searchDate" class="searchContent">
+			<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Tomato Game X2</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>An anthropomorphic fruit and vegetable fighting game.</p>
+						<p>Developed by: PotatoSoft</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>A Tale of Two Potatoes</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It was the best of potatoes; it was the worst of potatoes.</p>
+						<p>Created by: Charles Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Tomato Movie</span>
+					<div class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</div> <!-- end of rating -->
+					<div class="description">
+						<p>It is the story of a tomato.</p>
+						<p>Written by: A Potato</p>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class="work">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="addWork">
+						<p>Add</p>
+					</div> <!-- end of link -->
+					<span>Shingeki no Potato</span>
 					<div class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
@@ -323,81 +483,7 @@
 						<p>Created by: Potato Urobutchi</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Shingeki No Potato</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>Humans defend themselves from giant attacking Potatoes.</p>
-						<p>Created by: Potato Urobutchi</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-			</div> <!-- end of trendingAnime -->
-			<div id="trendingBook" class="trendingContent">
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Written by: Charles Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Written by: Charles Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Written by: Charles Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-			</div> <!-- end of trendingBook -->
+			</div> <!-- end of searchDate -->
 		</div> <!-- end of mainContent -->
 	</body>
 </html>
