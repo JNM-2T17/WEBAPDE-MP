@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>The Multimedia Terminal</title>
+		<link rel="stylesheet" href="tmi.css" />
+		<script src="jquery-2.1.1.js"></script>
+		<script src="tmi.js"></script>
+		<script>
+			$(document).ready(function() {
+				randomizeLogo();
+				
+				$("#homeLink").click(function() {
+					setLoc("index.html");
+				});
+				
+				$("span#searchBar img").click(function() {
+					setLoc('search.html?s=' + $("#search").val());
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header>
+			<img id="logo" src="Website Assets/logo2.png" /><br />
+			<div id="homeLink"><a href="index.html">Home</a></div>
+			<div id="menubar">
+				<form action="search.html">
+					<ul id="menu">
+						<li class="menuitem"><a href="login.html">Login</a></li>
+						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
+						<li class="menuitem"><a href="admin.html">Admin</a></li>
+						<li class="menuitem"><a href="propose.html">Propose Media</a></li>
+					</ul> <!-- end of menu -->
+					<span id="searchBar">
+						<img src="Website Assets/search.png" />
+						<input type="text" id="search" name="s" />
+					</span> <!-- end of searchBar -->
+				</form>
+			</div> <!--  End of menubar -->
+		</header>
+		<div id="mainContent">
+			<span class="info"><h1>Page Modifications</h1></span>
+			<div class="apprWork">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="link">
+						<a href="adminWorkApproval.jsp?title=Saving Private Patatas">View</a>
+					</div> <!-- end of link -->
+					<span class="info">Movie</span>
+					<div class="apprDesc">
+						<p>Saving Private Patatas</p>
+						<p>Saving a potato from certain doom.</p>
+						<p>Written by: Steven Potatoberg</p>
+						<span class="info">Request by: Quark</span>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class="apprWork">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="link">
+						<a href="adminWorkApproval.jsp?title=Call of Patatas: Tomato Warfare">View</a>
+					</div> <!-- end of link -->
+					<span class="info">Game</span>
+					<div class="apprDesc">
+						<p>Call of Patatas: Tomato Warfare</p>
+						<p>Warfare at its finest. Tomatoes and potatoes everywhere.</p>
+						<p>Developed by: Osu Games</p>
+						<span class="info">Request by: peppy</span>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+				<div class="apprWork">
+					<div class="img"><img src="Website Assets/blank.png" /></div>
+					<div class="link">
+						<a href="adminWorkApproval.jsp?title=Saving Private Patatas">View</a>
+					</div> <!-- end of link -->
+					<span class="info">Movie</span>
+					<div class="apprDesc">
+						<p>Saving Private Patatas</p>
+						<p>Saving a potato from certain doom.</p>
+						<p>Written by: Steven Potatoberg</p>
+						<span class="info">Request by: Quark</span>
+					</div> <!-- end of description -->
+				</div> <!-- end of work -->
+		</div><!-- end of mainContent -->
+	</body>
+</html>
