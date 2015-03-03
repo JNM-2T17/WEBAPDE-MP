@@ -18,9 +18,9 @@ header h1 {
 
 div#homeLink {
 	background-color:#EC6C25;
-	padding:16.5px;
+	padding:3px 16.5px;
 	float:left;
-	width:165px;
+	width:170px;
 	text-align:center;
 	cursor:pointer;
 }
@@ -33,7 +33,7 @@ div#homeLink a {
 
 div#menubar {
 	background-color:#404040;
-	height:60px;
+	height:33px;
 	padding:1px;
 	margin-left:205px;
 	font-size:1.2em;
@@ -45,7 +45,7 @@ ul#menu {
 	padding:20px;
 	padding-right:0;
 	position:relative;
-	top:16px;
+	top:2px;
 }
 
 li.menuitem, span#searchBar {
@@ -57,7 +57,7 @@ span#searchBar img {
 	width:20px;
 	height:20px;
 	position:relative;
-	top:6px;
+	top:5px;
 	cursor:pointer;
 }
 
@@ -68,7 +68,7 @@ li.menuitem a {
 
 span#searchBar {
 	position:relative;
-	top:13px;
+	top:1px;
 }
 
 div#mainContent, div#mainLogin {
@@ -99,7 +99,7 @@ li.filterCritInactive {
 }
 
 div.trendingWork {
-	background-color:#606060;
+	background-color:#404040;
 	width:600px;
 	padding:10px;
 	margin-bottom:20px;
