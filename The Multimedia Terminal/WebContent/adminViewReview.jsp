@@ -43,7 +43,7 @@
 		
 		<div id="mainContent">
 			<form action='index.html'>
-				<h1>Page Modification Proposal</h1>
+				<h1>Review Complaint</h1>
 				<div class="orangeLine"></div><br /><br />
 				<div class="proposeTop">
 					<span><%=request.getParameter("name")%></span>

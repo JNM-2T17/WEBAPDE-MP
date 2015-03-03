@@ -54,7 +54,7 @@
 					<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;He made a remark about killing myself.
 					</div>
 						<div id="formButtons">
-						<input type="submit" class="orangeBox" />
+						<input type="submit" class="orangeBox" value="Flag" />
 						<button class="orangeBox">Cancel</button>
 					</div>	
 				</div>
