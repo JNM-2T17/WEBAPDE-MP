@@ -98,7 +98,7 @@ li.filterCritInactive {
 	cursor:pointer;
 }
 
-div.trendingWork {
+div.trendingWork, div.searchWork {
 	background-color:#404040;
 	width:600px;
 	padding:10px;
@@ -225,6 +225,13 @@ div#workTechCont li {
 
 span.info {
 	color:#F55519;
+}
+
+a#writeRev {
+	text-decoration:none;
+	background-color:#EC6C25;
+	color:#FFF;
+	padding:3px 8px;
 }
 
 div#workReviewCont {
