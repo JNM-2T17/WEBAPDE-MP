@@ -2,6 +2,10 @@ function setLoc(a) {
 	location = a;
 }
 
+function randomizeLogo() {
+	$("img#logo").attr("src","Website Assets/logo" + Math.floor(Math.random() * 11 + 1) + ".png");
+}
+
 function switchClass(a, b, c) {
 	a.addClass(b);
 	a.removeClass(c);

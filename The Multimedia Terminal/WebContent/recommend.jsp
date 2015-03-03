@@ -8,7 +8,7 @@
 		<script src="tmi.js"></script>
 		<script>
 			$(document).ready(function() {
-				$("img#logo").attr("src","Website Assets/logo" + Math.floor(Math.random() * 4 + 1) + ".png");
+				randomizeLogo();
 				
 				$("#searchGenre").hide();
 				$("#searchAlphabetical").hide();

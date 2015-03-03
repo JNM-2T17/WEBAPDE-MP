@@ -39,25 +39,5 @@
 			<type>2</type>
 			<location>C:/DLSU/Term 6/WEBAPDE/Requirements/WEBAPDE-MP/The Multimedia Terminal/WebContent/Website Assets</location>
 		</link>
-		<link>
-			<name>WebContent/Website Assets/logo1.png</name>
-			<type>1</type>
-			<location>C:/DLSU/Term 6/WEBAPDE/Requirements/WEBAPDE-MP/The Multimedia Terminal/WebContent/Website Assets/logo1.png</location>
-		</link>
-		<link>
-			<name>WebContent/Website Assets/logo2.png</name>
-			<type>1</type>
-			<location>C:/DLSU/Term 6/WEBAPDE/Requirements/WEBAPDE-MP/The Multimedia Terminal/WebContent/Website Assets/logo2.png</location>
-		</link>
-		<link>
-			<name>WebContent/Website Assets/logo3.png</name>
-			<type>1</type>
-			<location>C:/DLSU/Term 6/WEBAPDE/Requirements/WEBAPDE-MP/The Multimedia Terminal/WebContent/Website Assets/logo3.png</location>
-		</link>
-		<link>
-			<name>WebContent/Website Assets/logo4.png</name>
-			<type>1</type>
-			<location>C:/DLSU/Term 6/WEBAPDE/Requirements/WEBAPDE-MP/The Multimedia Terminal/WebContent/Website Assets/logo4.png</location>
-		</link>
 	</linkedResources>
 </projectDescription>
