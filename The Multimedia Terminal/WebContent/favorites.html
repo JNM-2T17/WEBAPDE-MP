@@ -19,7 +19,11 @@
 				var filter = $("li#media");
 				
 				$("#homeLink").click(function() {
-					setLoc("#");
+					setLoc("index.html");
+				});
+				
+				$("span#searchBar img").click(function() {
+					setLoc('search.html?s=' + $("#search").val());
 				});
 				
 				$("span#favBar img").click(function() {
