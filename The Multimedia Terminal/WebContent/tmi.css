@@ -139,6 +139,28 @@ img.star {
 	width:15px;
 }
 
+div#workGenresCont, div#workKeysCont {
+	position:relative;
+	top:5px;
+}
+
+div.content span.info {
+	position:relative;
+	top:0;
+}
+
+form.workAdd {
+	display:inline;
+}
+
+form.workAdd input, div[id$="Form"] button {
+	font-size:0.8em;
+}
+
+form.workAdd .orangeBox, button[id^="cancel"] {
+	padding:3px 6px;
+}
+
 div.link {
 	background-color:#EC6C25;
 	float:right;
