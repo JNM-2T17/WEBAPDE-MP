@@ -29,25 +29,19 @@
 				
 				$("div[id$=\"Form\"]").hide();
 				
-				var flags = {
-						genre:false,
-						key:false
-				};
-				
 				$("div.workSection").click(function() {
 					var type = $(this).attr("id");
 					type = type.substring(4,type.length-1).toLowerCase();
 					console.log(type);
-					if($(this).attr("data-visible") == "true" && !flags[type]) {
-						$("#" + $(this).attr("id") + "Cont").slideUp(1000);
+					if($(this).attr("data-visible") == "true") {
+						$("#" + $(this).attr("id") + "Cont").slideUp(700);
 						$(this).attr("data-visible", "false" );
 						$("#" + $(this).attr("id") + " div.arrow img").attr("src","Website Assets/Down Arrow.png");
 					} else {
-						$("#" + $(this).attr("id") + "Cont").slideDown(1000);
+						$("#" + $(this).attr("id") + "Cont").slideDown(700);
 						$(this).attr("data-visible", "true" );
 						$("#" + $(this).attr("id") + " div.arrow img").attr("src","Website Assets/Up Arrow.png");
 					}
-					flags[type] = !flags[type];
 				});
 				
 				$("div[id^=\"add\"]").click(function() {
@@ -112,156 +106,158 @@
 				<span>Genres</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
-				<div class="content" id="workGenresCont">
+			</div> <!-- end of workGenres --> <br />
+			<div class="content" id="workGenresCont">
+				<div id="addGenre">
+					<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Add Genre
+				</div>
+				<div class="addList">
 					Action<span class="info">|</span>
 					Fighting<span class="info">|</span>
 					RPG
-					<br /><br />
-					<div id="addGenre">
-						<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Add Genre
-					</div>
-					<div id="genreForm">
-						<form name="genre" class="workAdd" id="genre" action="anime.html">
-							<input type="text" name="g" id="genre" />
-							<input type="submit" value="Add Genre" class="orangeBox">
-						</form>
-						<button id="cancelGenre" class="orangeBox">Cancel</button>
-					</div>
-				</div> <!-- end of workGenresCont -->
-			</div> <!-- end of workGenres --> <br />
+				</div>
+				<div id="genreForm">
+					<form name="genre" class="workAdd" id="genre" action="game.html">
+						<input type="text" name="g" id="genre" />
+						<input type="submit" value="Add Genre" class="orangeBox">
+					</form>
+					<button id="cancelGenre" class="orangeBox">Cancel</button>
+				</div>
+			</div> <!-- end of workGenresCont -->
 			<div class="workSection" id="workKeys" data-visible="false">
 				<span>Keywords</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
-				<div class="content" id="workKeysCont">
+			</div> <!-- end of workKeys --> <br />
+			<div class="content" id="workKeysCont">
+				<div id="addKey">
+					<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Add Keyword
+				</div>
+				<div class="addList">
 					Anthropomorphic Vegetables<span class="info">|</span>
 					Athropomorphic Fruits<span class="info">|</span>
 					Death Splatter
-					<br /><br />
-					<div id="addKey">
-						<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Add Keyword
-					</div>
-					<div id="keyForm">
-						<form name="key" class="workAdd" id="key" action="anime.html">
-							<input type="text" name="k" id="key" />
-							<input type="submit" value="Add Keyword" class="orangeBox">
-						</form>
-						<button id="cancelKey" class="orangeBox">Cancel</button>
-					</div>
-				</div> <!-- end of workKeysCont -->
-			</div> <!-- end of workKeys --> <br />
+				</div>
+				<div id="keyForm">
+					<form name="key" class="workAdd" id="key" action="game.html">
+						<input type="text" name="k" id="key" />
+						<input type="submit" value="Add Keyword" class="orangeBox">
+					</form>
+					<button id="cancelKey" class="orangeBox">Cancel</button>
+				</div>
+			</div> <!-- end of workKeysCont -->
 			<div class="workSection" id="workDesc" data-visible="false">
 				<span>Description</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
-				<div class="content" id="workDescCont">
-					<p>An anthropomorphic fruit and vegetable fighting game</p>
-					<p>Developed by: PotatoSoft</p>
-				</div> <!-- end of workDescCont -->
 			</div> <!-- end of workDesc --> <br />
+			<div class="content" id="workDescCont">
+				<p>An anthropomorphic fruit and vegetable fighting game</p>
+				<p>Developed by: PotatoSoft</p>
+			</div> <!-- end of workDescCont -->
 			<div class="workSection" id="workTech" data-visible="false">
 				<span>Technical Information</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
-				<div class="content" id="workTechCont">
-					<ul>
-						<li><span class="info">Platform: </span><span class="data">PC, PS4</span></li>
-						<li><span class="info">Developer: </span><span class="data">PotatoSoft</span></li>
-					</ul>
-				</div> <!-- end of workTechCont -->
 			</div>  <!-- end of workTech --> <br />
+			<div class="content" id="workTechCont">
+				<ul>
+					<li><span class="info">Platform: </span><span class="data">PC, PS4</span></li>
+					<li><span class="info">Developer: </span><span class="data">PotatoSoft</span></li>
+				</ul>
+			</div> <!-- end of workTechCont -->
 			<div class="workSection" id="workReview" data-visible="false">
 				<span>Reviews</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
-				<div class="content" id="workReviewCont"><br />
-					<a href="review.jsp?title=Tomato Game X2" id="writeRev">Write a Review</a><br />
-					<div class="review">
-						<span class="rating">
-							<img src="Website Assets/Filled Star.png" class="star" />
-							<img src="Website Assets/Filled Star.png" class="star" />
-							<img src="Website Assets/Filled Star.png" class="star" />
-							<img src="Website Assets/Filled Star.png" class="star" />
-							<img src="Website Assets/Filled Star.png" class="star" />
-						</span> <!-- end of rating -->
-						<b>The New Generation of Gaming</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;April 3, 2012
-						<p>By French Fry (USA)</p>
-						<p>Epic Game!</p>
-					</div> <!-- end of review -->
-					<div class="review">
-						<span class="rating">
-							<img src="Website Assets/Filled Star.png" class="star" />
-							<img src="Website Assets/Filled Star.png" class="star" />
-							<img src="Website Assets/Empty Star.png" class="star" />
-							<img src="Website Assets/Empty Star.png" class="star" />
-							<img src="Website Assets/Empty Star.png" class="star" />
-						</span>
-						<b>Eh...</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;June 27, 2013
-						<p>By Vanilla (UK)</p>
-						<p>I've played better fighting games. Tomato Game X1 was better...</p>
-					</div> <!-- end of review -->
-				</div> <!-- end of workReviewCont -->
 			</div> <!-- end of workReview --> <br />
+			<div class="content" id="workReviewCont"><br />
+				<a href="review.jsp?title=Tomato Game X2" id="writeRev">Write a Review</a><br />
+				<div class="review">
+					<span class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+					</span> <!-- end of rating -->
+					<b>The New Generation of Gaming</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;April 3, 2012
+					<p>By French Fry (USA)</p>
+					<p>Epic Game!</p>
+				</div> <!-- end of review -->
+				<div class="review">
+					<span class="rating">
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<img src="Website Assets/Empty Star.png" class="star" />
+					</span>
+					<b>Eh...</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;June 27, 2013
+					<p>By Vanilla (UK)</p>
+					<p>I've played better fighting games. Tomato Game X1 was better...</p>
+				</div> <!-- end of review -->
+			</div> <!-- end of workReviewCont -->
 			<div class="workSection" id="workRec" data-visible="false">
 				<span>Recommendations</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
-				<div class="content" id="workRecCont">
-					<div id="reco">
-						<h3>Recommended</h3>
-						<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
-						<div class="workSmall" data-link="book.html">
-							<div class="recImg"><img src="Website Assets/blank.png" /></div>
-							<span>A Tale of Two Potatoes</span>
-							<div class="rating">
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-							</div> <!-- end of rating -->
-							<div class="description">
-								<p>It was the best of potatoes; it was the worst of potatoes.</p>
-								<p>Written by: Charles Potato</p>
-							</div> <!-- end of description -->
-						</div> <!-- end of work -->
-						<div class="workSmall" data-link="movie.html">
-							<div class="recImg"><img src="Website Assets/blank.png" /></div>
-							<span>Tomato Movie</span>
-							<div class="rating">
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Empty Star.png" class="star" />
-								<img src="Website Assets/Empty Star.png" class="star" />
-							</div> <!-- end of rating -->
-							<div class="description">
-								<p>It is the story of a tomato.</p>
-								<p>Directed by: A Potato</p>
-							</div> <!-- end of description -->
-						</div> <!-- end of work -->
-					</div> <!-- end of reco -->
-					<div id="unreco">
-						<h3>Unrecommended</h3>
-						<img src="Website Assets/Plus Sign.png" id="unrecommend" /> Make an Unrecommendation<br /><br />
-						<div class="workSmall" data-link="anime.html">
-							<div class="recImg"><img src="Website Assets/blank.png" /></div>
-							<span>Shingeki No Potato</span>
-							<div class="rating">
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<img src="Website Assets/Empty Star.png" class="star" />
-								<img src="Website Assets/Empty Star.png" class="star" />
-							</div> <!-- end of rating -->
-							<div class="description">
-								<p>Humans defend themselves from giant attacking Potatoes.</p>
-								<p>Created by: Potato Urobutchi</p>
-							</div> <!-- end of description -->
-						</div> <!-- end of work -->
-					</div> <!-- end of unreco -->
-				</div> <!-- end of workRecContent -->
 			</div> <!-- end of workRec -->
+			<div class="content" id="workRecCont">
+				<div id="reco">
+					<h3>Recommended</h3>
+					<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
+					<div class="workSmall" data-link="book.html">
+						<div class="recImg"><img src="Website Assets/blank.png" /></div>
+						<span>A Tale of Two Potatoes</span>
+						<div class="rating">
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+						</div> <!-- end of rating -->
+						<div class="description">
+							<p>It was the best of potatoes; it was the worst of potatoes.</p>
+							<p>Written by: Charles Potato</p>
+						</div> <!-- end of description -->
+					</div> <!-- end of work -->
+					<div class="workSmall" data-link="movie.html">
+						<div class="recImg"><img src="Website Assets/blank.png" /></div>
+						<span>Tomato Movie</span>
+						<div class="rating">
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Empty Star.png" class="star" />
+							<img src="Website Assets/Empty Star.png" class="star" />
+						</div> <!-- end of rating -->
+						<div class="description">
+							<p>It is the story of a tomato.</p>
+							<p>Directed by: A Potato</p>
+						</div> <!-- end of description -->
+					</div> <!-- end of work -->
+				</div> <!-- end of reco -->
+				<div id="unreco">
+					<h3>Unrecommended</h3>
+					<img src="Website Assets/Plus Sign.png" id="unrecommend" /> Make an Unrecommendation<br /><br />
+					<div class="workSmall" data-link="anime.html">
+						<div class="recImg"><img src="Website Assets/blank.png" /></div>
+						<span>Shingeki No Potato</span>
+						<div class="rating">
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Filled Star.png" class="star" />
+							<img src="Website Assets/Empty Star.png" class="star" />
+							<img src="Website Assets/Empty Star.png" class="star" />
+						</div> <!-- end of rating -->
+						<div class="description">
+							<p>Humans defend themselves from giant attacking Potatoes.</p>
+							<p>Created by: Potato Urobutchi</p>
+						</div> <!-- end of description -->
+					</div> <!-- end of work -->
+				</div> <!-- end of unreco -->
+			</div> <!-- end of workRecContent -->
 		</div><!-- end of mainContent -->
 	</body>
 </html>

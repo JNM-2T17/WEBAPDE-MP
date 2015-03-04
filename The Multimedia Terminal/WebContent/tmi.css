@@ -72,12 +72,13 @@ span#searchBar {
 	top:1px;
 }
 
-div#mainContent, div#mainLogin {
+div#mainContent {
 	background-color:#2C2C2C;
-	width:850px;
-	min-width:850px;
+	width:700px;
+	min-width:700px;
 	margin:10px auto;
-	padding:50px;
+	padding:100px;
+	padding-left:150px;
 	padding-top:10px;
 	color:white;
 }
@@ -144,6 +145,12 @@ div#workGenresCont, div#workKeysCont {
 	top:5px;
 }
 
+div.content {
+	width:600px;
+	min-width:600px;
+	margin-bottom:20px;
+}
+
 div.content span.info {
 	position:relative;
 	top:0;
@@ -168,6 +175,7 @@ div.link {
 	position:relative;
 	top:70px;
 	left:-3px;
+	cursor:pointer;
 }
 
 div.addWork {
@@ -202,14 +210,20 @@ div.link a {
 
 div#mainLogin {
 	text-align:center;
-	padding:50px;
 	position:relative;
+	background-color:#2C2C2C;
+	width:700px;
+	min-width:700px;
+	margin:10px auto;
+	padding:40px 125px;
+	color:white;
 }
 
 div#mainLogin h1 {
 	color:#F8440C;
 	font-size:2.5em;
 	font-weight:normal;
+	margin: 0 auto;
 }
 
 div#mainLogin input {
@@ -241,10 +255,13 @@ h2#ratingCtr {
 
 div#screenshots {
 	text-align:center;
+	width:600px;
+	min-width:600px;
 }
 
 div#screenshots img {
-	width: 800px;
+	width:600px;
+	height:338px;
 }
 
 div.workSection {
@@ -253,7 +270,7 @@ div.workSection {
 }
 
 div.workSection span {
-	font-size:1.2em;	
+	font-size:1.3em;	
 	position:relative;
 	top:5px;
 }
@@ -261,6 +278,14 @@ div.workSection span {
 div.arrow {
 	display:inline;
 	float:right;
+	cursor:pointer;
+}
+
+div.arrow img {
+	width:20px;
+	height:15px;
+	position:relative;
+	top:8px;
 }
 
 div.orangeLine {
@@ -272,13 +297,37 @@ div.orangeLine {
 	top:7px;
 }
 
-div#workTechCont {
-	font-size:0.8em;
+.addList {
+	width:450px;
+	min-width:450px;
+}
+
+div#workGenresCont, div#workKeysCont {
+	font-size:1.1em;
 }
 
 div#workTechCont ul {
 	position:relative;
 	left:-35px;
+}
+
+a#writeRev {
+	position:relative;
+	top:-20px;
+}
+
+div[id^="add"] {
+	float:right;
+	display:inline;
+	position:relative;
+	cursor:pointer;
+	top:3px;
+	left:-1px;
+}
+
+div[id^="add"] img {
+	width:15px;
+	height:15px;
 }
 
 div#workTechCont li {
@@ -313,6 +362,7 @@ div.workSmall {
 	padding-bottom:1px;
 	background-color:#404040;
 	margin-bottom:4px;
+	cursor:pointer;
 }
 
 div#reco {
@@ -343,12 +393,16 @@ span#reviewTitle {
 .formField {
 	border:1px #EC6C25 solid;
 	background-color:#AFABAB;
-	font-size:1em;
+	font-size:0.7em;
 }
 
 input#reviewTitle:active {
 	border:1px #EC6C25 solid;
 	background-color:#AFABAB;	
+}
+
+div#reviewSpace {
+	font-size:1em;
 }
 
 div#reviewRating p {
@@ -373,7 +427,7 @@ textarea.reviewField {
 	top:10px;
 	border:1px #EC6C25 solid;
 	background-color:#AFABAB;
-	font-size:1em;
+	font-size:0.9em;
 }
 
 div#formButtons {
