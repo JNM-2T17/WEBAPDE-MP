@@ -35,7 +35,7 @@
 					</ul> <!-- end of menu -->
 					<span id="searchBar">
 						<img src="Website Assets/search.png" />
-						<input type="text" id="search" name="s" />
+						<input type="text" id="search" placeholder="Search..." name="s" />
 					</span> <!-- end of searchBar -->
 				</form>
 			</div> <!--  End of menubar -->
