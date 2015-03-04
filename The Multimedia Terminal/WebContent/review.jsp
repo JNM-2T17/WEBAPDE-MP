@@ -95,7 +95,7 @@
 			<div id="reviewSpace">
 				<form action="index.html" id="reviewForm">
 					<span id="reviewTitle">Title:&nbsp;</span>
-					<input type="text" id="reviewTitle" class="reviewField" name="t" /><br />
+					<input type="text" id="reviewTitle" class="formField reviewField" name="t" /><br />
 					<div id="reviewRating">
 						<p>Select Rating:&nbsp;</p>
 						<span id="reviewRating">

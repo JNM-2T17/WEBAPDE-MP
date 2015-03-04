@@ -83,6 +83,10 @@
 							<td>10 sec</td>
 						</tr>
 					</table>
+					<div id="formButtons">
+						<input type="submit" class="orangeBox" value="Approve" />
+						<button class="orangeBox">Cancel</button>
+					</div>	
 				</div>
 			</form>
 		</div><!-- end of mainContent -->
