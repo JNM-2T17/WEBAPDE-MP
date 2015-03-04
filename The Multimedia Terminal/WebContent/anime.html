@@ -9,7 +9,6 @@
 		<script>
 			$(document).ready(function() {
 				randomizeLogo();
-				$("div[id$=\"Form\"]").hide();
 				
 				$("#homeLink").click(function() {
 					setLoc("index.html");
@@ -27,6 +26,8 @@
 				});
 				
 				$("div.content").hide();
+				
+				$("div[id$=\"Form\"]").hide();
 				
 				var flags = {
 						genre:false,
@@ -75,10 +76,6 @@
 					setLoc($(this).attr("id") + ".jsp?title=Shingeki no Potato" );
 				});
 			});
-			
-			function checkSubmit(a) {
-				return !( a.data-button == "true" )
-			}
 		</script>
 	</head>
 	<body>
@@ -149,8 +146,8 @@
 						</form>
 						<button id="cancelKey" class="orangeBox">Cancel</button>
 					</div>
-				</div> <!-- end of workGenresCont -->
-			</div> <!-- end of workDesc --> <br />
+				</div> <!-- end of workKeysCont -->
+			</div> <!-- end of workKeys --> <br />
 			<div class="workSection" id="workDesc" data-visible="false">
 				<span>Description</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
