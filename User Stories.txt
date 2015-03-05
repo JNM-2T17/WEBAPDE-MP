@@ -1,0 +1,41 @@
+-----------------------------ITERATION 1---------------
+
+MUST
+
+Propose a new work * 12 hours
+Verify work proposals ^ 8 hours
+Add genres to a work * 8 hours
+Add keywords * 8 hours
+Verify genres ^ 8 hours
+Verify keywords ^ 8 hours
+
+Search the site for various forms of media 16 hours
+Recommend similar works * 8 hours
+View general recommendations 12 hours
+Log-in * 12 hours
+
+SHOULD
+
+Rate a work * 4 hours
+Review a work * 8 hours
+Add a work to their favorites list * 8 hours
+
+COULD
+
+Moderate reviews ^ 4 hours
+Flag users ^ 4 hours
+
+-------------------------------ITERATION 2---------------
+
+Counter-recommend works (optional) * 8 hours
+View counter-recommendations(optional) 8 hours
+
+WANT
+
+View taste recommendations (optional) * 16 hours
+Add creator data (optional) * 16 hours
+Verify creator data (optional) ^ 8 hours
+
+54 hours/week
+32.4 hours/week
+129.6 hours/iteration

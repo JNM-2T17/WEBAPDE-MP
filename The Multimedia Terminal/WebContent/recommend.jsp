@@ -100,7 +100,7 @@
 			</div> <!--  end of menubar -->
 		</header>
 		<div id="mainContent">
-		<ul id="filterMenu">
+			<ul id="filterMenu">
 				<li id="filterLabel">Filter By: </li>
 				<li id="media" class="filterCritActive">Media</li>
 				<li id="genre" class="filterCritInactive">Genre</li>

@@ -86,11 +86,10 @@ div#mainContent {
 div.recoHead{
 	background-color:#404040;
 	color:#FFF;
-	width:750px;
-	min-width:750px;
-	margin:20px auto;
+	width:580px;
+	min-width:580px;
+	margin:20px 0 20px 0;
 	padding:20px;
-	padding-top:10px;
 }
 
 /*for index.html*/
@@ -249,6 +248,7 @@ div#mainLogin input[type="submit"] {
 }
 
 /*for workpages*/
+
 h2#ratingCtr {
 	display:inline;
 }
@@ -450,6 +450,7 @@ div#formButtons {
 }
 
 /*for proposals*/
+
 p#proposeTitle {
 	display:inline;
 	padding:5px;
@@ -538,6 +539,7 @@ div.wideLink a {
 }
 
 /*for admin page*/
+
 div.adminBox{
 	background-color:#404040;
 	width:600px;
