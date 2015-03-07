@@ -13,5 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry exported="true" kind="lib" path="C:/DLSU/Term 6/WEBAPDE/Resources/apache-tomcat-7.0.57/wtpwebapps/The Multimedia Terminal/WEB-INF/lib/JCon.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
