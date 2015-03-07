@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
@@ -23,7 +25,7 @@
 				});
 				
 				$("span#searchBar img").click(function() {
-					setLoc('search.html?s=' + $("#search").val());
+					document.search.submit();
 				});
 				
 				$("li#media").click(function() {
@@ -78,7 +80,7 @@
 			<img id="logo" src="Website Assets/logo2.png" /><br />
 			<div id="homeLink"><a href="index.html">Home</a></div>
 			<div id="menubar">
-				<form action="search.html">
+				<form name="search" action="search">
 					<ul id="menu">
 						<li class="menuitem"><a href="login.html">Login</a></li>
 						<li class="menuitem"><a href="favorites.html">Favorites</a></li>

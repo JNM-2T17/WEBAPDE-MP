@@ -15,7 +15,7 @@
 				});
 				
 				$("span#searchBar img").click(function() {
-					setLoc('search.html?s=' + $("#search").val());
+					document.search.submit();
 				});
 				
 				$("div.workSmall").mousedown(function(e) {
@@ -78,7 +78,7 @@
 			<img id="logo" src="Website Assets/logo2.png" /><br />
 			<div id="homeLink"><a href="index.html">Home</a></div>
 			<div id="menubar">
-				<form action="search.html">
+				<form name="search" action="search">
 					<ul id="menu">
 						<li class="menuitem"><a href="login.html">Login</a></li>
 						<li class="menuitem"><a href="favorites.html">Favorites</a></li>

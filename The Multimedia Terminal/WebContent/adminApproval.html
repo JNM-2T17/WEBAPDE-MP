@@ -21,7 +21,7 @@
 				});
 				
 				$("span#approveBar img").click(function() {
-					setLoc('approve.html?s=' + $("#approve").val());
+					document.search.submit();
 				});
 				
 				$("li#type").click(function() {
@@ -58,7 +58,7 @@
 			<img id="logo" src="Website Assets/logo2.png" /><br />
 			<div id="homeLink"><a href="index.html">Home</a></div>
 			<div id="menubar">
-				<form action="search.html">
+				<form name="search" action="search">
 					<ul id="menu">
 						<li class="menuitem"><a href="login.html">Login</a></li>
 						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
