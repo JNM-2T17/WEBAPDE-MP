@@ -5,6 +5,10 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE SCHEMA IF NOT EXISTS `tmi`;
 USE `tmi`;
 
+--- ----------------------------------------------------------------------------
+--- Creates table for all works in the database
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS work (
 	title VARCHAR(100) PRIMARY KEY,
 	releaseYear YEAR NOT NULL,
@@ -21,11 +25,19 @@ CREATE TABLE IF NOT EXISTS work (
 	INDEX workidx_1 (mainCreator ASC)
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Creates table for all creators in the database
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS creator (
 	name VARCHAR(70) PRIMARY KEY,
 	bio VARCHAR(255),
 	trivia VARCHAR(255)
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Creates table for assignment of a creator to a work
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS workcreator (
 	name VARCHAR(70),
@@ -44,6 +56,10 @@ CREATE TABLE IF NOT EXISTS workcreator (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Creates table for users of the site
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS user (
 	username VARCHAR(20) PRIMARY KEY,
 	fname VARCHAR(30) NOT NULL,
@@ -54,6 +70,23 @@ CREATE TABLE IF NOT EXISTS user (
 	profpic VARCHAR(45),
 	description VARCHAR(255)
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Creates table for administrators of the site
+--- ----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS admin (
+	username VARCHAR(20) PRIMARY KEY,
+	CONSTRAINT adminfk_1
+		FOREIGN KEY (username)
+		REFERENCES user(username)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+)engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Creates table for works marked as favorites
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS favorites (
 	username VARCHAR(20),
@@ -70,6 +103,10 @@ CREATE TABLE IF NOT EXISTS favorites (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Creates table for user ratings
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS rating (
 	username VARCHAR(20),
@@ -88,6 +125,10 @@ CREATE TABLE IF NOT EXISTS rating (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Creates table for user reviews
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS review (
 	username VARCHAR(20),
 	title VARCHAR(100),
@@ -104,6 +145,10 @@ CREATE TABLE IF NOT EXISTS review (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Creates table for user recommendation
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS recommendation (
 	username VARCHAR(20),
@@ -128,6 +173,10 @@ CREATE TABLE IF NOT EXISTS recommendation (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Creates table for movies and tv
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS liveactionanimation (
 	title VARCHAR(100) PRIMARY KEY,
 	CONSTRAINT liveactionanimationfk_1
@@ -136,6 +185,10 @@ CREATE TABLE IF NOT EXISTS liveactionanimation (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Creates table for television shows
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS television (
 	title VARCHAR(100) PRIMARY KEY,
@@ -146,6 +199,10 @@ CREATE TABLE IF NOT EXISTS television (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Create table for animated television shows
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS animation (
 	title VARCHAR(100) PRIMARY KEY,
@@ -162,6 +219,10 @@ CREATE TABLE IF NOT EXISTS animation (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create table for television episodes
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS episode (
 	title VARCHAR(100),
 	season INT,
@@ -176,6 +237,10 @@ CREATE TABLE IF NOT EXISTS episode (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create table for web content
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS webcontent (
 	title VARCHAR(100) PRIMARY KEY,
 	URL VARCHAR(100) NOT NULL,
@@ -187,6 +252,10 @@ CREATE TABLE IF NOT EXISTS webcontent (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create table for books
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS book (
 	title VARCHAR(100) PRIMARY KEY,
 	publisher VARCHAR(45),
@@ -197,6 +266,10 @@ CREATE TABLE IF NOT EXISTS book (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Create table for graphic novels
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS graphicnovel (
 	title VARCHAR(100) PRIMARY KEY,
@@ -214,6 +287,10 @@ CREATE TABLE IF NOT EXISTS graphicnovel (
 	INDEX graphicnovelidx_1 (illustrator ASC)
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create table for comic book series and manga
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS comicsmanga (
 	title VARCHAR(100) PRIMARY KEY,
 	illustrator VARCHAR(45),
@@ -229,6 +306,10 @@ CREATE TABLE IF NOT EXISTS comicsmanga (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create table for a manga or comic issue
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS comicissue (
 	comic VARCHAR(100),
 	issue INT,
@@ -241,6 +322,10 @@ CREATE TABLE IF NOT EXISTS comicissue (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create a table for a theatrical work
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS theater (
 	title VARCHAR(100) PRIMARY KEY,
 	datePremiered DATE,
@@ -250,6 +335,10 @@ CREATE TABLE IF NOT EXISTS theater (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Create a table for a song
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS music (
 	title VARCHAR(100) PRIMARY KEY,
@@ -267,6 +356,10 @@ CREATE TABLE IF NOT EXISTS music (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create a table for an album
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS album (
 	title VARCHAR(100) PRIMARY KEY,
 	CONSTRAINT albumfk_1
@@ -275,6 +368,10 @@ CREATE TABLE IF NOT EXISTS album (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Create a table for a video game
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS videogame (
 	title VARCHAR(100) PRIMARY KEY,
@@ -285,10 +382,18 @@ CREATE TABLE IF NOT EXISTS videogame (
 		ON DELETE CASCADE
 )engine = innoDB;
 
+--- ----------------------------------------------------------------------------
+--- Create a table for a gaming console
+--- ----------------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS console (
 	name VARCHAR(45) PRIMARY KEY,
 	developer VARCHAR(45)
 )engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Create a table for registering games to their consoles
+--- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS consolegame (
 	title VARCHAR(100),
