@@ -26,13 +26,46 @@ CREATE TABLE IF NOT EXISTS work (
 )engine = innoDB;
 
 --- ----------------------------------------------------------------------------
+--- Creates table for all keywords
+--- ----------------------------------------------------------------------------
+
+CREATE TABLE keyword (
+	keyword VARCHAR(50),
+    work VARCHAR(100),
+    isVerified BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (keyword, work),
+    CONSTRAINT keywordfk_1
+		FOREIGN KEY (work)
+        REFERENCES work(title)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) engine = innoDB;
+
+--- ----------------------------------------------------------------------------
+--- Creates table for all genres
+--- ----------------------------------------------------------------------------
+
+CREATE TABLE genre (
+	genre VARCHAR(50),
+    work VARCHAR(100),
+    isVerified BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (genre, work),
+    CONSTRAINT genrefk_1
+		FOREIGN KEY (work)
+        REFERENCES work(title)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) engine = innoDB;
+
+--- ----------------------------------------------------------------------------
 --- Creates table for all creators in the database
 --- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS creator (
 	name VARCHAR(70) PRIMARY KEY,
 	bio VARCHAR(255),
-	trivia VARCHAR(255)
+	trivia VARCHAR(255),
+    isVerified BOOLEAN NOT NULL DEFAULT FALSE
 )engine = innoDB;
 
 --- ----------------------------------------------------------------------------
@@ -68,7 +101,8 @@ CREATE TABLE IF NOT EXISTS user (
 	email VARCHAR(50) NOT NULL,
 	password VARCHAR(30) NOT NULL,
 	profpic VARCHAR(45),
-	description VARCHAR(255)
+	description VARCHAR(255),
+    isFlagged BOOLEAN NOT NULL DEFAULT FALSE
 )engine = innoDB;
 
 --- ----------------------------------------------------------------------------
@@ -133,6 +167,7 @@ CREATE TABLE IF NOT EXISTS review (
 	username VARCHAR(20),
 	title VARCHAR(100),
 	review VARCHAR(2500) NOT NULL,
+    isFlagged BOOLEAN NOT NULL DEFAULT FALSE,
 	PRIMARY KEY (username,title),
 	CONSTRAINT reviewfk_1
 		FOREIGN KEY (username)
