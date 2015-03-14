@@ -11,18 +11,11 @@ USE `tmi`;
 
 CREATE TABLE IF NOT EXISTS work (
 	title VARCHAR(100) PRIMARY KEY,
-	releaseYear YEAR NOT NULL,
+	releaseYear CHAR(4) NOT NULL,
 	cover VARCHAR(100),
 	class VARCHAR(45) NOT NULL,
-	mainCreator VARCHAR(70) NOT NULL,
 	viewCount INT DEFAULT 0,
-	isVerified BOOLEAN NOT NULL DEFAULT FALSE,
-	CONSTRAINT workfk_1
-		FOREIGN KEY (mainCreator)
-		REFERENCES creator(name)
-		ON UPDATE CASCADE
-		ON DELETE CASCADE,
-	INDEX workidx_1 (mainCreator ASC)
+	isVerified BOOLEAN NOT NULL DEFAULT FALSE
 )engine = innoDB;
 
 --- ----------------------------------------------------------------------------
@@ -76,7 +69,8 @@ CREATE TABLE IF NOT EXISTS workcreator (
 	name VARCHAR(70),
 	title VARCHAR(100),
 	role VARCHAR(45) NOT NULL,
-	PRIMARY KEY( name, title ),
+	isMain BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY( name, title ),
 	CONSTRAINT workcreatorfk_1
 		FOREIGN KEY (name)
 		REFERENCES creator(name)
