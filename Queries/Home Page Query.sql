@@ -1,3 +1,4 @@
+CREATE VIEW `Home Page` AS
 SELECT W.title, WC2.name AS `Created By`, class, releaseYear, viewCount, network, studio, 
 	   publisher, wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
        CM.illustrator AS `Comic/Manga Illustrator`, URL, org, 
