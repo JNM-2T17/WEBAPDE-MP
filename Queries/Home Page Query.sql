@@ -13,6 +13,6 @@ FROM work W
      LEFT JOIN theater TH ON W.title = TH.title 
      LEFT JOIN videogame V ON W.title = V.title 
      LEFT JOIN music M ON W.title = M.title 
-     LEFT JOIN album AL ON W.title = AL.title, workCreator WC2 
-WHERE W.title = WC2.title AND WC2.isMain = TRUE 
+     LEFT JOIN album AL ON W.title = AL.title
+     LEFT JOIN workCreator WC2 ON W.title = WC2.title AND WC2.isMain = TRUE
 ORDER BY viewCount DESC 
