@@ -5,7 +5,7 @@ function setLoc(a) {
 function randomizeLogo() {
 	$("img#logo").attr("src","Website Assets/logo" + Math.floor(Math.random() * 11 + 1) + ".png");
 	$("img#logo").click(function() {
-		setLoc("index.html")
+		setLoc("/The_Multimedia_Terminal");
 	});
 }
 

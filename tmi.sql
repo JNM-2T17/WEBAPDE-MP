@@ -10,12 +10,13 @@ USE `tmi`;
 --- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS work (
-	title VARCHAR(100) PRIMARY KEY,
+	title VARCHAR(100),
 	releaseYear CHAR(4) NOT NULL,
 	cover VARCHAR(100),
 	class VARCHAR(45) NOT NULL,
 	viewCount INT DEFAULT 0,
-	isVerified BOOLEAN NOT NULL DEFAULT FALSE
+	isVerified BOOLEAN NOT NULL DEFAULT FALSE,
+	PRIMARY KEY (title, class)
 )engine = innoDB;
 
 --- ----------------------------------------------------------------------------

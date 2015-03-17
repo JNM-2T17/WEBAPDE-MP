@@ -10,11 +10,19 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-  	<servlet-name>Search</servlet-name>
-  	<servlet-class>com.themmt.controller.Search</servlet-class>
+    <servlet-name>Search</servlet-name>
+    <servlet-class>com.themmt.controller.Search</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>Search</servlet-name>
-  	<url-pattern>/search</url-pattern>
+    <servlet-name>Search</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Propose</servlet-name>
+    <servlet-class>com.themmt.controller.ProposeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Propose</servlet-name>
+    <url-pattern>/propose</url-pattern>
   </servlet-mapping>
 </web-app>

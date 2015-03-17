@@ -1,4 +1,4 @@
-CREATE VIEW `Home Page` AS
+CREATE VIEW `All Works` AS
 SELECT W.title, WC2.name AS `Created By`, class, releaseYear, viewCount, network, studio, 
 	   publisher, wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
        CM.illustrator AS `Comic/Manga Illustrator`, URL, org, 
@@ -16,5 +16,4 @@ FROM work W
      LEFT JOIN music M ON W.title = M.title 
      LEFT JOIN album AL ON W.title = AL.title
      LEFT JOIN workCreator WC2 ON W.title = WC2.title AND WC2.isMain = TRUE
-WHERE isVerified = TRUE
 ORDER BY viewCount DESC 

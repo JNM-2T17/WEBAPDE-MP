@@ -71,7 +71,7 @@
 	</head>
 	<body>
 		<header>
-			<img id="logo" src="Website Assets/logo2.png" /><br />
+			<img id="logo" /><br />
 			<div id="homeLink"><a href="index.html">Home</a></div>
 			<div id="menubar">
 				<form name="search" action="search">
@@ -79,7 +79,7 @@
 						<li class="menuitem"><a href="login.html">Login</a></li>
 						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
 						<li class="menuitem"><a href="admin.html">Admin</a></li>
-						<li class="menuitem"><a href="propose.html">Propose Media</a></li>
+						<li class="menuitem"><a href="propose">Propose Media</a></li>
 					</ul> <!-- end of menu -->
 					<span id="searchBar">
 						<img src="Website Assets/search.png" />
