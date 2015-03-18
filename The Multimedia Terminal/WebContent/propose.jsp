@@ -79,7 +79,7 @@
 						<tr>
 							<td class="info">Release Year:</td>
 							<td><input class="formField" type="text" name="releaseYear" 
-										value="<%=success ? "" : request.getSession().getAttribute("releaseYear") %>" 
+										value="<%if(!success)%> ${sessionScope.releaseYear}" 
 										required /></td>
 						</tr>
 						<tr>

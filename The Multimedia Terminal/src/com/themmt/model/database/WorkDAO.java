@@ -1,11 +1,16 @@
 package com.themmt.model.database;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.themmt.model.Work;
 
 public class WorkDAO {
+	
+	public static final int PROPOSAL = 0;
 	
 	/**
 	 * adds a work to the database
@@ -28,5 +33,37 @@ public class WorkDAO {
 			// TODO Auto-generated catch block
 			throw e;
 		}
+	}
+	
+	public Iterator get(int criteria)
+		throws IllegalArgumentException {
+		String query = null;
+		
+		switch( criteria ) {
+			case PROPOSAL:
+				query = "SELECT * FROM `proposals`";
+				break;
+			default:
+					throw new IllegalArgumentException();
+		}
+		
+		ArrayList<Work> works = new ArrayList<Work>();
+		
+		try {
+			PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				Work w = new Work.WorkBuilder(rs.getString("title"),rs.getString("class"))
+							.releaseYear(rs.getString("releaseYear")).cover(rs.getString("cover"))
+							.description(rs.getString("description")).viewCount(rs.getInt("viewCount"))
+							.isVerified(rs.getBoolean("isVerified")).build();
+				works.add( w );
+			}
+		} catch(SQLException se) {
+			se.printStackTrace();
+		}
+		
+		return works.iterator();
 	}
 }

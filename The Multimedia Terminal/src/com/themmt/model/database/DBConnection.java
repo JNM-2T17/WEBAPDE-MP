@@ -18,7 +18,7 @@ public class DBConnection {
 		database = "tmi";
 		address = "jdbc:mysql://127.0.0.1:3306/";
 		username = "root";
-		password = "lol 'di 'to pass ko ul0l";
+		password = "";
 		
 		try {
 			Class.forName(driverName);

@@ -58,6 +58,10 @@ public class Work {
 		}
 	}
 	
+	public Work() {
+		super();
+	}
+
 	private Work(WorkBuilder wb) {
 		title = wb.title;
 		releaseYear = wb.releaseYear;
