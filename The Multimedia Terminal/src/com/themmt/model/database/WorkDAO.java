@@ -12,6 +12,11 @@ public class WorkDAO {
 	
 	public static final int PROPOSAL = 0;
 	
+	public static final int TYPE = 0;
+	public static final int ALPHA = 1;
+	public static final int DATE = 2;
+	
+	
 	/**
 	 * adds a work to the database
 	 * @param work work to be added
@@ -35,7 +40,7 @@ public class WorkDAO {
 		}
 	}
 	
-	public Iterator get(int criteria)
+	public static Iterator get(int criteria)
 		throws IllegalArgumentException {
 		String query = null;
 		
@@ -66,4 +71,75 @@ public class WorkDAO {
 		
 		return works.iterator();
 	}
+	
+	public static int getCount(int criteria)
+			throws IllegalArgumentException {
+			String query = null;
+			
+			switch( criteria ) {
+				case PROPOSAL:
+					query = "SELECT COUNT(*) FROM `proposals`";
+					break;
+				default:
+						throw new IllegalArgumentException();
+			}
+			
+			try {
+				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				ResultSet rs = ps.executeQuery();
+				
+				rs.next();
+				return rs.getInt("COUNT(*)");
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+			
+			return 0;
+		}
+	
+		public static Iterator get(int criteria, int sort)
+			throws IllegalArgumentException {
+			String query = null;
+			
+			switch( criteria ) {
+				case PROPOSAL:
+					query = "SELECT * FROM `proposals`";
+					break;
+				default:
+						throw new IllegalArgumentException("Invalid criteria");
+			}
+			
+			switch( sort ) {
+				case TYPE:
+					query += " ORDER BY class, title, releaseYear";
+					break;
+				case ALPHA:
+					query += " ORDER BY title, class, releaseYear";
+					break;
+				case DATE:
+					query += " ORDER BY releaseYear, class, title";
+					break;
+				default:
+					throw new IllegalArgumentException("Invalid sort column");
+			}
+			
+			ArrayList<Work> works = new ArrayList<Work>();
+			
+			try {
+				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				ResultSet rs = ps.executeQuery();
+				
+				while( rs.next() ) {
+					Work w = new Work.WorkBuilder(rs.getString("title"),rs.getString("class"))
+								.releaseYear(rs.getString("releaseYear")).cover(rs.getString("cover"))
+								.description(rs.getString("description")).viewCount(rs.getInt("viewCount"))
+								.isVerified(rs.getBoolean("isVerified")).build();
+					works.add( w );
+				}
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+			
+			return works.iterator();
+		}
 }

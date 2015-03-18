@@ -443,7 +443,8 @@ CREATE TABLE IF NOT EXISTS consolegame (
 )engine = innoDB;
 
 CREATE VIEW `Proposals` AS
-SELECT W.title, WC2.name AS `Created By`, description, class, releaseYear, viewCount, network, studio, 
+SELECT W.title, WC2.name AS `Created By`, description, cover, isVerified,
+	   class, releaseYear, viewCount, network, studio, 
 	   publisher, wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
        CM.illustrator AS `Comic/Manga Illustrator`, URL, org, 
        album, recordingStudio 

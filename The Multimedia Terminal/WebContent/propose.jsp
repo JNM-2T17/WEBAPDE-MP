@@ -94,10 +94,10 @@
 									<option value="animation" <%=success ? "" : ("animation".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Animated Television</option>
 									<option value="webcontent" <%=success ? "" : ("webcontent".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Web Content</option>
 									<option value="theater" <%=success ? "" : ("theater".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Theater</option>
-									<option value="graphicnovel" <%=success ? "" : ("graphicnovel".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Graphic Novel</option>
+									<option value="graphic novel" <%=success ? "" : ("graphic novel".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Graphic Novel</option>
 									<option value="comic" <%=success ? "" : ("comic".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Comic</option>
 									<option value="manga" <%=success ? "" : ("manga".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Manga</option>
-									<option value="videogame" <%=success ? "" : ("videogame".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Video Game</option>
+									<option value="video game" <%=success ? "" : ("video game".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Video Game</option>
 								</select>
 							</td>
 						</tr>

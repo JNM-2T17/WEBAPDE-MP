@@ -513,22 +513,30 @@ div.apprDesc p {
 }
 
 div.apprWork {
-	height:110px;
+	min-height:110px;
 	background-color:#404040;
 	width:600px;
 	padding:10px;
-	padding-bottom:0;
 	margin-bottom:10px;
 	margin-top:5px;
+	position:relative
+}
+
+div.apprDesc {
+	margin-bottom:5px;
+}
+
+div.apprWork span.info {
+	text-transform:capitalize;
 }
 
 div.wideLink {
 	background-color:#EC6C25;
-	float:right;
-	position:relative;
-	top:70px;
-	left:-3px;
 	padding:5px 50px;
+	margin:20px 5px 0 5px;
+	position:absolute;
+	bottom:10px;
+	right:5px;
 }
 
 div.wideLink a {

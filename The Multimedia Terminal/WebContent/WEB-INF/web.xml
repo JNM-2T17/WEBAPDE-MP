@@ -18,6 +18,22 @@
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>AdminApproval</servlet-name>
+    <servlet-class>com.themmt.controller.AdminApprovalServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminApproval</servlet-name>
+    <url-pattern>/adminApproval</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Admin</servlet-name>
+    <servlet-class>com.themmt.controller.AdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Admin</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Propose</servlet-name>
     <servlet-class>com.themmt.controller.ProposeServlet</servlet-class>
   </servlet>
