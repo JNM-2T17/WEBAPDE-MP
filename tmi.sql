@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS work (
 	class VARCHAR(45) NOT NULL,
 	viewCount INT DEFAULT 0,
 	isVerified BOOLEAN NOT NULL DEFAULT FALSE,
+    description VARCHAR(255),
 	PRIMARY KEY (title, class)
 )engine = innoDB;
 

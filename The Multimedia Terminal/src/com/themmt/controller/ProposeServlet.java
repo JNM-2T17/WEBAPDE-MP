@@ -54,13 +54,15 @@ public class ProposeServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String releaseYear = request.getParameter("releaseYear");
 		String cover = null;
-		String classification = request.getParameter("classification");;
+		String classification = request.getParameter("classification");
+		String description = request.getParameter("description");
 		int viewCount = 0;
 		boolean isVerified = false;
 		
 		//generate work
-		Work w = new Work.WorkBuilder(title,classification).releaseYear(releaseYear).
-					cover(cover).viewCount(viewCount).isVerified(isVerified).build();
+		Work w = new Work.WorkBuilder(title,classification).releaseYear(releaseYear)
+					.cover(cover).description(description).viewCount(viewCount)
+					.isVerified(isVerified).build();
 		try { //try adding work
 			WorkDAO.add(w);
 			
@@ -80,6 +82,7 @@ public class ProposeServlet extends HttpServlet {
 			//set values
 			request.getSession().setAttribute("releaseYear", releaseYear );
 			request.getSession().setAttribute("class", classification );
+			request.getSession().setAttribute("description",description);
 		} finally {
 			
 			//set title

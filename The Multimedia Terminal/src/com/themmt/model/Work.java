@@ -5,6 +5,7 @@ public class Work {
 	private String releaseYear;
 	private String cover;
 	private String classification;
+	private String description;
 	private int viewCount;
 	private boolean isVerified;
 	
@@ -13,6 +14,7 @@ public class Work {
 		private String releaseYear;
 		private String cover;
 		private String classification;
+		private String description;
 		private int viewCount = 0;
 		private boolean isVerified = false;
 		
@@ -29,6 +31,12 @@ public class Work {
 		
 		public WorkBuilder cover( String cover ) {
 			this.cover = cover;
+			
+			return this;
+		}
+		
+		public WorkBuilder description( String description ) {
+			this.description = description;
 			
 			return this;
 		}
@@ -55,8 +63,17 @@ public class Work {
 		releaseYear = wb.releaseYear;
 		cover = wb.cover;
 		classification = wb.classification;
+		description = wb.description;
 		viewCount = wb.viewCount;
 		isVerified = wb.isVerified;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getCover() {

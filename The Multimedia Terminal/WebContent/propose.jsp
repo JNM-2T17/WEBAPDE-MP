@@ -27,6 +27,16 @@
 					document.search.submit();
 				});
 			});
+			
+			function checkDesc() {
+				var desc = $("#descBox").value();
+				if( desc.length > 255 ) {
+					alert("Description is too long. Please keep it below 255 characters.");
+					return false;
+				} 
+				
+				return true;
+			}
 		</script>
 	</head>
 	<body>
@@ -50,7 +60,7 @@
 		</header>
 		
 		<div id="mainContent">
-			<form action='propose' method='post'>
+			<form action='propose' method='post' onSubmit="return checkDesk();">
 				<h1>Work Proposal</h1>
 				<div class="orangeLine"></div><br /><br />
 				<div class="proposeTop">
@@ -63,7 +73,7 @@
 				</div>	
 				<div class="proposeDesc">
 					<div class="info">Description: <br />
-						<textarea id="descBox" class="formField" name="desc"></textarea>
+						<textarea id="descBox" class="formField" name="description"><%=success ? "" : request.getSession().getAttribute("description") %></textarea>
 					</div>
 					<table id="proposeForm">
 						<tr>

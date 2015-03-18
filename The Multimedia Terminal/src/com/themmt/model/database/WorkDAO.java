@@ -13,7 +13,7 @@ public class WorkDAO {
 	 * @throws SQLException when duplicate entries occur
 	 */
 	public static void add( Work work ) throws SQLException {
-		String stmt = "INSERT INTO work VALUES (?,?,?,?,?,?)";
+		String stmt = "INSERT INTO work VALUES (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(stmt);
 			ps.setString(1, work.getTitle() );
@@ -22,6 +22,7 @@ public class WorkDAO {
 			ps.setString(4, work.getClassification() );
 			ps.setInt(5, work.getViewCount() );
 			ps.setBoolean(6, work.isVerified() );
+			ps.setString(7, work.getDescription() );
 			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
