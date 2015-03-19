@@ -66,7 +66,7 @@
 					<ul id="menu">
 						<li class="menuitem"><a href="login.html">Login</a></li>
 						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
-						<li class="menuitem"><a href="admin.html">Admin</a></li>
+						<li class="menuitem"><a href="admin">Admin</a></li>
 						<li class="menuitem"><a href="propose">Propose Media</a></li>
 					</ul> <!-- end of menu -->
 					<span id="searchBar">
@@ -95,7 +95,7 @@
 					</div>
 					<span class="info"><%=w.getClassification()%> Proposal</span>
 					<div class="apprDesc">
-						<p><%=w.getTitle()%>(<%=w.getReleaseYear() %>)</p>
+						<p><%=w.getTitle()%> (<%=w.getReleaseYear() %>)</p>
 						<p><%=w.getDescription()==null?"":w.getDescription()%></p>
 					</div> <!-- end of description -->
 					<div class="wideLink">
@@ -118,7 +118,7 @@
 					</div>
 					<span class="info"><%=w.getClassification()%> Proposal</span>
 					<div class="apprDesc">
-						<p><%=w.getTitle()%>(<%=w.getReleaseYear() %>)</p>
+						<p><%=w.getTitle()%> (<%=w.getReleaseYear() %>)</p>
 						<p><%=w.getDescription()==null?"":w.getDescription()%></p>
 					</div> <!-- end of description -->
 					<div class="wideLink">
@@ -141,7 +141,7 @@
 					</div>
 					<span class="info"><%=w.getClassification()%> Proposal</span>
 					<div class="apprDesc">
-						<p><%=w.getTitle()%>(<%=w.getReleaseYear() %>)</p>
+						<p><%=w.getTitle()%> (<%=w.getReleaseYear() %>)</p>
 						<p><%=w.getDescription()==null?"":w.getDescription()%></p>
 					</div> <!-- end of description -->
 					<div class="wideLink">

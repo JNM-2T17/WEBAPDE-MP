@@ -121,8 +121,8 @@ div.img {
 }
 
 div.img img {
-	width:100px;
-	height:100px;
+	width:140px;
+	height:140px;
 	margin-right:20px;
 }
 
@@ -513,7 +513,7 @@ div.apprDesc p {
 }
 
 div.apprWork {
-	min-height:110px;
+	min-height:150px;
 	background-color:#404040;
 	width:600px;
 	padding:10px;
@@ -523,7 +523,7 @@ div.apprWork {
 }
 
 div.apprDesc {
-	margin-bottom:5px;
+	margin-bottom:40px;
 }
 
 div.apprWork span.info {
