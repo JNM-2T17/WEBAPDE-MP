@@ -151,6 +151,10 @@ img.star {
 	width:15px;
 }
 
+div.description {
+	margin-bottom:40px;
+}
+
 div#workGenresCont, div#workKeysCont {
 	position:relative;
 	top:5px;
@@ -181,7 +185,6 @@ form.workAdd .orangeBox, button[id^="cancel"] {
 
 div.link {
 	background-color:#EC6C25;
-	float:right;
 	padding:6px;
 	position:absolute;
 	bottom:15px;

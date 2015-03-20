@@ -95,9 +95,6 @@
 				%>
 				<div class="work">
 					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
-					<div class="link">
-						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
-					</div> <!-- end of link -->
 					<div class="rating">
 						<%
 							int n = (int)Math.round(w.getRating());
@@ -119,6 +116,9 @@
 					<div class="description">
 						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->
+					<div class="link">
+						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
+					</div> <!-- end of link -->
 				</div> <!-- end of work -->
 				<%
 					}
