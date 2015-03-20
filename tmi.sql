@@ -465,8 +465,9 @@ WHERE isVerified = FALSE
 ORDER BY viewCount DESC 
 
 CREATE VIEW `All Works` AS
-SELECT W.title, WC2.name AS `Created By`, description, class, releaseYear, viewCount, network, studio, 
-	   publisher, wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
+SELECT W.title, WC2.name AS `Created By`, description, class, cover,
+	   releaseYear, viewCount, isVerified, network, studio, publisher, 
+       wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
        CM.illustrator AS `Comic/Manga Illustrator`, URL, org, 
        album, recordingStudio 
 FROM work W 
@@ -485,7 +486,8 @@ FROM work W
 ORDER BY viewCount DESC 
 
 CREATE VIEW `Home Page` AS
-SELECT W.title, WC2.name AS `Created By`, description, class, releaseYear, viewCount, network, studio, 
+SELECT W.title, WC2.name AS `Created By`, description, class, IFNULL(AVG(rating),0) rating,
+	   cover, releaseYear, viewCount, isVerified, network, studio, 
 	   publisher, wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
        CM.illustrator AS `Comic/Manga Illustrator`, URL, org, 
        album, recordingStudio 
@@ -502,8 +504,12 @@ FROM work W
      LEFT JOIN music M ON W.title = M.title 
      LEFT JOIN album AL ON W.title = AL.title
      LEFT JOIN workCreator WC2 ON W.title = WC2.title AND WC2.isMain = TRUE
+     LEFT JOIN rating R ON W.title = R.title
 WHERE isVerified = TRUE
+GROUP BY W.title
 ORDER BY viewCount DESC 
+LIMIT 10
+
 
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;

@@ -1,6 +1,7 @@
 CREATE VIEW `All Works` AS
-SELECT W.title, WC2.name AS `Created By`, description, class, releaseYear, viewCount, network, studio, 
-	   publisher, wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
+SELECT W.title, WC2.name AS `Created By`, description, class, cover,
+	   releaseYear, viewCount, isVerified, network, studio, publisher, 
+       wordcount, datePremiered, GN.illustrator AS `Graphic Novel Illustrator`, 
        CM.illustrator AS `Comic/Manga Illustrator`, URL, org, 
        album, recordingStudio 
 FROM work W 

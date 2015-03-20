@@ -69,7 +69,7 @@ public class ProposeServlet extends HttpServlet {
 			//mark as success
 			request.getSession().setAttribute("proposalSuccess", true );
 		} catch (SQLException e) {
-
+			e.printStackTrace();
 			//mark proposal as false
 			request.getSession().setAttribute("proposalSuccess", false );
 			

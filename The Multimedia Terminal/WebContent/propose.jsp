@@ -29,7 +29,8 @@
 			});
 			
 			function checkDesc() {
-				var desc = $("#descBox").value();
+				var desc = document.getElementById("descBox").value;
+				console.log(desc);
 				if( desc.length > 255 ) {
 					alert("Description is too long. Please keep it below 255 characters.");
 					return false;
@@ -40,27 +41,9 @@
 		</script>
 	</head>
 	<body>
-		<header>
-			<img id="logo" /><br />
-			<div id="homeLink"><a href="index.html">Home</a></div>
-			<div id="menubar">
-				<form name="search" action="search">
-					<ul id="menu">
-						<li class="menuitem"><a href="login.html">Login</a></li>
-						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
-						<li class="menuitem"><a href="admin">Admin</a></li>
-						<li class="menuitem"><a href="propose">Propose Media</a></li>
-					</ul> <!-- end of menu -->
-					<span id="searchBar">
-						<img src="Website Assets/search.png" />
-						<input type="text" id="search" placeholder="Search..." name="s" />
-					</span> <!-- end of searchBar -->
-				</form>
-			</div> <!--  End of menubar -->
-		</header>
-		
+		<jsp:include page="header.html" />
 		<div id="mainContent">
-			<form action='propose' method='post' onSubmit="return checkDesk();">
+			<form action='propose' method='post' onSubmit="return checkDesc()">
 				<h1>Work Proposal</h1>
 				<div class="orangeLine"></div><br /><br />
 				<div class="proposeTop">
@@ -79,7 +62,7 @@
 						<tr>
 							<td class="info">Release Year:</td>
 							<td><input class="formField" type="text" name="releaseYear" 
-										value="<%if(!success)%> ${sessionScope.releaseYear}" 
+										value="<%if(!success)%>${sessionScope.releaseYear}" 
 										required /></td>
 						</tr>
 						<tr>

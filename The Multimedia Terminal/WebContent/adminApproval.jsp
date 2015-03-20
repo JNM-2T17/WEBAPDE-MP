@@ -58,24 +58,7 @@
 	</head>
 	<body>
 		<%Iterator itr = (Iterator)request.getSession().getAttribute("proposal0"); %>
-		<header>
-			<img id="logo" /><br />
-			<div id="homeLink"><a href="index.html">Home</a></div>
-			<div id="menubar">
-				<form name="search" action="search">
-					<ul id="menu">
-						<li class="menuitem"><a href="login.html">Login</a></li>
-						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
-						<li class="menuitem"><a href="admin">Admin</a></li>
-						<li class="menuitem"><a href="propose">Propose Media</a></li>
-					</ul> <!-- end of menu -->
-					<span id="searchBar">
-						<img src="Website Assets/search.png" />
-							<input type="text" id="search" placeholder="Search..." name="s" />
-					</span> <!-- end of searchBar -->
-				</form>
-			</div> <!--  end of menubar -->
-		</header>
+		<jsp:include page="header.html" />
 		<div id="mainContent">
 			<h1 class="info">Work Proposals</h1>
 			<ul id="filterMenu">

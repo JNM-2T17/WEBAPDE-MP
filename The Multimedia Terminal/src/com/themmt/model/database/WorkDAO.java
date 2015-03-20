@@ -11,10 +11,11 @@ import com.themmt.model.Work;
 public class WorkDAO {
 	
 	public static final int PROPOSAL = 0;
+	public static final int HOME = 1;
 	
-	public static final int TYPE = 0;
-	public static final int ALPHA = 1;
-	public static final int DATE = 2;
+	public static final int TYPE = 2;
+	public static final int ALPHA = 3;
+	public static final int DATE = 4;
 	
 	
 	/**
@@ -42,11 +43,14 @@ public class WorkDAO {
 	
 	public static Iterator get(int criteria)
 		throws IllegalArgumentException {
-		String query = null;
+		String query = "SELECT * FROM ";
 		
 		switch( criteria ) {
 			case PROPOSAL:
-				query = "SELECT * FROM `proposals`";
+				query += "`proposals`";
+				break;
+			case HOME:
+				query += "`Home Page`";
 				break;
 			default:
 					throw new IllegalArgumentException();
@@ -61,7 +65,9 @@ public class WorkDAO {
 			while( rs.next() ) {
 				Work w = new Work.WorkBuilder(rs.getString("title"),rs.getString("class"))
 							.releaseYear(rs.getString("releaseYear")).cover(rs.getString("cover"))
-							.description(rs.getString("description")).viewCount(rs.getInt("viewCount"))
+							.description(rs.getString("description"))
+							.rating(criteria==PROPOSAL ? 0 : rs.getDouble("rating") )
+							.viewCount(rs.getInt("viewCount"))
 							.isVerified(rs.getBoolean("isVerified")).build();
 				works.add( w );
 			}
@@ -132,7 +138,9 @@ public class WorkDAO {
 				while( rs.next() ) {
 					Work w = new Work.WorkBuilder(rs.getString("title"),rs.getString("class"))
 								.releaseYear(rs.getString("releaseYear")).cover(rs.getString("cover"))
-								.description(rs.getString("description")).viewCount(rs.getInt("viewCount"))
+								.description(rs.getString("description"))
+								.rating(criteria==PROPOSAL ? 0 : rs.getDouble("rating") )
+								.viewCount(rs.getInt("viewCount"))
 								.isVerified(rs.getBoolean("isVerified")).build();
 					works.add( w );
 				}

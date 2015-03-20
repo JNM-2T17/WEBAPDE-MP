@@ -6,6 +6,7 @@ public class Work {
 	private String cover;
 	private String classification;
 	private String description;
+	private double rating;
 	private int viewCount;
 	private boolean isVerified;
 	
@@ -15,6 +16,7 @@ public class Work {
 		private String cover;
 		private String classification;
 		private String description;
+		private double rating;
 		private int viewCount = 0;
 		private boolean isVerified = false;
 		
@@ -37,6 +39,12 @@ public class Work {
 		
 		public WorkBuilder description( String description ) {
 			this.description = description;
+			
+			return this;
+		}
+		
+		public WorkBuilder rating( double rating ) {
+			this.rating = rating;
 			
 			return this;
 		}
@@ -68,8 +76,13 @@ public class Work {
 		cover = wb.cover;
 		classification = wb.classification;
 		description = wb.description;
+		rating = wb.rating;
 		viewCount = wb.viewCount;
 		isVerified = wb.isVerified;
+	}
+
+	public double getRating() {
+		return rating;
 	}
 
 	public String getDescription() {
