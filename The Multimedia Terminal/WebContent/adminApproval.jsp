@@ -22,7 +22,7 @@
 					setLoc("#");
 				});
 				
-				$("span#approveBar img").click(function() {
+				$("span#searchBar img").click(function() {
 					document.search.submit();
 				});
 				
