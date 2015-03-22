@@ -112,7 +112,7 @@
 						%>
 						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
 					</div> <!-- end of rating -->
-					<span><%=w.getTitle() %></span>
+					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
 					<div class="description">
 						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->

@@ -11,7 +11,6 @@
 			$(document).ready(function() {
 				randomizeLogo();
 				
-				$("#searchGenre").hide();
 				$("#searchAlphabetical").hide();
 				$("#searchRating").hide();
 				$("#searchDate").hide();
@@ -33,15 +32,6 @@
 					if( active.attr("id") != "searchMedia" ) {
 						active.hide();
 						active = $("#searchMedia").show();
-					}
-				});
-				
-				$("li#genre").click(function() {
-					setFilterCrit(filter, false);
-					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchGenre" ) {
-						active.hide();
-						active = $("#searchGenre").show();
 					}
 				});
 				
@@ -73,393 +63,189 @@
 				});
 			});
 		</script>
+		<%@page import="java.util.Iterator,java.text.DecimalFormat,com.themmt.model.Work" %>
 	</head>
 	<body>
+		<%!
+			DecimalFormat df = new DecimalFormat();
+		%>
+		<%
+			df.setMaximumFractionDigits(2);
+			df.setMinimumFractionDigits(2);
+		%>
 		<jsp:include page="header.html" />
 		<div id="mainContent">
 			<h1>Search</h1>
 			<ul id="filterMenu">
 				<li id="filterLabel">Filter By: </li>
 				<li id="media" class="filterCritActive">Media</li>
-				<li id="genre" class="filterCritInactive">Genre</li>
 				<li id="alphabetical" class="filterCritInactive">Alphabetical</li>
 				<li id="rating" class="filterCritInactive">Rating</li>
 				<li id="date" class="filterCritInactive">Date</li>
 			</ul> <!--  end of filterMenu -->
 			<div id="searchMedia" class="searchContent">
+			<% 
+				Iterator itr = (Iterator)request.getSession().getAttribute("search0");
+				if( itr.hasNext() ) {
+					while( itr.hasNext() ) {
+						Work w = (Work)itr.next();
+			%>
 				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="movie.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
+					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
 					<div class="rating">
+						<%
+							int n = (int)Math.round(w.getRating());
+							int i = 0;
+							for( ; i < n; i++ ) { 
+						%>
 						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
+						<%
+							}
+							for( ; i < 5; i++ ) {
+						%>
 						<img src="Website Assets/Empty Star.png" class="star" />
+						<%
+							}
+						%>
+						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
 					</div> <!-- end of rating -->
+					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
 					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Written by: A Potato</p>
+						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class = "orangeLine"></div><br />
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
 					<div class="link">
-						<a href="game.html">Tell Me More</a>
+						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
 					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>An anthropomorphic fruit and vegetable fighting game.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-				<div class = "orangeLine"></div><br />
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Shingeki no Potato</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>Humans defend themselves from giant attacking Potatoes.</p>
-						<p>Created by: Potato Urobutchi</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class = "orangeLine"></div><br />
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Created by: Charles Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
+			<%
+					}
+				} else {
+			%>	
+				<div>No Results to Show</div>
+			<% } %>
 			</div> <!-- end of searchMedia -->
-			<div id="searchGenre" class="searchContent">
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="movie.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Written by: A Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class = "orangeLine"></div><br />
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>An anthropomorphic fruit and vegetable fighting game.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-								<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Created by: Charles Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class = "orangeLine"></div><br />
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Shingeki no Potato</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>Humans defend themselves from giant attacking Potatoes.</p>
-						<p>Created by: Potato Urobutchi</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-			</div> <!-- end of searchGenre -->
 			<div id="searchAlphabetical" class="searchContent">
+			<% 
+				itr = (Iterator)request.getSession().getAttribute("search1");
+				if( itr.hasNext() ) {
+					while( itr.hasNext() ) {
+						Work w = (Work)itr.next();
+			%>
 				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
+					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
 					<div class="rating">
+						<%
+							int n = (int)Math.round(w.getRating());
+							int i = 0;
+							for( ; i < n; i++ ) { 
+						%>
 						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
+						<%
+							}
+							for( ; i < 5; i++ ) {
+						%>
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<%
+							}
+						%>
+						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
 					</div> <!-- end of rating -->
+					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
 					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Created by: Charles Potato</p>
+						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
 					<div class="link">
-						<a href="anime.html">Tell Me More</a>
+						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
 					</div> <!-- end of link -->
-					<span>Shingeki no Potato</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>Humans defend themselves from giant attacking Potatoes.</p>
-						<p>Created by: Potato Urobutchi</p>
-					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>An anthropomorphic fruit and vegetable fighting game.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="movie.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Written by: A Potato</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
+			<%
+					}
+				} else {
+			%>	
+				<div>No Results to Show</div>
+			<% } %>
 			</div> <!-- end of searchAlphabetical -->
 			<div id="searchRating" class="searchContent">
+			<% 
+				itr = (Iterator)request.getSession().getAttribute("search2");
+				if( itr.hasNext() ) {
+					while( itr.hasNext() ) {
+						Work w = (Work)itr.next();
+			%>
 				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
+					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
 					<div class="rating">
+						<%
+							int n = (int)Math.round(w.getRating());
+							int i = 0;
+							for( ; i < n; i++ ) { 
+						%>
 						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
+						<%
+							}
+							for( ; i < 5; i++ ) {
+						%>
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<%
+							}
+						%>
+						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
 					</div> <!-- end of rating -->
+					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
 					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Created by: Charles Potato</p>
+						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
 					<div class="link">
-						<a href="movie.html">Tell Me More</a>
+						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
 					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Written by: A Potato</p>
-					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Shingeki no Potato</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>Humans defend themselves from giant attacking Potatoes.</p>
-						<p>Created by: Potato Urobutchi</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>An anthropomorphic fruit and vegetable fighting game.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
+			<%
+					}
+				} else {
+			%>	
+				<div>No Results to Show</div>
+			<% } %>
 			</div> <!-- end of searchRating -->
 			<div id="searchDate" class="searchContent">
-			<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="game.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Tomato Game X2</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>An anthropomorphic fruit and vegetable fighting game.</p>
-						<p>Developed by: PotatoSoft</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
+			<% 
+				itr = (Iterator)request.getSession().getAttribute("search3");
+				if( itr.hasNext() ) {
+					while( itr.hasNext() ) {
+						Work w = (Work)itr.next();
+			%>
 				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="book.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>A Tale of Two Potatoes</span>
+					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
 					<div class="rating">
+						<%
+							int n = (int)Math.round(w.getRating());
+							int i = 0;
+							for( ; i < n; i++ ) { 
+						%>
 						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
+						<%
+							}
+							for( ; i < 5; i++ ) {
+						%>
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<%
+							}
+						%>
+						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
 					</div> <!-- end of rating -->
+					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
 					<div class="description">
-						<p>It was the best of potatoes; it was the worst of potatoes.</p>
-						<p>Created by: Charles Potato</p>
+						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->
-				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
 					<div class="link">
-						<a href="movie.html">Tell Me More</a>
+						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
 					</div> <!-- end of link -->
-					<span>Tomato Movie</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>It is the story of a tomato.</p>
-						<p>Written by: A Potato</p>
-					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-				<div class="work">
-					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="link">
-						<a href="anime.html">Tell Me More</a>
-					</div> <!-- end of link -->
-					<span>Shingeki no Potato</span>
-					<div class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<img src="Website Assets/Empty Star.png" class="star" />
-					</div> <!-- end of rating -->
-					<div class="description">
-						<p>Humans defend themselves from giant attacking Potatoes.</p>
-						<p>Created by: Potato Urobutchi</p>
-					</div> <!-- end of description -->
-				</div> <!-- end of work -->
+			<%
+					}
+				} else {
+			%>	
+				<div>No Results to Show</div>
+			<% } %>
 			</div> <!-- end of searchDate -->
 		</div> <!-- end of mainContent -->
 	</body>

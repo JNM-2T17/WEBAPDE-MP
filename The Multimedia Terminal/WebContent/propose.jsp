@@ -75,7 +75,7 @@
 									<option value="music" <%=success ? "" : ("music".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Song</option>
 									<option value="television" <%=success ? "" : ("television".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Television</option>
 									<option value="animation" <%=success ? "" : ("animation".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Animated Television</option>
-									<option value="webcontent" <%=success ? "" : ("webcontent".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Web Content</option>
+									<option value="web content" <%=success ? "" : ("web content".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Web Content</option>
 									<option value="theater" <%=success ? "" : ("theater".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Theater</option>
 									<option value="graphic novel" <%=success ? "" : ("graphic novel".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Graphic Novel</option>
 									<option value="comic" <%=success ? "" : ("comic".equals(request.getSession().getAttribute("class"))?"selected":"") %>>Comic</option>

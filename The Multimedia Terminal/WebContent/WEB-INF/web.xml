@@ -14,7 +14,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Search</servlet-name>
-    <servlet-class>com.themmt.controller.Search</servlet-class>
+    <servlet-class>com.themmt.controller.SearchServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Search</servlet-name>
