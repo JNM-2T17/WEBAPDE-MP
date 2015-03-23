@@ -1,6 +1,15 @@
 package com.themmt.model;
 
 public class Work {
+	public static final String TITLE_COLUMN = "title";
+	public static final String CLASS_COLUMN = "class";
+	public static final String YEAR_COLUMN = "releaseYear";
+	public static final String COVER_COLUMN = "cover";
+	public static final String DESC_COLUMN = "description";
+	public static final String RATING_COLUMN = "rating";
+	public static final String VIEW_COLUMN = "viewCount";
+	public static final String VERIFY_COLUMN = "isVerified";
+	
 	private String title;
 	private String releaseYear;
 	private String cover;

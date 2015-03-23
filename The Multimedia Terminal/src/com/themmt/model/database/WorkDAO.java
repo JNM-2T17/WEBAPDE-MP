@@ -65,12 +65,12 @@ public class WorkDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while( rs.next() ) {
-				Work w = new Work.WorkBuilder(rs.getString("title"),rs.getString("class"))
-							.releaseYear(rs.getString("releaseYear")).cover(rs.getString("cover"))
-							.description(rs.getString("description"))
-							.rating(criteria==PROPOSAL ? 0 : rs.getDouble("rating") )
-							.viewCount(rs.getInt("viewCount"))
-							.isVerified(rs.getBoolean("isVerified")).build();
+				Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+							.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
+							.description(rs.getString(Work.DESC_COLUMN))
+							.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
+							.viewCount(rs.getInt(Work.VIEW_COLUMN))
+							.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
 				works.add( w );
 			}
 		} catch(SQLException se) {
@@ -138,12 +138,12 @@ public class WorkDAO {
 				ResultSet rs = ps.executeQuery();
 				
 				while( rs.next() ) {
-					Work w = new Work.WorkBuilder(rs.getString("title"),rs.getString("class"))
-								.releaseYear(rs.getString("releaseYear")).cover(rs.getString("cover"))
-								.description(rs.getString("description"))
-								.rating(criteria==PROPOSAL ? 0 : rs.getDouble("rating") )
-								.viewCount(rs.getInt("viewCount"))
-								.isVerified(rs.getBoolean("isVerified")).build();
+					Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+								.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
+								.description(rs.getString(Work.DESC_COLUMN))
+								.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
+								.viewCount(rs.getInt(Work.VIEW_COLUMN))
+								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
 					works.add( w );
 				}
 			} catch(SQLException se) {
@@ -200,12 +200,12 @@ public class WorkDAO {
 					ResultSet rs = ps.executeQuery();
 					
 					while( rs.next() ) {
-						Work w = new Work.WorkBuilder(rs.getString("title"),rs.getString("class"))
-									.releaseYear(rs.getString("releaseYear")).cover(rs.getString("cover"))
-									.description(rs.getString("description"))
-									.rating(criteria==PROPOSAL ? 0 : rs.getDouble("rating") )
-									.viewCount(rs.getInt("viewCount"))
-									.isVerified(rs.getBoolean("isVerified")).build();
+						Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+									.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
+									.description(rs.getString(Work.DESC_COLUMN))
+									.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
+									.viewCount(rs.getInt(Work.VIEW_COLUMN))
+									.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
 						works.add( w );
 					}
 				} catch(SQLException se) {
