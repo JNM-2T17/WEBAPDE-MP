@@ -2,35 +2,15 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<link rel="stylesheet" href="tmi.css" />
-<meta charset="ISO-8859-1">
-<script src="tmi.js"></script>
-<title>Insert title here</title>
-</head>
-<body>
-
-			<img id="logo" src="Website Assets/logo2.png" /><br />
-			<div id="homeLink"><a href="index.html">Home</a></div>
-			<div id="menubar">
-				<form name="search" action="search">
-					<ul id="menu">
-						<li class="menuitem"><a href="login.html">Login</a></li>
-						<li class="menuitem"><a href="favorites.html">Favorites</a></li>
-						<li class="menuitem"><a href="admin.html">Admin</a></li>
-						<li class="menuitem"><a href="propose.html">Propose Media</a></li>
-					</ul> <!-- end of menu -->
-					<span id="searchBar">
-						<img src="Website Assets/search.png" />
-						<input type="text" id="search" placeholder="Search..." name="s" />
-					</span> <!-- end of searchBar -->
-				</form>
-			</div> <!--  End of menubar -->
-		
+	<head>
+		<link rel="stylesheet" href="tmi.css" />
+		<meta charset="ISO-8859-1">
+		<script src="tmi.js"></script>
+		<title>Insert title here</title>
+	</head>
+	<body>
+	<jsp:include page="header.html" />		
 	<div id="mainContent">
-	
-
-	
 			<form action='RegisterServlet' method='post'>
 				<h1>User Registration</h1>
 				<div class="orangeLine"></div><br /><br />
@@ -72,10 +52,7 @@
 						<tr>
 							<td class="info">Description:</td>
 							<td><textarea rows="6" cols="30" class="formField" name = "description"></textarea></td>
-							
 						</tr>
-
-									
 					</table>
 					<div id="formButtons">
 						<input type="submit" class="orangeBox" />
@@ -84,5 +61,5 @@
 				</div>
 			</form>
 		</div><!-- end of mainContent -->
-</body>
+	</body>
 </html>
