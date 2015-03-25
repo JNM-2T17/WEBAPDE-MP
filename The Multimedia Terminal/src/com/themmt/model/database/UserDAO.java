@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import com.themmt.model.User;
 
 public class UserDAO {
-
 	/**
 	 * adds a User to the database
 	 * @param User to be added
@@ -29,65 +28,53 @@ public class UserDAO {
 			ps.setString(6, user.getPassword() );
 			ps.setString(7, user.getProfpic() );
 			ps.setString(8, user.getDescription() );
-			ps.setInt(9, user.getIsFlagged() );
-			System.out.println(ps);
+			ps.setBoolean(9, user.isFlagged() );
 			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw e;
 		}
-		
 	}
-	
 	
 	public static Iterator get()
 			throws IllegalArgumentException {
-			String query = "SELECT * FROM user";
-
+		String query = "SELECT * FROM user";
+		ArrayList<User> users = new ArrayList<User>();
+		
+		try {
+			PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
 			
-			ArrayList<User> users = new ArrayList<User>();
-			
-			try {
-				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
-				ResultSet rs = ps.executeQuery();
-				
-				while( rs.next() ) {
-					User u = new User(rs.getString("username"),rs.getString("fname"),
-							rs.getString("lname"),rs.getString("gender"), 
-							rs.getString("email"),rs.getString("password"), 
-							rs.getString("profpic"),rs.getString("description"),
-							rs.getInt("isFlagged"));
-							users.add(u);
-				}
-			} catch(SQLException se) {
-				se.printStackTrace();
+			while( rs.next() ) {
+				User u = new User(rs.getString(User.USERNAME_COLUMN),rs.getString(User.FNAME_COLUMN),
+						rs.getString(User.LNAME_COLUMN),rs.getString(User.GENDER_COLUMN), 
+						rs.getString(User.EMAIL_COLUMN),rs.getString(User.PASSWORD_COLUMN), 
+						rs.getString(User.PROFPIC_COLUMN),rs.getString(User.DESCRIPTION_COLUMN),
+						rs.getBoolean(User.FLAG_COLUMN));
+				users.add(u);
 			}
-			
-			return users.iterator();
+		} catch(SQLException se) {
+			se.printStackTrace();
 		}
+		
+		return users.iterator();
+	}
 	
-	public static Boolean isMatch(String username, String password)
-			{
+	public static Boolean isMatch(String username, String password) {
 				
 			//cross the inputs against all values
-			Iterator<User> iterator = UserDAO.get();
+			Iterator iterator = UserDAO.get();
 			
-			while(iterator.hasNext())
-				{
-				User temp = iterator.next();
-				if(temp.getUsername().equals(username) && temp.getPassword().equals(password))
-					{
-					System.out.println("you are a valid user!");	
+			while(iterator.hasNext()) {
+				User temp = (User)iterator.next();
+				
+				if(temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
 					return true;
-					}
-				else
-					{
-					System.out.println("Invalid combo");	
-					return false;	
-					}
 				}
-			return false;
 			}
+			
+			return false;
+	}
 
 	
 }

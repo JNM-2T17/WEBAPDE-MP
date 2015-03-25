@@ -23,14 +23,18 @@ public class StartServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
+    protected void initialize( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    	request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		initialize( request, response );
 	}
 
 	/**
@@ -38,6 +42,7 @@ public class StartServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		initialize( request, response );
 	}
 
 }

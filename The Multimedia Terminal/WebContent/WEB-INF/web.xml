@@ -13,6 +13,22 @@
     <url-pattern>/start</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>com.themmt.controller.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.themmt.controller.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Search</servlet-name>
     <servlet-class>com.themmt.controller.SearchServlet</servlet-class>
   </servlet>

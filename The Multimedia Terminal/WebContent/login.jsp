@@ -8,6 +8,16 @@
 		<script src="tmi.js"></script>
 		<script>
 			$(document).ready(function() {
+				<% if( (Boolean)request.getSession().getAttribute("fail") ) { %>
+				$("#username").val('<%=request.getSession().getAttribute("username")%>');
+				alert( 'Incorrect Username/Password Combo');
+				<% } else if( (Boolean)request.getSession().getAttribute("registered") ){ %>
+				$("#username").val('<%=request.getSession().getAttribute("username")%>');
+				
+				<%
+					request.getSession().setAttribute("registered",false);
+				}
+				%>
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
@@ -23,14 +33,15 @@
 	<body>
 		<jsp:include page="header.html" />
 		<div id="mainLogin">
-			<form action="LoginServlet" method="post" >
+			<form action="login" method="post" >
 				<h1 id="loginLabel">User Login</h1>
-				<input type="text" placeholder="Username" name="username" required /><br />
-				<input type="password" placeholder="Password" name="password" required /><br />
-				<div id="login"> <a href="register.jsp" >Create an Account</a><input type="submit" value="Login" id="loginButton"/></div>
-
+				<input type="text" id="username" placeholder="Username" name="username" required /><br />
+				<input type="password" id="password" placeholder="Password" name="password" required /><br />
+				<div id="login"> 
+					<a href="register" id="register">Create an Account</a>
+					<input type="submit" value="Login" id="loginButton"/>
+				</div>
 			</form>
-			
 		</div> <!-- end of mainLogin -->
 	</body>
 </html>
