@@ -44,41 +44,86 @@ public class WorkDAO {
 	}
 	
 	public static Iterator get(int criteria)
-		throws IllegalArgumentException {
-		String query = "SELECT * FROM ";
-		
-		switch( criteria ) {
-			case PROPOSAL:
-				query += "`proposals`";
-				break;
-			case HOME:
-				query += "`Home Page`";
-				break;
-			default:
-					throw new IllegalArgumentException();
-		}
-		
-		ArrayList<Work> works = new ArrayList<Work>();
-		
-		try {
-			PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
+			throws IllegalArgumentException {
+			String query = "SELECT * FROM ";
 			
-			while( rs.next() ) {
-				Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
-							.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
-							.description(rs.getString(Work.DESC_COLUMN))
-							.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
-							.viewCount(rs.getInt(Work.VIEW_COLUMN))
-							.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
-				works.add( w );
+			switch( criteria ) {
+				case PROPOSAL:
+					query += "`proposals`";
+					break;
+				case HOME:
+					query += "`Home Page`";
+					break;
+				default:
+						throw new IllegalArgumentException();
 			}
-		} catch(SQLException se) {
-			se.printStackTrace();
+			
+			ArrayList<Work> works = new ArrayList<Work>();
+			
+			try {
+				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				ResultSet rs = ps.executeQuery();
+				
+				while( rs.next() ) {
+					Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+								.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
+								.description(rs.getString(Work.DESC_COLUMN))
+								.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
+								.viewCount(rs.getInt(Work.VIEW_COLUMN))
+								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
+					works.add( w );
+				}
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+			
+			return works.iterator();
 		}
 		
-		return works.iterator();
-	}
+	public static Work get( String title, String classification )
+			throws IllegalArgumentException {
+			String query = "SELECT * FROM `All Works` WHERE title = ? AND class = ?";
+			
+			try {
+				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				ps.setString( 1, title );
+				ps.setString( 2, classification );
+				ResultSet rs = ps.executeQuery();
+				
+				if( rs.next() ) {
+					return new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+								.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
+								.description(rs.getString(Work.DESC_COLUMN))
+								.rating(rs.getDouble(Work.RATING_COLUMN) )
+								.viewCount(rs.getInt(Work.VIEW_COLUMN))
+								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
+				}
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+			
+			return null;
+		}
+		
+		public static int getRatingCount( String title, String classification )
+			throws IllegalArgumentException {
+			String query = "SELECT COUNT(rating) ratings FROM rating WHERE title = ? AND titleclass = ?";
+			
+			try {
+				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				ps.setString( 1, title );
+				ps.setString( 2, classification );
+				ResultSet rs = ps.executeQuery();
+				
+				if( rs.next() ) {
+					return rs.getInt("ratings");
+				}
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+			
+			return 0;
+		}
 	
 	public static int getCount(int criteria)
 			throws IllegalArgumentException {

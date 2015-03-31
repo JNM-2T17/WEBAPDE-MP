@@ -21,6 +21,14 @@
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>Work</servlet-name>
+    <servlet-class>com.themmt.controller.WorkServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Work</servlet-name>
+    <url-pattern>/work</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>com.themmt.controller.LoginServlet</servlet-class>
   </servlet>

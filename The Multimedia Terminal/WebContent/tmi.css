@@ -281,8 +281,8 @@ div#screenshots {
 }
 
 div#screenshots img {
-	width:600px;
-	height:338px;
+	min-height:338px;
+	max-width:600px;
 }
 
 div.workSection {
