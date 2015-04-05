@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `tmi` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `tmi`;
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: tmi
 -- ------------------------------------------------------
--- Server version	5.6.23-log
+-- Server version	5.6.22-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -65,34 +67,35 @@ INSERT INTO `album` VALUES ('Hybrid Theory','album'),('Save Rock and Roll','albu
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `all works`
+-- Temporary table structure for view `all works`
 --
 
 DROP TABLE IF EXISTS `all works`;
 /*!50001 DROP VIEW IF EXISTS `all works`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `all works` AS SELECT 
- 1 AS `title`,
- 1 AS `Created By`,
- 1 AS `description`,
- 1 AS `class`,
- 1 AS `cover`,
- 1 AS `rating`,
- 1 AS `releaseYear`,
- 1 AS `viewCount`,
- 1 AS `isVerified`,
- 1 AS `network`,
- 1 AS `studio`,
- 1 AS `publisher`,
- 1 AS `wordcount`,
- 1 AS `datePremiered`,
- 1 AS `Graphic Novel Illustrator`,
- 1 AS `Comic/Manga Illustrator`,
- 1 AS `URL`,
- 1 AS `org`,
- 1 AS `album`,
- 1 AS `recordingStudio`*/;
+/*!50001 CREATE TABLE `all works` (
+  `title` tinyint NOT NULL,
+  `Created By` tinyint NOT NULL,
+  `description` tinyint NOT NULL,
+  `class` tinyint NOT NULL,
+  `cover` tinyint NOT NULL,
+  `rating` tinyint NOT NULL,
+  `releaseYear` tinyint NOT NULL,
+  `viewCount` tinyint NOT NULL,
+  `isVerified` tinyint NOT NULL,
+  `network` tinyint NOT NULL,
+  `studio` tinyint NOT NULL,
+  `publisher` tinyint NOT NULL,
+  `wordcount` tinyint NOT NULL,
+  `datePremiered` tinyint NOT NULL,
+  `Graphic Novel Illustrator` tinyint NOT NULL,
+  `Comic/Manga Illustrator` tinyint NOT NULL,
+  `URL` tinyint NOT NULL,
+  `org` tinyint NOT NULL,
+  `album` tinyint NOT NULL,
+  `recordingStudio` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -310,16 +313,17 @@ INSERT INTO `episode` VALUES ('Better Call Saul',1,2,'Mijo',NULL,'television'),(
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `episodes`
+-- Temporary table structure for view `episodes`
 --
 
 DROP TABLE IF EXISTS `episodes`;
 /*!50001 DROP VIEW IF EXISTS `episodes`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `episodes` AS SELECT 
- 1 AS `title`,
- 1 AS `Episode Count`*/;
+/*!50001 CREATE TABLE `episodes` (
+  `title` tinyint NOT NULL,
+  `Episode Count` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -363,6 +367,7 @@ CREATE TABLE `genre` (
   `isVerified` tinyint(1) NOT NULL DEFAULT '0',
   `workclass` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`genre`,`work`),
+  KEY `genrefk_1` (`work`,`workclass`),
   CONSTRAINT `genrefk_1` FOREIGN KEY (`work`, `workclass`) REFERENCES `work` (`title`, `class`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -406,34 +411,35 @@ INSERT INTO `graphicnovel` VALUES ('The Killing Joke',NULL,'graphic novel'),('V 
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `home page`
+-- Temporary table structure for view `home page`
 --
 
 DROP TABLE IF EXISTS `home page`;
 /*!50001 DROP VIEW IF EXISTS `home page`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `home page` AS SELECT 
- 1 AS `title`,
- 1 AS `Created By`,
- 1 AS `description`,
- 1 AS `class`,
- 1 AS `rating`,
- 1 AS `cover`,
- 1 AS `releaseYear`,
- 1 AS `viewCount`,
- 1 AS `isVerified`,
- 1 AS `network`,
- 1 AS `studio`,
- 1 AS `publisher`,
- 1 AS `wordcount`,
- 1 AS `datePremiered`,
- 1 AS `Graphic Novel Illustrator`,
- 1 AS `Comic/Manga Illustrator`,
- 1 AS `URL`,
- 1 AS `org`,
- 1 AS `album`,
- 1 AS `recordingStudio`*/;
+/*!50001 CREATE TABLE `home page` (
+  `title` tinyint NOT NULL,
+  `Created By` tinyint NOT NULL,
+  `description` tinyint NOT NULL,
+  `class` tinyint NOT NULL,
+  `rating` tinyint NOT NULL,
+  `cover` tinyint NOT NULL,
+  `releaseYear` tinyint NOT NULL,
+  `viewCount` tinyint NOT NULL,
+  `isVerified` tinyint NOT NULL,
+  `network` tinyint NOT NULL,
+  `studio` tinyint NOT NULL,
+  `publisher` tinyint NOT NULL,
+  `wordcount` tinyint NOT NULL,
+  `datePremiered` tinyint NOT NULL,
+  `Graphic Novel Illustrator` tinyint NOT NULL,
+  `Comic/Manga Illustrator` tinyint NOT NULL,
+  `URL` tinyint NOT NULL,
+  `org` tinyint NOT NULL,
+  `album` tinyint NOT NULL,
+  `recordingStudio` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -519,33 +525,34 @@ INSERT INTO `music` VALUES ('Crawling','Hybrid Theory','Warner Brothers','music'
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `proposals`
+-- Temporary table structure for view `proposals`
 --
 
 DROP TABLE IF EXISTS `proposals`;
 /*!50001 DROP VIEW IF EXISTS `proposals`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `proposals` AS SELECT 
- 1 AS `title`,
- 1 AS `Created By`,
- 1 AS `description`,
- 1 AS `cover`,
- 1 AS `isVerified`,
- 1 AS `class`,
- 1 AS `releaseYear`,
- 1 AS `viewCount`,
- 1 AS `network`,
- 1 AS `studio`,
- 1 AS `publisher`,
- 1 AS `wordcount`,
- 1 AS `datePremiered`,
- 1 AS `Graphic Novel Illustrator`,
- 1 AS `Comic/Manga Illustrator`,
- 1 AS `URL`,
- 1 AS `org`,
- 1 AS `album`,
- 1 AS `recordingStudio`*/;
+/*!50001 CREATE TABLE `proposals` (
+  `title` tinyint NOT NULL,
+  `Created By` tinyint NOT NULL,
+  `description` tinyint NOT NULL,
+  `cover` tinyint NOT NULL,
+  `isVerified` tinyint NOT NULL,
+  `class` tinyint NOT NULL,
+  `releaseYear` tinyint NOT NULL,
+  `viewCount` tinyint NOT NULL,
+  `network` tinyint NOT NULL,
+  `studio` tinyint NOT NULL,
+  `publisher` tinyint NOT NULL,
+  `wordcount` tinyint NOT NULL,
+  `datePremiered` tinyint NOT NULL,
+  `Graphic Novel Illustrator` tinyint NOT NULL,
+  `Comic/Manga Illustrator` tinyint NOT NULL,
+  `URL` tinyint NOT NULL,
+  `org` tinyint NOT NULL,
+  `album` tinyint NOT NULL,
+  `recordingStudio` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -609,6 +616,27 @@ LOCK TABLES `recommendation` WRITE;
 INSERT INTO `recommendation` VALUES ('Viola','Bodacious Space Pirates','Interstellar',1,'animation','movie'),('RAFernandez','Crawling','In the End',1,'music','music'),('RAFernandez','In the End','Crawling',1,'music','music'),('RAFernandez','Interstellar','Mass Effect 3',1,'movie','video game'),('Viola','Interstellar','Bodacious Space Pirates',1,'movie','animation'),('RAFernandez','Mass Effect 3','Interstellar',1,'video game','movie');
 /*!40000 ALTER TABLE `recommendation` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `recommendations`
+--
+
+DROP TABLE IF EXISTS `recommendations`;
+/*!50001 DROP VIEW IF EXISTS `recommendations`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `recommendations` (
+  `title` tinyint NOT NULL,
+  `createdBy` tinyint NOT NULL,
+  `recommendationFrom` tinyint NOT NULL,
+  `description` tinyint NOT NULL,
+  `classification` tinyint NOT NULL,
+  `cover` tinyint NOT NULL,
+  `rating` tinyint NOT NULL,
+  `releaseYear` tinyint NOT NULL,
+  `RecCtr` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `review`
@@ -691,6 +719,27 @@ LOCK TABLES `theater` WRITE;
 INSERT INTO `theater` VALUES ('Jesus Christ Superstar','1970-05-11','theater');
 /*!40000 ALTER TABLE `theater` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `unrecommendations`
+--
+
+DROP TABLE IF EXISTS `unrecommendations`;
+/*!50001 DROP VIEW IF EXISTS `unrecommendations`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `unrecommendations` (
+  `title` tinyint NOT NULL,
+  `createdBy` tinyint NOT NULL,
+  `unrecommendationFrom` tinyint NOT NULL,
+  `description` tinyint NOT NULL,
+  `classification` tinyint NOT NULL,
+  `cover` tinyint NOT NULL,
+  `rating` tinyint NOT NULL,
+  `releaseYear` tinyint NOT NULL,
+  `unRecCtr` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `user`
@@ -838,6 +887,7 @@ UNLOCK TABLES;
 -- Final view structure for view `all works`
 --
 
+/*!50001 DROP TABLE IF EXISTS `all works`*/;
 /*!50001 DROP VIEW IF EXISTS `all works`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -856,6 +906,7 @@ UNLOCK TABLES;
 -- Final view structure for view `episodes`
 --
 
+/*!50001 DROP TABLE IF EXISTS `episodes`*/;
 /*!50001 DROP VIEW IF EXISTS `episodes`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -874,6 +925,7 @@ UNLOCK TABLES;
 -- Final view structure for view `home page`
 --
 
+/*!50001 DROP TABLE IF EXISTS `home page`*/;
 /*!50001 DROP VIEW IF EXISTS `home page`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -892,6 +944,7 @@ UNLOCK TABLES;
 -- Final view structure for view `proposals`
 --
 
+/*!50001 DROP TABLE IF EXISTS `proposals`*/;
 /*!50001 DROP VIEW IF EXISTS `proposals`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -905,6 +958,44 @@ UNLOCK TABLES;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `recommendations`
+--
+
+/*!50001 DROP TABLE IF EXISTS `recommendations`*/;
+/*!50001 DROP VIEW IF EXISTS `recommendations`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `recommendations` AS select `w`.`title` AS `title`,`wc2`.`name` AS `createdBy`,`re`.`workFrom` AS `recommendationFrom`,`w`.`description` AS `description`,`w`.`class` AS `classification`,`w`.`cover` AS `cover`,ifnull(avg(`r`.`rating`),0) AS `rating`,`w`.`releaseYear` AS `releaseYear`,count(`re`.`workFrom`) AS `RecCtr` from (((`work` `w` left join `workcreator` `wc2` on(((`w`.`title` = `wc2`.`title`) and (`wc2`.`isMain` = 1)))) left join `rating` `r` on((`w`.`title` = `r`.`title`))) join `recommendation` `re`) where ((`w`.`title` = `re`.`workTo`) and (`re`.`isRec` = 1)) group by `w`.`title`,`re`.`workFrom` order by `w`.`viewCount` desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `unrecommendations`
+--
+
+/*!50001 DROP TABLE IF EXISTS `unrecommendations`*/;
+/*!50001 DROP VIEW IF EXISTS `unrecommendations`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `unrecommendations` AS select `w`.`title` AS `title`,`wc2`.`name` AS `createdBy`,`re`.`workFrom` AS `unrecommendationFrom`,`w`.`description` AS `description`,`w`.`class` AS `classification`,`w`.`cover` AS `cover`,ifnull(avg(`r`.`rating`),0) AS `rating`,`w`.`releaseYear` AS `releaseYear`,count(`re`.`workFrom`) AS `unRecCtr` from (((`work` `w` left join `workcreator` `wc2` on(((`w`.`title` = `wc2`.`title`) and (`wc2`.`isMain` = 1)))) left join `rating` `r` on((`w`.`title` = `r`.`title`))) join `recommendation` `re`) where ((`w`.`title` = `re`.`workTo`) and (`re`.`isRec` = 0)) group by `w`.`title`,`re`.`workFrom` order by `w`.`viewCount` desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -915,4 +1006,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-28  5:21:05
+-- Dump completed on 2015-04-05  9:49:46
