@@ -18,8 +18,8 @@
 				var active = $("#searchMedia");
 				var filter = $("li#media");
 				
-				$("#homeaddWork").click(function() {
-					setLoc("#");
+				$("#homeLink").click(function() {
+					setLoc("start");
 				});
 				
 				$("span#searchBar img").click(function() {

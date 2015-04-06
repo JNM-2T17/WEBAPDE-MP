@@ -12,7 +12,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("index.jsp");
+					setLoc("start");
 				});
 				
 				$("span#searchBar img").click(function() {
