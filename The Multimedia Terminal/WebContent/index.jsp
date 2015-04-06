@@ -84,7 +84,7 @@
 			df.setMaximumFractionDigits(2);
 			df.setMinimumFractionDigits(2);
 		%>
-		<jsp:include page="header.html" />
+		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<%Iterator itr = (Iterator)request.getSession().getAttribute("home"); %>
 			<h1>Trending</h1>

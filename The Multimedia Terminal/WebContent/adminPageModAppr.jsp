@@ -11,7 +11,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("index.html");
+					setLoc("index.jsp");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -21,9 +21,9 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="header.html" />
+		<jsp:include page="header.jsp" />
 		<div id="mainContent">
-			<form action='index.html'>
+			<form action='index.jsp'>
 				<h1>Page Modification Proposal</h1>
 				<div class="orangeLine"></div><br /><br />
 				<div class="proposeTop">

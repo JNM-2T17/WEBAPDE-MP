@@ -19,7 +19,7 @@
 				var filter = $("li#media");
 				
 				$("#homeLink").click(function() {
-					setLoc("index.html");
+					setLoc("index.jsp");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -73,7 +73,7 @@
 			df.setMaximumFractionDigits(2);
 			df.setMinimumFractionDigits(2);
 		%>
-		<jsp:include page="header.html" />
+		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<h1>Search</h1>
 			<ul id="filterMenu">

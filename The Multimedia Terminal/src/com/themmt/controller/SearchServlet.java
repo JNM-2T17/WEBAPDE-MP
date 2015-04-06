@@ -35,6 +35,7 @@ public class SearchServlet extends HttpServlet {
 		request.getSession().setAttribute("search2",WorkDAO.search(searchStr, WorkDAO.ALL,WorkDAO.RATING));
 		request.getSession().setAttribute("search3",WorkDAO.search(searchStr, WorkDAO.ALL,WorkDAO.DATE));
 		RequestDispatcher rd = request.getRequestDispatcher("search.jsp");
+
 		rd.forward(request,response);
 	}
 

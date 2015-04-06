@@ -58,7 +58,7 @@
 	</head>
 	<body>
 		<%Iterator itr = (Iterator)request.getSession().getAttribute("proposal0"); %>
-		<jsp:include page="header.html" />
+		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<h1 class="info">Work Proposals</h1>
 			<ul id="filterMenu">
