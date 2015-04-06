@@ -10,6 +10,7 @@ public class User {
 	public static final String PROFPIC_COLUMN = "profpic";
 	public static final String DESCRIPTION_COLUMN = "description";
 	public static final String FLAG_COLUMN = "isFlagged";
+	public static final String ADMIN_COLUMN = "adminName";
 	
 	private String username;
 	private String fname;
@@ -20,7 +21,16 @@ public class User {
 	private String profpic;
 	private String description;
 	private boolean flagged;
+	private boolean isAdmin;
 	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public User() {
 		super();
 	}
@@ -38,6 +48,7 @@ public class User {
 		this.profpic = profpic;
 		this.description = description;
 		this.flagged = flagged;
+		this.isAdmin= false;
 	}
 	
 	public String getUsername() {

@@ -10,16 +10,16 @@
 			$(document).ready(function() {
 				randomizeLogo();
 				
-				$("#searchGenre").hide();
-				$("#searchAlphabetical").hide();
-				$("#searchRating").hide();
-				$("#searchDate").hide();
+				$("#favGenre").hide();
+				$("#favAlphabetical").hide();
+				$("#favRating").hide();
+				$("#favDate").hide();
 				
-				var active = $("#searchMedia");
+				var active = $("#favMedia");
 				var filter = $("li#media");
 				
-				$("#homeaddWork").click(function() {
-					setLoc("#");
+				$("#homeLink").click(function() {
+					setLoc("index.jsp");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -29,61 +29,55 @@
 				$("li#media").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchMedia" ) {
+					if( active.attr("id") != "favMedia" ) {
 						active.hide();
-						active = $("#searchMedia").show();
+						active = $("#favMedia").show();
 					}
 				});
 				
 				$("li#genre").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchGenre" ) {
+					if( active.attr("id") != "favGenre" ) {
 						active.hide();
-						active = $("#searchGenre").show();
+						active = $("#favGenre").show();
 					}
 				});
 				
 				$("li#alphabetical").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchAlphabetical" ) {
+					if( active.attr("id") != "favAlphabetical" ) {
 						active.hide();
-						active = $("#searchAlphabetical").show();
+						active = $("#favAlphabetical").show();
 					}
 				});
 				
 				$("li#rating").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchRating" ) {
+					if( active.attr("id") != "favRating" ) {
 						active.hide();
-						active = $("#searchRating").show();
+						active = $("#favRating").show();
 					}
 				});
 				
 				$("li#date").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchDate" ) {
+					if( active.attr("id") != "favDate" ) {
 						active.hide();
-						active = $("#searchDate").show();
+						active = $("#favDate").show();
 					}
-				});
-				
-				$("div[class$=\"Work\"]").click(function() {
-					var str = $(this).attr('class');
-					str.substring(0,str.length - 4) == "add" ? 
-					toggleRec( $(this), true ).text('Unrecommended') : 
-					toggleRec( $(this), false ).text('Add');
 				});
 			});
 		</script>
 	</head>
 	<body>
-		<jsp:include page="header.jsp" />
+	<jsp:include page="header.jsp" />
 		<div id="mainContent">
-		<ul id="filterMenu">
+			<h1 class="info">Favorites</h1>
+			<ul id="filterMenu">
 				<li id="filterLabel">Filter By: </li>
 				<li id="media" class="filterCritActive">Media</li>
 				<li id="genre" class="filterCritInactive">Genre</li>
@@ -91,14 +85,11 @@
 				<li id="rating" class="filterCritInactive">Rating</li>
 				<li id="date" class="filterCritInactive">Date</li>
 			</ul> <!--  end of filterMenu -->
-			<div class = "recoHead" align = "center">
-				<h1>Unrecommend For: <%=request.getParameter("title")%></h1>
-			</div><!-- end of recoHead -->
-			<div id="searchMedia" class="searchContent">
+			<div id="favMedia" class="favContent">
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="movie.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Movie</span>
 					<div class="rating">
@@ -116,8 +107,8 @@
 				<div class = "orangeLine"></div><br />
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="game.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Game X2</span>
 					<div class="rating">
@@ -135,8 +126,8 @@
 				<div class = "orangeLine"></div><br />
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="anime.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Shingeki no Potato</span>
 					<div class="rating">
@@ -154,8 +145,8 @@
 				<div class = "orangeLine"></div><br />
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="book.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
@@ -170,12 +161,12 @@
 						<p>Created by: Charles Potato</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-			</div> <!-- end of searchMedia -->
-			<div id="searchGenre" class="searchContent">
+			</div> <!-- end of favMedia -->
+			<div id="favGenre" class="favContent">
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="movie.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Movie</span>
 					<div class="rating">
@@ -193,8 +184,8 @@
 				<div class = "orangeLine"></div><br />
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="game.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Game X2</span>
 					<div class="rating">
@@ -211,8 +202,8 @@
 				</div> <!-- end of work -->
 								<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="book.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
@@ -230,8 +221,8 @@
 				<div class = "orangeLine"></div><br />
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="anime.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Shingeki no Potato</span>
 					<div class="rating">
@@ -246,12 +237,12 @@
 						<p>Created by: Potato Urobutchi</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-			</div> <!-- end of searchGenre -->
-			<div id="searchAlphabetical" class="searchContent">
+			</div> <!-- end of favGenre -->
+			<div id="favAlphabetical" class="favContent">
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="book.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
@@ -268,8 +259,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="anime.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Shingeki no Potato</span>
 					<div class="rating">
@@ -286,8 +277,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="game.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Game X2</span>
 					<div class="rating">
@@ -304,8 +295,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="movie.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Movie</span>
 					<div class="rating">
@@ -320,12 +311,12 @@
 						<p>Written by: A Potato</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-			</div> <!-- end of searchAlphabetical -->
-			<div id="searchRating" class="searchContent">
+			</div> <!-- end of favAlphabetical -->
+			<div id="favRating" class="favContent">
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="book.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
@@ -342,8 +333,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="movie.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Movie</span>
 					<div class="rating">
@@ -360,8 +351,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="anime.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Shingeki no Potato</span>
 					<div class="rating">
@@ -378,8 +369,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="game.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Game X2</span>
 					<div class="rating">
@@ -394,12 +385,12 @@
 						<p>Developed by: PotatoSoft</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-			</div> <!-- end of searchRating -->
-			<div id="searchDate" class="searchContent">
+			</div> <!-- end of favRating -->
+			<div id="favDate" class="favContent">
 			<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="game.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Game X2</span>
 					<div class="rating">
@@ -416,8 +407,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="book.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>A Tale of Two Potatoes</span>
 					<div class="rating">
@@ -434,8 +425,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="movie.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Tomato Movie</span>
 					<div class="rating">
@@ -452,8 +443,8 @@
 				</div> <!-- end of work -->
 				<div class="work">
 					<div class="img"><img src="Website Assets/blank.png" /></div>
-					<div class="addWork">
-						<p>Add</p>
+					<div class="link">
+						<a href="anime.html">Tell Me More</a>
 					</div> <!-- end of link -->
 					<span>Shingeki no Potato</span>
 					<div class="rating">
@@ -468,7 +459,7 @@
 						<p>Created by: Potato Urobutchi</p>
 					</div> <!-- end of description -->
 				</div> <!-- end of work -->
-			</div> <!-- end of searchDate -->
+			</div> <!-- end of favDate -->
 		</div> <!-- end of mainContent -->
 	</body>
 </html>

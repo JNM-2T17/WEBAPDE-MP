@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		if( (Boolean)request.getSession().getAttribute("registered") ) {
 			User u = (User)(request.getSession().getAttribute("user"));
 			request.getSession().setAttribute("username", u.getUsername() );
@@ -48,7 +49,10 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		if(UserDAO.isMatch(username, password)) {
-				request.getRequestDispatcher("start").forward(request, response);
+			request.getSession().setAttribute("username", username);
+			request.getSession().setAttribute("isAdmin", UserDAO.isAdmin(username));
+			request.getRequestDispatcher("start").forward(request, response);
+
 		} else {
 			request.getSession().setAttribute("fail", true);
 			request.getSession().setAttribute("username", username);

@@ -11,7 +11,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("index.html");
+					setLoc("index.jsp");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -70,13 +70,13 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="header.html" />
+		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<h1>Write a Review</h1>
 			<div class="orangeLine"></div>
 			<h1><%=request.getParameter("title")%></h1>
 			<div id="reviewSpace">
-				<form action="index.html" id="reviewForm">
+				<form action="index.jsp" id="reviewForm">
 					<span id="reviewTitle">Title:&nbsp;</span>
 					<input type="text" id="reviewTitle" class="formField reviewField" name="t" /><br />
 					<div id="reviewRating">
