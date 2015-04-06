@@ -23,7 +23,7 @@
 				<%}%>
 				
 				$("#homeLink").click(function() {
-					setLoc("index.jsp");
+					setLoc("index.html");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -51,7 +51,7 @@
 		</script>
 	</head>
 	<body>
-	<jsp:include page="header.jsp" />		
+	<jsp:include page="header.html" />		
 	<div id="mainContent">
 			<form action='register' method='post' onSubmit='return checkDesc() && checkPass();'>
 				<h1>User Registration</h1>

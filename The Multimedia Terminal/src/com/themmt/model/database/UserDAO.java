@@ -38,7 +38,7 @@ public class UserDAO {
 	
 	public static Iterator get()
 			throws IllegalArgumentException {
-		String query = "SELECT u.username, u.fname, u.lname, u.gender, u.email, u.password, u.profpic, u.description, u.isFlagged, a.username as adminName FROM user u LEFT JOIN admin a ON u.username = a.username;";
+		String query = "SELECT * FROM user";
 		ArrayList<User> users = new ArrayList<User>();
 		
 		try {
@@ -51,11 +51,6 @@ public class UserDAO {
 						rs.getString(User.EMAIL_COLUMN),rs.getString(User.PASSWORD_COLUMN), 
 						rs.getString(User.PROFPIC_COLUMN),rs.getString(User.DESCRIPTION_COLUMN),
 						rs.getBoolean(User.FLAG_COLUMN));
-
-				if(rs.getString(User.ADMIN_COLUMN)!=null){
-					u.setAdmin(true);
-				}
-
 				users.add(u);
 			}
 		} catch(SQLException se) {
@@ -66,35 +61,21 @@ public class UserDAO {
 	}
 	
 	public static Boolean isMatch(String username, String password) {
-
-		Iterator iterator = UserDAO.get();
-
-		while(iterator.hasNext()) {
-			User temp = (User)iterator.next();
-
-			if(temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
-				return true;
+				
+			//cross the inputs against all values
+			Iterator iterator = UserDAO.get();
+			
+			while(iterator.hasNext()) {
+				User temp = (User)iterator.next();
+				
+				if(temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
+					return true;
+				}
 			}
-		}
-
-		return false;
+			
+			return false;
 	}
+
 	
-	
-
-	public static Boolean isAdmin(String username) {
-		
-
-		Iterator iterator = UserDAO.get();
-
-		while(iterator.hasNext()) {
-			User temp = (User)iterator.next();
-			if(temp.getUsername().equals(username)){
-				return temp.isAdmin();
-			}
-		}
-
-		return false;
-}
 }
 	

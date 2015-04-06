@@ -15,7 +15,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("index.jsp");
+					setLoc("index.html");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -85,7 +85,7 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="header.html" />
 		<div id="mainContent">
 			<%if( w != null ) {%>
 			<h1><%=w.getTitle() + "(" + w.getReleaseYear() + " " + w.getClassification() + ")" %></h1>
@@ -165,21 +165,27 @@
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 				<div class="orangeLine"></div>
 			</div> <!-- end of workReview --> <br />
-			<div class="content" id="workReviewCont"><br />
-				<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />
-				<!-- <div class="review">
-					<span class="rating">
+			
+			<form action="WorkToReviewServlet" id="reviewForm">
+				<input type="hidden" value = "<%=w.getClassification()%>" name="titleclass" />
+				<input type="hidden" value = "<%=w.getTitle()%>" name="title" />
+				<div class="content" id="workReviewCont"><br />
+					<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />
+					<!-- <div class="review">
+						<span class="rating">
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
 						<img src="Website Assets/Filled Star.png" class="star" />
 					</span> <!-- end of rating --><!-- 
-					<b>Best Show Ever</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;April 3, 2012
-					<p>By Hamburger (USA)</p>
-					<p>Absolutely flawless. This anime is one of the greats.</p>
+						<b>Best Show Ever</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;April 3, 2012
+						<p>By Hamburger (USA)</p>
+						<p>Absolutely flawless. This anime is one of the greats.</p>
 				</div> <!-- end of review -->
 			</div> <!-- end of workReviewCont -->
+			</form>
+			
 			<div class="workSection" id="workRec" data-visible="false">
 				<span>Recommendations</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>

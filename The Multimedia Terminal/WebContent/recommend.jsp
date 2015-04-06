@@ -81,7 +81,7 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="header.html" />
 		<div id="mainContent">
 			<ul id="filterMenu">
 				<li id="filterLabel">Filter By: </li>

@@ -13,7 +13,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("index.jsp");
+					setLoc("index.html");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -23,7 +23,7 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="header.html" />
 		<div id="mainContent">
 			<div class="info"><h1>Administator</h1></div>
 			
