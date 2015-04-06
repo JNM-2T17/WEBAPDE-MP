@@ -15,7 +15,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("index.html");
+					setLoc("start");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -85,7 +85,7 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="header.html" />
+		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<%if( w != null ) {%>
 			<h1><%=w.getTitle() + "(" + w.getReleaseYear() + " " + w.getClassification() + ")" %></h1>
