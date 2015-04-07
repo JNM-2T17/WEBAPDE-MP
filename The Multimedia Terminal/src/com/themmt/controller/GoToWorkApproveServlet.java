@@ -1,22 +1,23 @@
 package com.themmt.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class WorkToReviewServlet
+ * Servlet implementation class GoToWorkApproveServlet
  */
-public class WorkToReviewServlet extends HttpServlet {
+@WebServlet("/workApprove")
+public class GoToWorkApproveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WorkToReviewServlet() {
+    public GoToWorkApproveServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -25,24 +26,18 @@ public class WorkToReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getSession().setAttribute("titleclass", request.getParameter("titleclass"));
-		request.getSession().setAttribute("title", request.getParameter("title"));
-		
-		if (request.getSession().getAttribute("username") != null) {
-			request.getRequestDispatcher("review.jsp").forward(request, response);
-		}
-		else{
-			request.getRequestDispatcher("work.jsp").forward(request, response);
-		}
-		
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.getSession().setAttribute("title", request.getParameter("title"));
+		request.getSession().setAttribute("releaseYear", request.getParameter("releaseYear"));
+		request.getSession().setAttribute("description", request.getParameter("description"));
+		request.getSession().setAttribute("class", request.getParameter("class"));
+		request.getRequestDispatcher("adminWorkApproval.jsp").forward(request, response);
 	}
 
 }

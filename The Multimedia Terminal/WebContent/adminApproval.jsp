@@ -82,7 +82,14 @@
 						<p><%=w.getDescription()==null?"":w.getDescription()%></p>
 					</div> <!-- end of description -->
 					<div class="wideLink">
-						<a href="workApprove?t=<%=w.getTitle()%>">View</a>
+						<form action = "workApprove" method = "post">
+							<button class="orangeBox">View</button>
+							<input type="hidden" value = "<%=w.getTitle()%>" name="title" />
+							<input type="hidden" value = "<%=w.getReleaseYear()%>" name="releaseYear" />
+							<input type="hidden" value = "<%=w.getDescription()%>" name="description" />
+							<input type="hidden" value = "<%=w.getClassification()%>" name="class" />
+							
+						</form>
 					</div> <!-- end of link -->
 				</div> <!-- end of work -->
 				<%

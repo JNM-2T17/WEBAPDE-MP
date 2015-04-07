@@ -95,7 +95,9 @@
 					<textarea name="reviewContent" class="reviewField" name="rev"></textarea>
 					<div id="formButtons">
 						<input type="submit" class="orangeBox" />
+						<form action = "review.jsp">
 						<button class="orangeBox">Cancel</button>
+						</form>
 					</div>
 				</form>
 			</div>
