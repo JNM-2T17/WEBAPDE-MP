@@ -14,7 +14,7 @@ import com.themmt.model.Work;
 /**
  * Servlet implementation class WorkToReviewServlet
  */
-@WebServlet("/WorkToReviewServlet")
+@WebServlet("/review")
 public class WorkToReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

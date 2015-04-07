@@ -2,7 +2,6 @@ package com.themmt.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.themmt.model.Review;
-import com.themmt.model.database.ReviewDAO;
 import com.themmt.model.Rating;
+import com.themmt.model.Review;
 import com.themmt.model.database.RatingDAO;
+import com.themmt.model.database.ReviewDAO;
 
 /**
  * Servlet implementation class ReviewServlet
@@ -41,7 +40,7 @@ public class ReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
+		String username = request.getSession().getAttribute("username").toString();
 		String titleclass = request.getParameter("titleclass");
 		String review = request.getParameter("reviewContent");
 		String rating = request.getParameter("r");

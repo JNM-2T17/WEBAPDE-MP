@@ -166,7 +166,7 @@
 				<div class="orangeLine"></div>
 			</div> <!-- end of workReview --> <br />
 			
-			<form action="WorkToReviewServlet" id="reviewForm">
+			<form action="review" id="reviewForm">
 				<input type="hidden" value = "<%=w.getClassification()%>" name="titleclass" />
 				<input type="hidden" value = "<%=w.getTitle()%>" name="title" />
 				<div class="content" id="workReviewCont"><br />
