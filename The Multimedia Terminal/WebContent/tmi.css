@@ -25,6 +25,28 @@ div#homeLink {
 	cursor:pointer;
 }
 
+div#userinfo {
+	position: relative;
+    left: 633px;
+    top: 59px;
+    font-size:20px;
+    background-color:#EC6C25;
+    width:300px;
+    min-height:51px;
+    padding:4px 10px;
+    margin: 2px 0;
+    text-align:center;
+}
+
+img#logo {
+	margin: 2px 0;
+}
+
+div#userinfo a {
+    text-decoration:none;
+    color:white;
+}
+
 div#homeLink a {
 	color:white;
 	text-decoration:none;

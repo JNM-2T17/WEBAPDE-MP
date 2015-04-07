@@ -1,28 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <header>
-
-<style>	
-div#userinfo{
-position: relative;
-    left: 600px;
-    top: 25px;
-    font-size:20px;
-}
-</style>
 			<div id ="userinfo" > <%
 			 	if (session.getAttribute("username") != null) {
-			 %>
-			
-				Welcome <%if((Boolean)session.getAttribute("isAdmin")){%>
+			 %>			
+				Welcome, <%if((Boolean)session.getAttribute("isAdmin")){%>
 				Administrator
-				<% }%>
-				<%=session.getAttribute("username")%>!
+				<%}%>
+				<%=session.getAttribute("username")%>!<br />
 			<a href="logout"> Logout</a> <%
 			 	}else{
 			 %>
-
 						<a href="login" >Login</a>
 			 	 <%}%>
 			</div> 
