@@ -39,7 +39,7 @@ public class ApprovedWorkServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String pstmst = "UPDATE WORK SET isVerified=1 WHERE title=?;";
+		String pstmst = "UPDATE WORK SET isVerified=1 WHERE title = ?";
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);

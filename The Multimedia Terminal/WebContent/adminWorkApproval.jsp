@@ -25,7 +25,7 @@
 	<body>
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
-			<form action='approvedWork'>
+			<form action='approvedWork' method = "post">
 				<h1>Work Proposal</h1>
 				<div class="orangeLine"></div><br /><br />
 				<div class="proposeTop">
@@ -46,6 +46,8 @@
 					<div id="formButtons">
 						<input type="submit" class="orangeBox" value="Approve" />
 						<input type="hidden" value = "<%=request.getParameter("title")%>" name="title" />
+						<input type="hidden" value = "<%=request.getParameter("releaseYear")%>" name="releaseYear" />
+						<input type="hidden" value = "<%=request.getParameter("class")%>" name="class" />
 						<form action = "index.jsp">
 							<button class="orangeBox">Cancel</button>
 						</form>
