@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.themmt.model.Work,java.text.DecimalFormat" %>
+<%@ page import="com.themmt.model.Work,com.themmt.model.Recommendation,java.util.Iterator,java.text.DecimalFormat" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -108,50 +108,7 @@
 			</span> <!-- end of rating --><br />
 			<h4 id="ratingCtr"><%=rateCtr %> ratings</h4><br /><br />
 			<div id="screenshots"><img src="<%=w.getCover()==null?"Website Assets/Screenshots.png":w.getCover() %>" /></div><br />
-			<!--  div class="workSection" id="workGenres" data-visible="false">
-				<span>Genres</span>
-				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
-				<div class="orangeLine"></div>
-			</div> <!-- end of workGenres --> <!-- <br />
-			<div class="content" id="workGenresCont">
-				<div id="addGenre">
-					<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Add Genre
-				</div>
-				<div class="addList">
-					Action<span class="info">|</span>
-					Adventure<span class="info">|</span>
-					Thriller
-				</div>
-				<div id="genreForm">
-					<form name="genre" class="workAdd" id="genre" action="anime.html">
-						<input type="text" name="g" id="genre" />
-						<input type="submit" value="Add Genre" class="orangeBox">
-					</form>
-					<button id="cancelGenre" class="orangeBox">Cancel</button>
-				</div>
-			</div> <!-- end of workGenresCont --> <!-- 
-			<div class="workSection" id="workKeys" data-visible="false">
-				<span>Keywords</span>
-				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
-				<div class="orangeLine"></div>
-			</div> <!-- end of workKeys --> <br /><!-- 
-			<div class="content" id="workKeysCont">
-				<div id="addKey">
-					<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Add Keyword
-				</div>
-				<div class="addList">
-					Potatopher's Stone<span class="info">|</span>
-					Tomato Kaiju<span class="info">|</span>
-					Death
-				</div>
-				<div id="keyForm">
-					<form name="key" class="workAdd" id="key" action="anime.html">
-						<input type="text" name="k" id="key" />
-						<input type="submit" value="Add Keyword" class="orangeBox">
-					</form>
-					<button id="cancelKey" class="orangeBox">Cancel</button>
-				</div>
-			</div> <!-- end of workKeysCont --> 
+			
 			<div class="workSection" id="workDesc" data-visible="false">
 				<span>Description</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
@@ -171,18 +128,7 @@
 				<input type="hidden" value = "<%=w.getTitle()%>" name="title" />
 				<div class="content" id="workReviewCont"><br />
 					<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />
-					<!-- <div class="review">
-						<span class="rating">
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<img src="Website Assets/Filled Star.png" class="star" />
-					</span> <!-- end of rating --><!-- 
-						<b>Best Show Ever</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;April 3, 2012
-						<p>By Hamburger (USA)</p>
-						<p>Absolutely flawless. This anime is one of the greats.</p>
-				</div> <!-- end of review -->
+					
 			</div> <!-- end of workReviewCont -->
 			</form>
 			
@@ -192,8 +138,64 @@
 				<div class="orangeLine"></div>
 			</div> <!-- end of workRec -->
 			<div class="content" id="workRecCont">
-				<div id="reco">
+				<div id="reco" >
 					<h3>Recommended</h3>
+					
+					<%System.out.println("Eggs!!!!!!");
+				
+				Recommendation rec;
+				%>
+				
+				<%Iterator itr = (Iterator)request.getSession().getAttribute("recommendations"); %>
+				
+				<% 
+					while(itr.hasNext() ) {
+						Work rw= (Work)itr.next();
+						
+						System.out.println("Summoned: "+rw.getTitle());
+				
+
+		
+				%>
+				
+						<div class="work">
+						<%=rw.getTitle()%>
+						<div class="img"><img src="<%=rw.getCover() == null?"Website Assets/blank.png":rw.getCover()%>" /></div>
+						
+						
+						<div class="rating">
+						<%
+							int nx = (int)Math.round(rw.getRating());
+							int ix = 0;
+							for( ; ix < nx; ix++ ) { 
+						%>
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<%
+							}
+							for( ; ix < 5; ix++ ) {
+						%>
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<%
+							}
+						%>
+						<br /><%=rw.getRating() == 0 ? "No Rating" : df.format(rw.getRating())%>
+					</div> <!-- end of rating -->
+					
+						
+						
+						
+						</br>
+						<%=rw.getDescription()%>
+						<div class="link">
+						<a href="work?t=<%=rw.getTitle()%>&c=<%=rw.getClassification()%>">Tell Me More</a>
+					</div> <!-- end of link -->
+						</div>
+		
+					
+				<%
+	
+				} %>
+				
 					<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
 				</div> <!-- end of reco -->
 				<div id="unreco">

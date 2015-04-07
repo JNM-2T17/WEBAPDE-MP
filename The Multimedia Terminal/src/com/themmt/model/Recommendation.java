@@ -4,7 +4,9 @@ public class Recommendation {
 	public static final String TITLE_COLUMN = "title";
 	public static final String CREATEDBY_COLUMN = "createdBy";
 	public static final String RECOMMENDATIONTO_COLUMN = "recommendationTo";
+	public static final String RECOMMENDATIONTOCLASSIFICATION_COLUMN = "recommendationToClassification";
 	public static final String RECOMMENDATIONFROM_COLUMN = "recommendationFrom";
+	public static final String RECOMMENDATIONFROMCLASSIFICATION_COLUMN = "recommendationFromClassification";
 	public static final String ISREC_COLUMN = "isRec";
 	public static final String DESCRIPTION_COLUMN = "description";
 	public static final String CLASSIFICATION_COLUMN = "classification";
@@ -13,10 +15,13 @@ public class Recommendation {
 	public static final String RELEASEYEAR_COLUMN = "releaseYear";
 
 	
+
 	private String title;
 	private String createdBy;
 	private String recommendationTo;
+	private String recommendationToClassification;
 	private String recommendationFrom;
+	private String recommendationFromClassification;
 	private int isRec;
 	private String description;
 	private String classification;
@@ -24,20 +29,26 @@ public class Recommendation {
 	private float rating;
 	private int releaseYear;
 	
-	
-	public Recommendation() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getRecommendationFromClassification() {
+		return recommendationFromClassification;
 	}
+	public void setRecommendationFromClassification(
+			String recommendationFromClassification) {
+		this.recommendationFromClassification = recommendationFromClassification;
+	}
+
 	public Recommendation(String title, String createdBy,
-			String recommendationTo, String recommendationFrom, int isRec,
-			String description, String classification, String cover,
+			String recommendationTo, String recommendationToClassification,
+			String recommendationFrom, String recommendationFromClassification,
+			int isRec, String description, String classification, String cover,
 			float rating, int releaseYear) {
 		super();
 		this.title = title;
 		this.createdBy = createdBy;
 		this.recommendationTo = recommendationTo;
+		this.recommendationToClassification = recommendationToClassification;
 		this.recommendationFrom = recommendationFrom;
+		this.recommendationFromClassification = recommendationFromClassification;
 		this.isRec = isRec;
 		this.description = description;
 		this.classification = classification;
@@ -45,6 +56,11 @@ public class Recommendation {
 		this.rating = rating;
 		this.releaseYear = releaseYear;
 	}
+	public Recommendation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -134,6 +150,19 @@ public class Recommendation {
 	}
 	public static String getReleaseyearColumn() {
 		return RELEASEYEAR_COLUMN;
+	}
+	public String getRecommendationToClassification() {
+		return recommendationToClassification;
+	}
+	public void setRecommendationToClassification(
+			String recommendationToClassification) {
+		this.recommendationToClassification = recommendationToClassification;
+	}
+	public static String getRecommendationtoclassificationColumn() {
+		return RECOMMENDATIONTOCLASSIFICATION_COLUMN;
+	}
+	public static String getRecommendationfromclassificationColumn() {
+		return RECOMMENDATIONFROMCLASSIFICATION_COLUMN;
 	}
 	
 	
