@@ -1,20 +1,15 @@
 package com.themmt.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.themmt.model.Work;
-
 /**
  * Servlet implementation class WorkToReviewServlet
  */
-@WebServlet("/review")
 public class WorkToReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -76,7 +76,7 @@
 			<div class="orangeLine"></div>
 			<h1><%=request.getParameter("t")%></h1>
 			<div id="reviewSpace">
-				<form action="ReviewServlet" id="reviewForm" method = "post">
+				<form action="reviewServlet" id="reviewForm" method = "post">
 					<span id="reviewTitle">Title:&nbsp;</span>
 					<input type="text" id="reviewTitle" class="formField reviewField" name="t" /><br />
 					<div id="reviewRating">
