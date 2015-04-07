@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.themmt.model.Work;
+import com.themmt.model.database.RecommendationDAO;
 import com.themmt.model.database.WorkDAO;
 
 /**
@@ -30,8 +31,13 @@ public class WorkServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Work w = WorkDAO.get(request.getParameter("t"), request.getParameter("c") );
+		
+		//Hijack and insert crap here
+		
+		
 		int rateCtr = WorkDAO.getRatingCount(request.getParameter("t"), request.getParameter("c") );
 		request.getSession().setAttribute("work", w );
+		request.getSession().setAttribute("recommendations", RecommendationDAO.getRecommended(w.getTitle()));
 		request.getSession().setAttribute("rateCtr", rateCtr );
 		request.getRequestDispatcher("work.jsp").forward(request, response);
 	}
