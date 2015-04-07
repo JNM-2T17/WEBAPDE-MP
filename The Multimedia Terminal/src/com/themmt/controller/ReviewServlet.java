@@ -45,10 +45,11 @@ public class ReviewServlet extends HttpServlet {
 		String rating = request.getParameter("r");
 		String title = request.getParameter("reviewTitle");
 		boolean isFlagged = false;
+		String workTitle = request.getParameter("title");
 		
 		double ratingu = Double.parseDouble(rating);
 		
-		Rating r = new Rating(title, username, ratingu, titleclass);
+		Rating r = new Rating(username, workTitle, ratingu, titleclass);
 				
 		try {
 			System.out.println( r.getUsername() + " " + request.getSession().getAttribute("username").toString() );
@@ -59,7 +60,7 @@ public class ReviewServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		Review u = new Review(title, username, review, isFlagged, titleclass);
+		Review u = new Review(username, workTitle, review, isFlagged, titleclass);
 		
 		try { //try adding Review
 			ReviewDAO.add(u);
