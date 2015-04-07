@@ -4,24 +4,28 @@
 <header>
 
 <style>	
-span#userinfo{
-position: absolute;
-    left: 700px;
+div#userinfo{
+position: relative;
+    left: 600px;
     top: 25px;
+    font-size:20px;
 }
 </style>
-			<span id="userinfo"> <%
+			<div id ="userinfo" > <%
 			 	if (session.getAttribute("username") != null) {
 			 %>
 			
 				Welcome <%if((Boolean)session.getAttribute("isAdmin")){%>
 				Administrator
 				<% }%>
-				<%=session.getAttribute("username")%>! </br>
-			<a href="logout">Logout</a> <%
-			 	}
+				<%=session.getAttribute("username")%>!
+			<a href="logout"> Logout</a> <%
+			 	}else{
 			 %>
-			</span> 
+
+						<a href="login" >Login</a>
+			 	 <%}%>
+			</div> 
 			
 			<img id="logo" /><br />
 			<div id="homeLink"><a href="/The_Multimedia_Terminal">Home</a></div>
@@ -35,13 +39,8 @@ position: absolute;
 						<%if(session.getAttribute("username")!=null){%>				
 							<%if((Boolean)session.getAttribute("isAdmin")){%>
 								<li class="menuitem"><a href="admin">Admin</a></li>
-							<%}%>
+							<%}}%>
 							
-						
-						<%}else
-							{%>
-							<li class="menuitem"><a href="login">Login</a></li>
-							<%} %>
 						
 					</ul> <!-- end of menu -->
 					<span id="searchBar">
