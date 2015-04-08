@@ -158,7 +158,7 @@
 				
 				
 				<br>
-						<a href="review.jsp" id="writeRev">Write a Review</a><br />	
+						<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />		
 				
 				
 			</div> <!-- end of workReviewCont -->
