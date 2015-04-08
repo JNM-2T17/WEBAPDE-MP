@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.getSession().setAttribute("fail", false);
 		request.getSession().setAttribute("registered", false );
+		request.getSession().setAttribute("isAdmin", false);
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
