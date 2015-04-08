@@ -1,18 +1,14 @@
 package com.themmt.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.themmt.model.Review;
 import com.themmt.model.Work;
-import com.themmt.model.database.RecommendationLinkDAO;
-import com.themmt.model.database.ReviewDAO;
+import com.themmt.model.database.RecommendationDAO;
 import com.themmt.model.database.WorkDAO;
 
 /**
@@ -41,19 +37,8 @@ public class WorkServlet extends HttpServlet {
 		
 		int rateCtr = WorkDAO.getRatingCount(request.getParameter("t"), request.getParameter("c") );
 		request.getSession().setAttribute("work", w );
-		request.getSession().setAttribute("recommendations", RecommendationLinkDAO.getRecommended(w.getTitle()));
+		request.getSession().setAttribute("recommendations", RecommendationDAO.getRecommended(w.getTitle()));
 		request.getSession().setAttribute("rateCtr", rateCtr );
-		request.getSession().setAttribute("reviews",ReviewDAO.get() );
-		/*Iterator rev = ReviewDAO.get();
-		System.out.println(rev);
-		while(rev.hasNext())
-			{
-			Review tempura =(Review) rev.next();
-			System.out.println(tempura.getTitle());
-			}
-			*/
-		
-		
 		request.getRequestDispatcher("work.jsp").forward(request, response);
 	}
 

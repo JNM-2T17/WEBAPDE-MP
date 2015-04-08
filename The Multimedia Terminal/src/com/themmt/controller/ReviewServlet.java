@@ -39,25 +39,17 @@ public class ReviewServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		String username = request.getSession().getAttribute("username").toString();
 		String titleclass = request.getParameter("titleclass");
 		String review = request.getParameter("reviewContent");
 		String rating = request.getParameter("r");
 		String title = request.getParameter("reviewTitle");
 		boolean isFlagged = false;
+		String workTitle = request.getParameter("title");
+		
 		double ratingu = Double.parseDouble(rating);
 		
-		System.out.println("username: " +username);
-		System.out.println("titleclass: " +titleclass);
-		System.out.println("review: " +review);
-		System.out.println("rating: " +rating);
-		System.out.println("title: " +title);
-		System.out.println("isFlagged: " +isFlagged);
-
-
-		
-		Rating r = new Rating(title, username, ratingu, titleclass);
+		Rating r = new Rating(username, workTitle, ratingu, titleclass);
 				
 		try {
 			System.out.println( r.getUsername() + " " + request.getSession().getAttribute("username").toString() );
@@ -68,7 +60,7 @@ public class ReviewServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		Review u = new Review(title, username, review, isFlagged, titleclass);
+		Review u = new Review(username, workTitle, review, isFlagged, titleclass);
 		
 		try { //try adding Review
 			ReviewDAO.add(u);
@@ -76,11 +68,6 @@ public class ReviewServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		System.out.println("Bacon Bacon Bacon!");
-		
 	}
 
 }

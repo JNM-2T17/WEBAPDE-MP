@@ -6,28 +6,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.themmt.model.RecommendationLink;
+import com.themmt.model.Recommendation;
 import com.themmt.model.User;
 import com.themmt.model.Work;
 
-public class RecommendationLinkDAO {
+public class RecommendationDAO {
 	public static Iterator get()
 			throws IllegalArgumentException {
 		
 			int z=0;
 			String query = "SELECT * FROM tmi.recommendations;";
 
-						ArrayList<RecommendationLink> recommendations = new ArrayList<RecommendationLink>();
+						ArrayList<Recommendation> recommendations = new ArrayList<Recommendation>();
 			
 			try {
 				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
 				ResultSet rs = ps.executeQuery();
 		
 				while( rs.next() ) {
-					RecommendationLink r = new RecommendationLink(rs.getString(RecommendationLink.TITLE_COLUMN), rs.getString(RecommendationLink.CREATEDBY_COLUMN),
-							rs.getString(RecommendationLink.RECOMMENDATIONTO_COLUMN),rs.getString(RecommendationLink.RECOMMENDATIONTOCLASSIFICATION_COLUMN), rs.getString(RecommendationLink.RECOMMENDATIONFROM_COLUMN),rs.getString(RecommendationLink.RECOMMENDATIONFROMCLASSIFICATION_COLUMN),
-							rs.getInt(RecommendationLink.ISREC_COLUMN),rs.getString(RecommendationLink.DESCRIPTION_COLUMN), rs.getString(RecommendationLink.CLASSIFICATION_COLUMN),
-							rs.getString(RecommendationLink.COVER_COLUMN), rs.getFloat(RecommendationLink.RATING_COLUMN), rs.getInt(RecommendationLink.RELEASEYEAR_COLUMN));
+					Recommendation r = new Recommendation(rs.getString(Recommendation.TITLE_COLUMN), rs.getString(Recommendation.CREATEDBY_COLUMN),
+							rs.getString(Recommendation.RECOMMENDATIONTO_COLUMN),rs.getString(Recommendation.RECOMMENDATIONTOCLASSIFICATION_COLUMN), rs.getString(Recommendation.RECOMMENDATIONFROM_COLUMN),rs.getString(Recommendation.RECOMMENDATIONFROMCLASSIFICATION_COLUMN),
+							rs.getInt(Recommendation.ISREC_COLUMN),rs.getString(Recommendation.DESCRIPTION_COLUMN), rs.getString(Recommendation.CLASSIFICATION_COLUMN),
+							rs.getString(Recommendation.COVER_COLUMN), rs.getFloat(Recommendation.RATING_COLUMN), rs.getInt(Recommendation.RELEASEYEAR_COLUMN));
 							recommendations.add( r );
 				}
 			} catch(SQLException se) {
@@ -40,11 +40,11 @@ public class RecommendationLinkDAO {
 	
 	public static Iterator getRecommended( String workName)
 		{
-		Iterator iterator = RecommendationLinkDAO.get();
+		Iterator iterator = RecommendationDAO.get();
 		ArrayList<Work> works = new ArrayList<Work>();
 		
 		while(iterator.hasNext()) {
-			RecommendationLink temp = (RecommendationLink)iterator.next();
+			Recommendation temp = (Recommendation)iterator.next();
 			if(temp.getRecommendationTo()!=null)
 				{
 				if(temp.getTitle().equals(workName))
