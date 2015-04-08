@@ -17,6 +17,7 @@ public class ReviewDAO {
 	public static void add( Review review ) throws SQLException {
 		
 		//INSERT INTO `tmi`.`review` 
+		System.out.println("tried to add a review");
 		String stmt = "INSERT INTO review VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(stmt);

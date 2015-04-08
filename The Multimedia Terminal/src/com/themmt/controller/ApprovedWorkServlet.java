@@ -48,7 +48,7 @@ public class ApprovedWorkServlet extends HttpServlet {
 			//ps.setString(3, request.getParameter("class") );
 			ps.execute();
 			
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("start").forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

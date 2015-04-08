@@ -1,4 +1,4 @@
-CREATE VIEW `recommendations` AS 
+AlTER VIEW `recommendations` AS 
 	SELECT W.title AS title, WC2.name AS createdBy, RE.workFrom AS recommendationFrom, 
 		   W.description AS description, W.class AS classification, 
            W.cover AS cover, IFNULL(AVG(R.rating), 0) AS rating, 

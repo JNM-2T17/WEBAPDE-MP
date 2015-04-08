@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 
 		} else {
 			request.getSession().setAttribute("fail", true);
-			request.getSession().setAttribute("username", username);
+			//request.getSession().setAttribute("username", username);
 			request.getRequestDispatcher("login.jsp").forward(request, response);	
 		}
 	}

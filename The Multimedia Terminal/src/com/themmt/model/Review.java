@@ -13,7 +13,7 @@ public class Review {
 	private boolean isFlagged;
 	private String titleclass;
 	
-	public Review(String username, String title, String review, boolean isFlagged, String titleclass) {
+	public Review(String title, String username, String review, boolean isFlagged, String titleclass) {
 		this.title = title;
 		this.username = username;
 		this.review = review;

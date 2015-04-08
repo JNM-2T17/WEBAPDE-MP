@@ -11,7 +11,7 @@ public class Rating {
 	private double rating;
 	private String titleclass;
 	
-	public Rating(String username, String title, double rating, String titleclass) {
+	public Rating(String title, String username, double rating, String titleclass) {
 		this.title = title;
 		this.username = username;
 		this.rating = rating;

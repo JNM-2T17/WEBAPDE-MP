@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<%@ page import="com.themmt.model.Work"%>
 		<meta charset="ISO-8859-1">
 		<title>The Multimedia Terminal</title>
 		<link rel="stylesheet" href="tmi.css" />
@@ -74,7 +75,8 @@
 		<div id="mainContent">
 			<h1>Write a Review</h1>
 			<div class="orangeLine"></div>
-			<h1><%=request.getParameter("t")%></h1>
+			<%Work work = (Work)request.getSession().getAttribute("work");%>
+			<h1><%= work.getTitle()%></h1>
 			<div id="reviewSpace">
 				<form action="reviewServlet" id="reviewForm" method = "post">
 					<span id="reviewTitle">Title:&nbsp;</span>

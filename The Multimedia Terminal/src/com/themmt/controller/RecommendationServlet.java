@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.themmt.model.Recommendation;
-import com.themmt.model.database.RecommendationDAO;
+import com.themmt.model.RecommendationLink;
+import com.themmt.model.database.RecommendationLinkDAO;
 
 /**
  * Servlet implementation class RecommendationServlet
