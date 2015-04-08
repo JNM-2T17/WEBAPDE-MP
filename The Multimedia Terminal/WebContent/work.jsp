@@ -127,38 +127,30 @@
 				<input type="hidden" value = "<%=w.getClassification()%>" name="titleclass" />
 				<input type="hidden" value = "<%=w.getTitle()%>" name="title" />
 				<div class="content" id="workReviewCont"><br />
+				<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />
 					<%Iterator revItr = (Iterator)request.getSession().getAttribute("reviews"); %>
 				
 				
 				<% 
 					while(revItr.hasNext() ) {
 						Review rev= (Review)revItr.next();
-						if(rev.getUsername().equals(w.getTitle())){
-						System.out.println("Reviews of: "+rev.getUsername());
-
 				%>
-				<div>
+						<div class="review">
+							<span class="rating">
+								<%
+									for( i = 0; i < (int)rev.getRating(); i++) { %>	
+								<img src="Website Assets/Filled Star.png" class="star" />
+								<%} 
+									for( ; i < 5; i++ ) { %>
+								<img src="Website Assets/Empty Star.png" class="star" />
+								<%}%>
+							</span> <!-- end of rating --> 
+								<b><%=rev.getUsername()%></b>
+								<p><%=rev.getReview() %></p>
+						</div> <!-- end of review -->
+				<%}%>
 				<br>
-				<%=rev.getUsername()%>
-				
-				
-				<br>
-				<%=rev.getReview()%>
-				<br>
-				</div>
-						
-						
-						
-			
-				<%
-						}
-				} %>
-				
-						
-				
-				
-				<br>
-						<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />		
+								
 				
 				
 			</div> <!-- end of workReviewCont -->
@@ -172,20 +164,12 @@
 			<div class="content" id="workRecCont">
 				<div id="reco" >
 					<h3>Recommended</h3>
-					
-					<%System.out.println("Eggs!!!!!!");
-			
-				%>
-				
 				<%Iterator itr = (Iterator)request.getSession().getAttribute("recommendations"); %>
 				
 				<% 
 					while(itr.hasNext() ) {
 						Work rw= (Work)itr.next();
 						System.out.println("Summoned: "+rw.getTitle());
-				
-
-		
 				%>
 				
 						<div class="work">
@@ -210,22 +194,13 @@
 						%>
 						<br /><%=rw.getRating() == 0 ? "No Rating" : df.format(rw.getRating())%>
 					</div> <!-- end of rating -->
-					
-						
-						
-						
 						</br>
 						<%=rw.getDescription()%>
 						<div class="link">
 						<a href="work?t=<%=rw.getTitle()%>&c=<%=rw.getClassification()%>">Tell Me More</a>
 					</div> <!-- end of link -->
-						</div>
-		
-					
-				<%
-	
-				} %>
-				
+						</div>	
+					<%} %>	
 					<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
 				</div> <!-- end of reco -->
 				<div id="unreco">
@@ -235,7 +210,7 @@
 			</div> <!-- end of workRecContent -->
 			<%} else { %>
 			<h1>Work does not exist</h1>
-			<% }; %>
+			<% } %>
 		</div><!-- end of mainContent -->
 
 		

@@ -32,19 +32,21 @@ public class ReviewDAO {
 		}
 	}
 	
-	public static Iterator get()
+	public static Iterator get( String title, String classification )
 			throws IllegalArgumentException {
-		String query = "SELECT * FROM review";
+		String query = "SELECT Re.title, Re.titleclass, Re.username, Re.review,  Re.isFlagged, IFNULL(AVG(Ra.Rating),0) Rating FROM review RE LEFT JOIN rating RA ON RE.title = RA.title AND RE.titleclass = RA.titleclass AND RE.username = RA.username WHERE RE.title = ? AND Re.titleclass = ? GROUP BY Re.title, Re.titleclass, RE.username";
 		ArrayList<Review> reviews = new ArrayList<Review>();
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+			ps.setString( 1, title );
+			ps.setString( 2, classification );
 			ResultSet rs = ps.executeQuery();
 			
 			while( rs.next() ) {
 				Review u = new Review(rs.getString(Review.USERNAME_COLUMN),rs.getString(Review.TITLE_COLUMN),
 						rs.getString(Review.REVIEW_COLUMN),rs.getBoolean(Review.ISFLAGGED_COLUMN), 
-						rs.getString(Review.TITLECLASS_COLUMN));
+						rs.getString(Review.TITLECLASS_COLUMN), rs.getDouble(Review.RATING_COLUMN));
 				reviews.add(u);
 			}
 		} catch(SQLException se) {

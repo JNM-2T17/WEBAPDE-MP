@@ -43,7 +43,7 @@ public class WorkServlet extends HttpServlet {
 		request.getSession().setAttribute("work", w );
 		request.getSession().setAttribute("recommendations", RecommendationDAO.getRecommended(w.getTitle()));
 		request.getSession().setAttribute("rateCtr", rateCtr );
-		request.getSession().setAttribute("reviews",ReviewDAO.get() );
+		request.getSession().setAttribute("reviews",ReviewDAO.get(request.getParameter("t"), request.getParameter("c") ) );
 		/*Iterator rev = ReviewDAO.get();
 		System.out.println(rev);
 		while(rev.hasNext())

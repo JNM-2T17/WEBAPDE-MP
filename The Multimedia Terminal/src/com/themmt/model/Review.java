@@ -6,19 +6,30 @@ public class Review {
 	public static final String REVIEW_COLUMN = "review";
 	public static final String TITLECLASS_COLUMN = "titleclass";
 	public static final String ISFLAGGED_COLUMN = "isFlagged";
+	public static final String RATING_COLUMN = "Rating";
 	
 	private String title;
 	private String username;
 	private String review;
 	private boolean isFlagged;
 	private String titleclass;
+	private double rating;
 	
-	public Review(String username, String title, String review, boolean isFlagged, String titleclass) {
+	public Review(String username, String title, String review, boolean isFlagged, String titleclass, double rating) {
 		this.title = title;
 		this.username = username;
 		this.review = review;
 		this.isFlagged = isFlagged;
 		this.titleclass = titleclass;
+		this.rating = rating;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 
 	public String getReview() {

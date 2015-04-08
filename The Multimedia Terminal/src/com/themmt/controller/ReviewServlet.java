@@ -60,11 +60,11 @@ public class ReviewServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		Review u = new Review(username, workTitle, review, isFlagged, titleclass);
+		Review u = new Review(username, workTitle, review, isFlagged, titleclass, ratingu);
 		
 		try { //try adding Review
 			ReviewDAO.add(u);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("start").forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
