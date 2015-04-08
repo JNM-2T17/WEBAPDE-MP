@@ -19,7 +19,7 @@
 				$("#email").val('${sessionScope.email}');
 				$("#password").val('${sessionScope.password}');
 				$("#description").text('${sessionScope.description}');
-				alert( 'The username "${sessionScope.username}" is already taken.');
+				alert( 'The username "${sessionScope.uname}" is already taken.');
 				<%}%>
 				
 				$("#homeLink").click(function() {
