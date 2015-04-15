@@ -11,11 +11,11 @@ import com.themmt.model.User;
 import com.themmt.model.Work;
 
 public class RecommendationDAO {
-	public static Iterator get()
+	public static Iterator get(int isRec)
 			throws IllegalArgumentException {
 		
 			int z=0;
-			String query = "SELECT * FROM tmi.recommendations;";
+			String query = "SELECT * FROM tmi.recommendations Where isRec ="+isRec;
 
 						ArrayList<Recommendation> recommendations = new ArrayList<Recommendation>();
 			
@@ -40,7 +40,7 @@ public class RecommendationDAO {
 	
 	public static Iterator getRecommended( String workName)
 		{
-		Iterator iterator = RecommendationDAO.get();
+		Iterator iterator = RecommendationDAO.get(1);
 		ArrayList<Work> works = new ArrayList<Work>();
 		
 		while(iterator.hasNext()) {
@@ -59,6 +59,27 @@ public class RecommendationDAO {
 			}
 		return works.iterator();
 		}
+	public static Iterator getUnrecommended( String workName)
+	{
+	Iterator iterator = RecommendationDAO.get(0);
+	ArrayList<Work> works = new ArrayList<Work>();
+	
+	while(iterator.hasNext()) {
+		Recommendation temp = (Recommendation)iterator.next();
+		if(temp.getRecommendationTo()!=null)
+			{
+			if(temp.getTitle().equals(workName))
+				{
+				//System.out.println(temp.getTitle() + "recommends " + temp.getRecommendationTo()+" ("+temp.getRecommendationToClassification()  +")");
+				Work tempwork = WorkDAO.get(temp.getRecommendationTo(), temp.getRecommendationToClassification());
+				//System.out.println("What tempwork has bestowed: "+ tempwork.getTitle());
+				works.add(tempwork);
+				}
+
+			}
+		}
+	return works.iterator();
+	}
 
 	
 	

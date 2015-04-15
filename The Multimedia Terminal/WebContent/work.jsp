@@ -205,6 +205,48 @@
 				</div> <!-- end of reco -->
 				<div id="unreco">
 					<h3>Unrecommended</h3>
+					
+					
+					
+					<%itr = (Iterator)request.getSession().getAttribute("unrecommendations"); %>
+				
+				<% 
+					while(itr.hasNext() ) {
+						Work rw= (Work)itr.next();
+						System.out.println("Summoned: "+rw.getTitle());
+				%>
+				
+						<div class="work">
+						<%=rw.getTitle()%>
+						<div class="img"><img src="<%=rw.getCover() == null?"Website Assets/blank.png":rw.getCover()%>" /></div>
+						
+						
+						<div class="rating">
+						<%
+							int nx = (int)Math.round(rw.getRating());
+							int ix = 0;
+							for( ; ix < nx; ix++ ) { 
+						%>
+						<img src="Website Assets/Filled Star.png" class="star" />
+						<%
+							}
+							for( ; ix < 5; ix++ ) {
+						%>
+						<img src="Website Assets/Empty Star.png" class="star" />
+						<%
+							}
+						%>
+						<br /><%=rw.getRating() == 0 ? "No Rating" : df.format(rw.getRating())%>
+					</div> <!-- end of rating -->
+						</br>
+						<%=rw.getDescription()%>
+						<div class="link">
+						<a href="work?t=<%=rw.getTitle()%>&c=<%=rw.getClassification()%>">Tell Me More</a>
+					</div> <!-- end of link -->
+						</div>	
+					<%} %>	
+					
+					
 					<img src="Website Assets/Plus Sign.png" id="unrecommend"/> Make an Unrecommendation<br /><br />
 				</div> <!-- end of unreco -->
 			</div> <!-- end of workRecContent -->
