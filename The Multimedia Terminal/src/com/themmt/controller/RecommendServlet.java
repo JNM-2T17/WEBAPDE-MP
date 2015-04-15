@@ -1,28 +1,27 @@
 package com.themmt.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.themmt.model.Recommendation;
-import com.themmt.model.database.RecommendationDAO;
+import com.themmt.model.database.WorkDAO;
 
 /**
- * Servlet implementation class RecommendationServlet
+ * Servlet implementation class RecommendServlet
  */
-@WebServlet("/RecommendationServlet")
-public class RecommendationServlet extends HttpServlet {
+@WebServlet("/recommend")
+public class RecommendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecommendationServlet() {
+    public RecommendServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,6 +31,8 @@ public class RecommendationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
+		RequestDispatcher rd = request.getRequestDispatcher("recommend.jsp");
 	}
 
 	/**
@@ -39,8 +40,6 @@ public class RecommendationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-
 	}
 
 }

@@ -178,6 +178,7 @@
 						
 						
 						<div class="rating">
+						
 						<%
 							int nx = (int)Math.round(rw.getRating());
 							int ix = 0;

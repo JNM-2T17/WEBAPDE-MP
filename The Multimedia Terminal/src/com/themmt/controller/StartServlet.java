@@ -26,7 +26,6 @@ public class StartServlet extends HttpServlet {
     
     protected void initialize( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
     	request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
-    	
 		request.getRequestDispatcher("index.jsp").forward(request, response);
     }
     
