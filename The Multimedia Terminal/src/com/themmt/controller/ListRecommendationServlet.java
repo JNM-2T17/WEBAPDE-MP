@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.themmt.model.database.WorkDAO;
 
 /**
- * Servlet implementation class RecommendServlet
+ * Servlet implementation class ListRecommendationServlet
  */
 @WebServlet("/recommend")
-public class RecommendServlet extends HttpServlet {
+public class ListRecommendationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecommendServlet() {
+    public ListRecommendationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,8 +31,9 @@ public class RecommendServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("SearhRecommendation Servlet activated");
 		request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
-		RequestDispatcher rd = request.getRequestDispatcher("recommend.jsp");
+		request.getRequestDispatcher("recommendationSearch.jsp").forward(request, response);;
 	}
 
 	/**

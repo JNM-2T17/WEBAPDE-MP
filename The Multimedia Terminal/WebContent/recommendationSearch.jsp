@@ -87,7 +87,7 @@
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<%Iterator itr = (Iterator)request.getSession().getAttribute("home"); %>
-			<h1>Trending</h1>
+			<h1>Recommend a Work</h1>
 			<div id="trendingAll" class="trendingContent">
 				<% 
 					while(itr.hasNext() ) {
@@ -117,7 +117,10 @@
 						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->
 					<div class="link">
-						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
+						<a href="addRecommendation?workTo=<%=w.getTitle() %>&workToClass=<%=w.getClassification()%>&isRec=1">Recommend</a>
+						
+						
+						
 					</div> <!-- end of link -->
 				</div> <!-- end of work -->
 				<%

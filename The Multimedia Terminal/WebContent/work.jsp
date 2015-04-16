@@ -203,6 +203,7 @@
 						</div>	
 					<%} %>	
 					<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
+					
 				</div> <!-- end of reco -->
 				<div id="unreco">
 					<h3>Unrecommended</h3>
