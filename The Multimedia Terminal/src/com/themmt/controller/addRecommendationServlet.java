@@ -60,6 +60,7 @@ public class addRecommendationServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		request.getRequestDispatcher("start").forward(request, response);
 	}
 
 	/**

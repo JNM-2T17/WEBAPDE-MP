@@ -73,6 +73,20 @@
 					}
 				});
 			});
+			
+			
+			<%
+			
+			String pageName;
+			if(request.getParameter("isRec").equals("1"))
+					{
+					pageName ="Recommend";
+					}
+					else
+					{
+					pageName="Unrecommend";
+					}
+					%>
 		</script>
 		<%@page import="com.themmt.model.Work,java.util.Iterator,java.text.DecimalFormat" %>
 	</head>
@@ -87,7 +101,7 @@
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<%Iterator itr = (Iterator)request.getSession().getAttribute("home"); %>
-			<h1>Recommend a Work</h1>
+			<h1><%=pageName%> a Work</h1>
 			<div id="trendingAll" class="trendingContent">
 				<% 
 					while(itr.hasNext() ) {
@@ -117,7 +131,8 @@
 						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
 					</div> <!-- end of description -->
 					<div class="link">
-						<a href="addRecommendation?workTo=<%=w.getTitle() %>&workToClass=<%=w.getClassification()%>&isRec=1">Recommend</a>
+					
+						<a href="addRecommendation?workTo=<%=w.getTitle() %>&workToClass=<%=w.getClassification()%>&isRec=<%=request.getParameter("isRec")%>"><%=pageName%></a>
 						
 						
 						

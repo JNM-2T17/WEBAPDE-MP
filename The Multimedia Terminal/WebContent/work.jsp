@@ -79,8 +79,14 @@
 				%>
 				
 				$("img[id $= \"recommend\"]").click(function() {
-					setLoc($(this).attr("id") + "?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" );
+					setLoc("listRecommendations" + "?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>&isRec=1" );
 				});
+				
+				$("img[id $= \"unrecommend\"]").click(function() {
+					setLoc("listRecommendations" + "?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>&isRec=0" );
+				});
+				
+				
 			});
 		</script>
 	</head>
@@ -202,8 +208,13 @@
 					</div> <!-- end of link -->
 						</div>	
 					<%} %>	
-					<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
 					
+					<%if(session.getAttribute("username")!=null){%>
+					
+					<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
+					<%}else{ %>
+					Login first to recommend a work
+					<%} %>
 				</div> <!-- end of reco -->
 				<div id="unreco">
 					<h3>Unrecommended</h3>
@@ -249,7 +260,12 @@
 					<%} %>	
 					
 					
+					<%if(session.getAttribute("username")!=null){%>
+					
 					<img src="Website Assets/Plus Sign.png" id="unrecommend"/> Make an Unrecommendation<br /><br />
+					<%}else{ %>
+					Login first to unrecommend a work
+					<%} %>
 				</div> <!-- end of unreco -->
 			</div> <!-- end of workRecContent -->
 			<%} else { %>

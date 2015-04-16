@@ -14,7 +14,7 @@ import com.themmt.model.database.WorkDAO;
 /**
  * Servlet implementation class ListRecommendationServlet
  */
-@WebServlet("/recommend")
+@WebServlet("/listRecommendations")
 public class ListRecommendationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,6 +33,7 @@ public class ListRecommendationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("SearhRecommendation Servlet activated");
 		request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
+		//System.out.println("isRecorder: "+request.getParameter("isRec"));
 		request.getRequestDispatcher("recommendationSearch.jsp").forward(request, response);;
 	}
 
