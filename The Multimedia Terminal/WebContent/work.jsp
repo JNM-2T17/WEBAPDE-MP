@@ -58,7 +58,7 @@
 					flags[type] = true;
 				});
 				
-				$("div[id $= \"flagUser\"]").click(function() {
+				$("span[id $= \"flagUser\"]").click(function() {
 					//var str = $(this).attr("id");
 
 					console.log("It's supposed to flag people...");
@@ -79,7 +79,7 @@
 			
 				});
 				
-				$("div[id $= \"flagReview\"]").click(function() {
+				$("span[id $= \"flagReview\"]").click(function() {
 					//var str = $(this).attr("id");
 
 					console.log("It's supposed to flag reviews...");
@@ -197,11 +197,10 @@
 							</span> <!-- end of rating --> 
 								<b><%=rev.getUsername()%></b>
 								<p><%=rev.getReview() %></p>
-								<div id="flagUser" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">
-								Flag a person					
-								</div>
-								<div id="flagReview" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">
-								Flag a Review				
+								<div class=flagPanel align="right">
+									<img src="Website Assets/red_flag.png"/>
+									<span id="flagUser" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">Person </span>|
+									<span id="flagReview" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">Review</span>
 								</div>
 						</div> <!-- end of review -->
 				<%}%>
