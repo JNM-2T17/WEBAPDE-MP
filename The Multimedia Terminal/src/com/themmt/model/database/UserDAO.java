@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import java.sql.PreparedStatement;
+
 import com.themmt.model.User;
 
 public class UserDAO {
@@ -65,6 +65,21 @@ public class UserDAO {
 		return users.iterator();
 	}
 	
+	
+	public static void flag(String user) throws SQLException
+	{
+		String query = "UPDATE user SET isFlagged = 1 WHERE user.username = ?";
+		try {
+				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				ps.setString(1, user);
+
+			    ps.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				throw e;
+			}
+		
+	}
 	public static Boolean isMatch(String username, String password) {
 
 		Iterator iterator = UserDAO.get();

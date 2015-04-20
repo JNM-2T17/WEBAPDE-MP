@@ -58,6 +58,50 @@
 					flags[type] = true;
 				});
 				
+				$("div[id $= \"flagUser\"]").click(function() {
+					//var str = $(this).attr("id");
+
+					console.log("It's supposed to flag people...");
+					var id = $(this).attr("id");
+					var username =$(this).attr("username");
+										$.ajax({
+					   url : "flag",
+					   method : "post",
+					   data : { "id" : id, "username": username},
+					  // dataType : "json",
+					   success : function(a) {
+					      $("#"+ a.id).text("Flagged");
+					      $("#"+ a.id).addClass('flagged');
+					       $("#"+ a.id).removeClass(/*whatever the class was*/);
+					   }
+					});
+
+			
+				});
+				
+				$("div[id $= \"flagReview\"]").click(function() {
+					//var str = $(this).attr("id");
+
+					console.log("It's supposed to flag reviews...");
+					var id = $(this).attr("id");
+					var username =$(this).attr("username");
+					var title = $(this).attr("title");
+					var titleClass =$(this).attr("titleClass");
+										$.ajax({
+					   url : "flag",
+					   method : "post",
+					   data : { "id" : id,"username":username, "title":title, "titleClass":titleClass},
+					  // dataType : "json",
+					   success : function(a) {
+					      $("#"+ a.id).text("Flagged");
+					      $("#"+ a.id).addClass('flagged');
+					       $("#"+ a.id).removeClass(/*whatever the class was*/);
+					   }
+					});
+
+			
+				});
+				
 				$("button[id^=\"cancel\"]").click(function() {
 					var str = $(this).attr("id");
 					var type = str.substring(6,str.length).toLowerCase();
@@ -153,6 +197,12 @@
 							</span> <!-- end of rating --> 
 								<b><%=rev.getUsername()%></b>
 								<p><%=rev.getReview() %></p>
+								<div id="flagUser" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">
+								Flag a person					
+								</div>
+								<div id="flagReview" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">
+								Flag a Review				
+								</div>
 						</div> <!-- end of review -->
 				<%}%>
 				<br>
@@ -208,6 +258,14 @@
 					</div> <!-- end of link -->
 						</div>	
 					<%} %>	
+					
+					
+
+					
+			
+					
+					
+					
 					
 					<%if(session.getAttribute("username")!=null){%>
 					
