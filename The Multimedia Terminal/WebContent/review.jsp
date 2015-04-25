@@ -74,11 +74,9 @@
 		<div id="mainContent">
 			<h1>Write a Review</h1>
 			<div class="orangeLine"></div>
-			<h1><%=request.getParameter("t")%></h1>
+			<h1>${t}</h1>
 			<div id="reviewSpace">
-				<form action="reviewServlet" id="reviewForm" method = "post">
-					<span id="reviewTitle">Title:&nbsp;</span>
-					<input type="text" id="reviewTitle" class="formField reviewField" name="t" /><br />
+				<form action="review" id="reviewForm" method = "post">
 					<div id="reviewRating">
 						<p>Select Rating:&nbsp;</p>
 						<span id="reviewRating">
@@ -90,8 +88,8 @@
 						</span>
 					</div>
 					<input type="hidden" id="ratingVal" name="r" />
-					<input type="hidden" value = "<%=request.getParameter("t")%>" name="title" />
-					<input type="hidden" value = "<%=request.getParameter("c")%>" name="titleclass" />
+					<input type="hidden" value = "${t}" name="title" />
+					<input type="hidden" value = "${c}" name="titleclass" />
 					<textarea name="reviewContent" class="reviewField" name="rev"></textarea>
 					<div id="formButtons">
 						<input type="submit" class="orangeBox" />

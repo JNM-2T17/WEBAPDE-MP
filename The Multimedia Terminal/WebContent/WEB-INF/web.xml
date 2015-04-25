@@ -26,6 +26,10 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/review</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -35,22 +39,6 @@
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
     <url-pattern>/approvedWork</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ToReview</servlet-name>
-    <servlet-class>com.themmt.controller.WorkToReviewServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ToReview</servlet-name>
-    <url-pattern>/review</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>Review</servlet-name>
-    <servlet-class>com.themmt.controller.ReviewServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Review</servlet-name>
-    <url-pattern>/reviewServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Register</servlet-name>
