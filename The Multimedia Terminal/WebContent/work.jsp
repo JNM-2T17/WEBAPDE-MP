@@ -202,11 +202,20 @@
 								</span> <!-- end of rating --> 
 								<b>${rev.username}</b>
 								<p>${rev.review }</p>
-								<div class=flagPanel align="right">
-									<img src="Website Assets/red_flag.png"/>
-									<span id="flagUser" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Person </span>|
-									<span id="flagReview" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Review</span>
-								</div>
+									<c:choose>
+										<c:when test="${not empty sessionScope.username}">
+											<div class=flagPanel align="right">
+												<img src="Website Assets/red_flag.png"/>
+												<span id="flagUser" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Person </span>|
+												<span id="flagReview" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Review</span>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<font size="3">Login first to flag a user or review</font>
+										</c:otherwise>
+									</c:choose>
+								
+								
 							</div> <!-- end of review -->
 							<br />
 						</c:forEach>
