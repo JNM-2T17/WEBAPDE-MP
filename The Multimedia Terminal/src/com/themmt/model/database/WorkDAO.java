@@ -267,7 +267,20 @@ public class WorkDAO {
 			ps.setString(1, title );
 			ps.setString(2, classification );
 			ps.execute();
-			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void incrementView( String title, String classification ) {
+		String pstmst = "UPDATE work SET viewCount = viewCount + 1 WHERE title = ? AND class = ?";
+		
+		try {
+			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);
+			ps.setString(1, title );
+			ps.setString(2, classification );
+			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

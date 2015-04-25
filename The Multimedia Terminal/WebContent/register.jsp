@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -11,16 +12,23 @@
 		<script>
 			$(document).ready(function() {
 				randomizeLogo();
-				
-				<%  boolean fail = (Boolean)request.getSession().getAttribute("fail");
-					if( fail ) { %>
-				$("#fname").val('${sessionScope.fname}');
-				$("#lname").val('${sessionScope.lname}');
-				$("#email").val('${sessionScope.email}');
-				$("#password").val('${sessionScope.password}');
-				$("#description").text('${sessionScope.description}');
-				alert( 'The username "${sessionScope.uname}" is already taken.');
-				<%}%>
+				<c:set var="fail" value="${sessionScope.fail}" />
+				<c:if test="${fail}">
+					$("#fname").val('${sessionScope.fname}');
+					$("#lname").val('${sessionScope.lname}');
+					$("#email").val('${sessionScope.email}');
+					$("#password").val('${sessionScope.password}');
+					$("#description").text('${sessionScope.description}');
+					alert( 'The username "${sessionScope.uname}" is already taken.');
+					<c:choose>
+						<c:when test="${sessionScope.gender == 'm'}">
+							$("#male").prop('checked', true );
+						</c:when>
+						<c:otherwise>
+							$("#female").prop('checked', true );
+						</c:otherwise>
+					</c:choose>
+				</c:if>
 				
 				$("#homeLink").click(function() {
 					setLoc("start");
@@ -90,11 +98,9 @@
 							<td class="info">Gender:</td>
 							<td>
 								<label for="male">Male</label>
-								<input class="formField" type="radio" id="male" name="gender" value ="m" 
-									<%=fail && request.getSession().getAttribute("gender").equals("m") ? "checked" : "" %> required //>
+								<input class="formField" type="radio" id="male" name="gender" value ="m" required />
 								<label for="female">Female</label>
-								<input class="formField" type="radio" id="female" name="gender" value ="f"  
-									<%=fail && request.getSession().getAttribute("gender").equals("f") ? "checked" : "" %> //>
+								<input class="formField" type="radio" id="female" name="gender" value ="f" />
 							</td>
 						</tr>
 						<tr>

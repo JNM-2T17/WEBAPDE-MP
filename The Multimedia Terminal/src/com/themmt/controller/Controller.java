@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.themmt.model.CookieFinder;
 import com.themmt.model.Rating;
 import com.themmt.model.Review;
 import com.themmt.model.User;
@@ -33,7 +35,19 @@ public class Controller extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    @SuppressWarnings("unused")
+    private void start(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	Cookie c = CookieFinder.findCookie(request, "username");
+		if( c != null ) {
+			request.getSession().setAttribute("username", c.getValue() );
+		}
+		c = CookieFinder.findCookie(request, "isAdmin");
+		if( c != null ) {
+			request.getSession().setAttribute("isAdmin", Boolean.parseBoolean(c.getValue()) );
+		}
+		request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+    
 	private String getSearch( String searchStr ) {
     	String str = new Gson().toJson(WorkDAO.search(searchStr, WorkDAO.ALL,WorkDAO.TYPE));
     	return str;
@@ -46,12 +60,12 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		switch( request.getServletPath() ) {
 			case "/start":
-				request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				start(request, response);
 				break;
 			case "/work":
 				Work w = WorkDAO.get(request.getParameter("t"), request.getParameter("c") );
 				int rateCtr = WorkDAO.getRatingCount(request.getParameter("t"), request.getParameter("c") );
+				WorkDAO.incrementView(request.getParameter("t"), request.getParameter("c") );
 				request.getSession().setAttribute("work", w );
 				if( w != null ) {
 					request.getSession().setAttribute("recommendations", RecommendationDAO.getRecommended(w.getTitle()));
@@ -71,7 +85,17 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 				break;
 			case "/logout":
-				request.getSession().setAttribute("username", null);
+				Cookie c = CookieFinder.findCookie(request, "username");
+				if( c != null ) {
+					c.setMaxAge(0);
+					response.addCookie(c);
+				}
+				c = CookieFinder.findCookie(request, "isAdmin");
+				if( c != null ) {
+					c.setMaxAge(0);
+					response.addCookie(c);
+				}
+				request.getSession().invalidate();
 				request.getRequestDispatcher("start").forward(request, response);
 				break;
 			case "/search":
@@ -98,8 +122,7 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		switch( request.getServletPath() ) {
 			case "/start":
-				request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				start(request, response);
 				break;
 			case "/login":
 				if( (Boolean)request.getSession().getAttribute("registered") ) {
@@ -113,6 +136,12 @@ public class Controller extends HttpServlet {
 				if(UserDAO.isMatch(username, password)) {
 					request.getSession().setAttribute("username", username);
 					request.getSession().setAttribute("isAdmin", UserDAO.isAdmin(username));
+					Cookie c = new Cookie( "username", username );
+					c.setMaxAge( 604800 );
+					response.addCookie(c);
+					c = new Cookie( "isAdmin", request.getSession().getAttribute("isAdmin").toString() );
+					c.setMaxAge( 604800 );;
+					response.addCookie(c);
 					request.getRequestDispatcher("start").forward(request, response);
 				} else {
 					request.getSession().setAttribute("fail", true);
