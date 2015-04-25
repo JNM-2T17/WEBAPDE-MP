@@ -52,6 +52,20 @@ public class Controller extends HttpServlet {
     	String str = new Gson().toJson(WorkDAO.search(searchStr, WorkDAO.ALL,WorkDAO.TYPE));
     	return str;
     }
+	
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cookie c = CookieFinder.findCookie(request, "username");
+		if( c != null ) {
+			c.setMaxAge(0);
+			response.addCookie(c);
+		}
+		c = CookieFinder.findCookie(request, "isAdmin");
+		if( c != null ) {
+			c.setMaxAge(0);
+			response.addCookie(c);
+		}
+		request.getSession().invalidate();
+	}
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -79,23 +93,14 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher("recommend.jsp").forward(request, response);
 				break;
 			case "/login":
+				logout(request, response);
 				request.getSession().setAttribute("fail", false);
 				request.getSession().setAttribute("registered", false );
 				request.getSession().setAttribute("isAdmin", false);
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 				break;
 			case "/logout":
-				Cookie c = CookieFinder.findCookie(request, "username");
-				if( c != null ) {
-					c.setMaxAge(0);
-					response.addCookie(c);
-				}
-				c = CookieFinder.findCookie(request, "isAdmin");
-				if( c != null ) {
-					c.setMaxAge(0);
-					response.addCookie(c);
-				}
-				request.getSession().invalidate();
+				logout(request, response);
 				request.getRequestDispatcher("start").forward(request, response);
 				break;
 			case "/search":
@@ -125,12 +130,14 @@ public class Controller extends HttpServlet {
 				start(request, response);
 				break;
 			case "/login":
-				if( (Boolean)request.getSession().getAttribute("registered") ) {
+				if( request.getSession().getAttribute("registered") != null && 
+					(Boolean)request.getSession().getAttribute("registered") ) {
 					User u = (User)(request.getSession().getAttribute("user"));
 					request.getSession().setAttribute("username", u.getUsername() );
 					request.getRequestDispatcher("login.jsp").forward(request, response);	
 					return;
 				}
+				logout(request, response);
 				String username = request.getParameter("username");
 				String password = request.getParameter("password");
 				if(UserDAO.isMatch(username, password)) {

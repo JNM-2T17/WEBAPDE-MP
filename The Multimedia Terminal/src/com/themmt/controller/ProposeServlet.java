@@ -75,13 +75,18 @@ public class ProposeServlet extends HttpServlet {
 			
 			//define proposal error
 			request.getSession().setAttribute("proposalError", 
-					e.getErrorCode() == 1062 ? "\"" + title + "\" already exists as class " 
+					e.getErrorCode() == 1062 ? "\"" + title + "\" already exists as " + 
+										( ( classification.charAt(0) == 'a' ||
+										  classification.charAt(0) == 'e' ||
+										  classification.charAt(0) == 'i' ||
+										  classification.charAt(0) == 'o' ||
+										  classification.charAt(0) == 'u' ) ? "an " : "a " )
 										+ classification + "." : 
 									   "Failed to add \"" + title + "\"." );
 			
 			//set values
 			request.getSession().setAttribute("releaseYear", releaseYear );
-			request.getSession().setAttribute("class", classification );
+			request.getSession().setAttribute("classification", classification );
 			request.getSession().setAttribute("description",description);
 		} finally {
 			
