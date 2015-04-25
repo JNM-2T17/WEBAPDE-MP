@@ -11,10 +11,12 @@
 		<link rel="stylesheet" href="tmi.css" />
 		<c:set var="w" value="${sessionScope.work}" />
 		<c:set var="rateCtr" value="${sessionScope.rateCtr}" />
+		<c:set var="user" value="${not empty sessionScope.username}" />
 		<script src="jquery-2.1.1.js"></script>
 		<script src="tmi.js"></script>
 		<script>
 			$(document).ready(function() {
+				var user = ${user};
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
@@ -52,12 +54,27 @@
 				});
 				
 				$("div[id^=\"add\"]").click(function() {
-					$(this).hide();
-					var str = $(this).attr("id");
-					var type = str.substring(3,str.length).toLowerCase();
-					str = "div#" + type + "Form";
-					console.log( str );
-					$(str).show();
+					if( user ) {
+						$(this).hide();
+						var str = $(this).attr("id");
+						var type = str.substring(3,str.length).toLowerCase();
+						str = "div#" + type + "Form";
+						console.log( str );
+						$(str).show();
+					}
+				});
+				
+				$("button[id^=\"cancel\"]").click(function() {
+					if(user) {
+						var str = $(this).attr("id");
+						var type = str.substring(6,str.length).toLowerCase();
+						var divId = "div#" + type + "Form";
+						console.log("divId = " + divId);
+						$(divId).hide();
+						str = "div#add" + type.charAt(0).toUpperCase() + type.slice(1);
+						console.log( str );
+						$(str).show();
+					}
 				});
 				
 				$("span[id $= \"flagUser\"]").click(function() {
@@ -100,17 +117,6 @@
 					});
 
 			
-				});
-				
-				$("button[id^=\"cancel\"]").click(function() {
-					var str = $(this).attr("id");
-					var type = str.substring(6,str.length).toLowerCase();
-					var divId = "div#" + type + "Form";
-					console.log("divId = " + divId);
-					$(divId).hide();
-					str = "div#add" + type.charAt(0).toUpperCase() + type.slice(1);
-					console.log( str );
-					$(str).show();
 				});
 				
 				$("img[id $= \"recommend\"]").click(function() {
@@ -224,7 +230,14 @@
 				</div> <!-- end of workGenres --> <br />
 				<div class="content" id="workGenresCont">
 					<div id="addGenre">
-						<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Propose Genre
+						<c:choose>
+							<c:when test="${user}">
+								<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Propose Genre
+							</c:when>
+							<c:otherwise>
+								Log in to propose genres.
+							</c:otherwise>
+						</c:choose>	
 					</div>
 					<div class="addList">
 						<c:forEach var="g" items="${w.genres}" varStatus="i">
@@ -249,7 +262,14 @@
 				</div> <!-- end of workKeys --> <br />
 				<div class="content" id="workKeysCont">
 					<div id="addKey">
-						<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Propose Keyword
+						<c:choose>
+							<c:when test="${user}">
+								<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Propose Keyword
+							</c:when>
+							<c:otherwise>
+								Log in to propose keywords.
+							</c:otherwise>	
+						</c:choose>
 					</div>
 					<div class="addList">
 						<c:forEach var="k" items="${w.keywords}" varStatus="i">
@@ -284,12 +304,15 @@
 					<form action="review" id="reviewForm">
 						<input type="hidden" value = "${w.classification}" name="titleclass" />
 						<input type="hidden" value = "${w.title}" name="title" />
-						<div class="content" id="workReviewCont"><br />
+						<div class="content" id="workReviewCont">
 						
 						<c:choose>
-							<c:when test="${not empty sessionScope.username}">
-								<a href="review?t=${w.title}&c=${w.classification}" id="writeRev">Write a Review</a><br />
+							<c:when test="${user}">
+								<br /><a href="review?t=${w.title}&c=${w.classification}" id="writeRev">Write a Review</a><br />
 							</c:when>
+							<c:otherwise>
+								Log in to write a review.
+							</c:otherwise>
 						</c:choose>
 						<c:forEach var="rev" items="${sessionScope.reviews}" >
 							<div class="review">
@@ -308,7 +331,7 @@
 								<b>${rev.username}</b>
 								<p>${rev.review }</p>
 									<c:choose>
-										<c:when test="${not empty sessionScope.username}">
+										<c:when test="${user}">
 											<div class=flagPanel align="right">
 												<img src="Website Assets/red_flag.png"/>
 												<span id="flagUser" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Person </span>|
