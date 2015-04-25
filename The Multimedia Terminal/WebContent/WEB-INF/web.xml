@@ -30,6 +30,14 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/addGenre</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/addKey</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
   <servlet-mapping>

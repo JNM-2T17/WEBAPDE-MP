@@ -197,6 +197,27 @@ public class Controller extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				break;
+			case "/addGenre":
+				try {
+					WorkDAO.proposeGenre( request.getParameter("title"),request.getParameter("class"),
+										request.getParameter("genre") );
+					response.getWriter().print("");
+				} catch( SQLException se ) {
+					se.printStackTrace();
+					response.getWriter().print("The genre " + request.getParameter("genre") + " is already proposed.");
+				}
+				break;
+			case "/addKey":
+				try {
+					WorkDAO.proposeKeyword( request.getParameter("title"),request.getParameter("class"),
+										request.getParameter("keyword") );
+					response.getWriter().print("");
+				} catch( SQLException se ) {
+					se.printStackTrace();
+					response.getWriter().print("The keyword " + request.getParameter("keyword") + " is already proposed.");
+				}
+				break;
 			default:
 		}
 	}

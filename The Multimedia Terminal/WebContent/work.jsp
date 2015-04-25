@@ -58,7 +58,6 @@
 					str = "div#" + type + "Form";
 					console.log( str );
 					$(str).show();
-					flags[type] = true;
 				});
 				
 				$("span[id $= \"flagUser\"]").click(function() {
@@ -78,8 +77,6 @@
 					       $("#"+ a.id).removeClass(/*whatever the class was*/);
 					   }
 					});
-
-			
 				});
 				
 				$("span[id $= \"flagReview\"]").click(function() {
@@ -114,7 +111,6 @@
 					str = "div#add" + type.charAt(0).toUpperCase() + type.slice(1);
 					console.log( str );
 					$(str).show();
-					flags[type] = true;
 				});
 				
 				$("img[id $= \"recommend\"]").click(function() {
@@ -125,7 +121,61 @@
 					setLoc("recommend" + "?t=${w.title}&c=${w.classification}&isRec=0" );
 				});
 				
+				$("form#genre").submit(function addGenre() {
+					var genre = $("input#genre").val();
+					console.log(genre);
+					if( genre.length == 0 ) {
+						alert('No input');
+					} else {
+						$.ajax({
+							url : 'addGenre',
+							method : 'POST',
+							data : {'title': '${w.title}',
+									'class' : '${w.classification}',
+									'genre' : genre },
+							success : function(a) {
+								if( a.length == 0 ) {
+									$('input#genre').val('');
+									$('#genreForm').hide();
+									$('#addGenre').show();
+									alert('The genre ' + genre + ' was proposed!');
+								} else {
+									alert( a );
+								}
+							}
+						});
+					}
+					
+					return false;
+				});
 				
+				$("form#key").submit(function addKey() {
+					var key = $("input#key").val();
+					console.log(key);
+					if( key.length == 0 ) {
+						alert('No input');
+					} else {
+						$.ajax({
+							url : 'addKey',
+							method : 'POST',
+							data : {'title': '${w.title}',
+									'class' : '${w.classification}',
+									'keyword' : key },
+							success : function(a) {
+								if( a.length == 0 ) {
+									$('input#key').val('');
+									$('#keyForm').hide();
+									$('#addKey').show();
+									alert('The keyword "' + key + '" was proposed!');
+								} else {
+									alert( a );
+								}
+							}
+						});
+					}
+					
+					return false;
+				});
 			});
 		</script>
 	</head>
@@ -167,7 +217,57 @@
 							</c:otherwise>
 						</c:choose>
 					</div><br />
-					<div class="workSection" id="workDesc" data-visible="false">
+					<div class="workSection" id="workGenres" data-visible="false">
+				<span>Genres</span>
+				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
+					<div class="orangeLine"></div>
+				</div> <!-- end of workGenres --> <br />
+				<div class="content" id="workGenresCont">
+					<div id="addGenre">
+						<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Propose Genre
+					</div>
+					<div class="addList">
+						<c:forEach var="g" items="${w.genres}" varStatus="i">
+							${g}
+							<c:if test="${!i.last}">
+								<span class="info">|</span>
+							</c:if>
+						</c:forEach>
+					</div>
+					<div id="genreForm">
+						<form name="genre" class="workAdd" id="genre" method="post">
+							<input type="text" name="g" id="genre" />
+							<input type="submit" value="Propose Genre" class="orangeBox">
+						</form>
+						<button id="cancelGenre" class="orangeBox">Cancel</button>
+					</div>
+				</div> <!-- end of workGenresCont --><br />
+				<div class="workSection" id="workKeys" data-visible="false">
+					<span>Keywords</span>
+					<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
+					<div class="orangeLine"></div>
+				</div> <!-- end of workKeys --> <br />
+				<div class="content" id="workKeysCont">
+					<div id="addKey">
+						<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Propose Keyword
+					</div>
+					<div class="addList">
+						<c:forEach var="k" items="${w.keywords}" varStatus="i">
+							${k}
+							<c:if test="${!i.last}">
+								<span class="info">|</span>
+							</c:if>
+						</c:forEach>
+					</div>
+					<div id="keyForm">
+						<form name="key" class="workAdd" id="key" method="post">
+							<input type="text" name="k" id="key" />
+							<input type="submit" value="Propose Keyword" class="orangeBox">
+						</form>
+						<button id="cancelKey" class="orangeBox">Cancel</button>
+					</div>
+				</div> <!-- end of workKeysCont --><br /> 
+				<div class="workSection" id="workDesc" data-visible="false">
 						<span>Description</span>
 						<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 						<div class="orangeLine"></div>
@@ -191,12 +291,6 @@
 								<a href="review?t=${w.title}&c=${w.classification}" id="writeRev">Write a Review</a><br />
 							</c:when>
 						</c:choose>
-						
-						
-						
-						
-						
-						
 						<c:forEach var="rev" items="${sessionScope.reviews}" >
 							<div class="review">
 								<span class="rating">

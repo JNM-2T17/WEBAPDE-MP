@@ -1,5 +1,6 @@
 package com.themmt.model.database;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +27,9 @@ public class WorkDAO {
 	 */
 	public static void add( Work work ) throws SQLException {
 		String stmt = "INSERT INTO work VALUES (?,?,?,?,?,?,?)";
+		Connection c = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = DBConnection.getConnection().prepareStatement(stmt);
+			PreparedStatement ps = c.prepareStatement(stmt);
 			ps.setString(1, work.getTitle() );
 			ps.setString(2, work.getReleaseYear() );
 			ps.setString(3, work.getCover() );
@@ -58,9 +60,10 @@ public class WorkDAO {
 			}
 			
 			ArrayList<Work> works = new ArrayList<Work>();
+			Connection c = DBConnection.getConnection();
 			
 			try {
-				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				PreparedStatement ps = c.prepareStatement(query);
 				ResultSet rs = ps.executeQuery();
 				
 				while( rs.next() ) {
@@ -70,7 +73,23 @@ public class WorkDAO {
 								.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
 								.viewCount(rs.getInt(Work.VIEW_COLUMN))
 								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
-					works.add( w );
+					query = "SELECT * FROM genre WHERE work = ? AND workClass = ? AND isVerified = TRUE";
+					ps = c.prepareStatement(query);
+					ps.setString(1, w.getTitle() );
+					ps.setString(2, w.getClassification() );
+					ResultSet rs2 = ps.executeQuery();
+					while( rs2.next() ) {
+						w.addGenre( rs2.getString("genre") );
+					}
+					query = "SELECT * FROM keyword WHERE work = ? AND workClass = ? AND isVerified = TRUE";
+					ps = c.prepareStatement(query);
+					ps.setString(1, w.getTitle() );
+					ps.setString(2, w.getClassification() );
+					rs2 = ps.executeQuery();
+					while( rs2.next() ) {
+						w.addKeyword( rs2.getString("keyword") );
+					}
+					works.add( w ); 
 				}
 			} catch(SQLException se) {
 				se.printStackTrace();
@@ -82,20 +101,38 @@ public class WorkDAO {
 	public static Work get( String title, String classification )
 			throws IllegalArgumentException {
 			String query = "SELECT * FROM `All Works` WHERE title = ? AND class = ?";
+			Connection c = DBConnection.getConnection();
 			
 			try {
-				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				PreparedStatement ps = c.prepareStatement(query);
 				ps.setString( 1, title );
 				ps.setString( 2, classification );
 				ResultSet rs = ps.executeQuery();
 				
 				if( rs.next() ) {
-					return new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+					Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
 								.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
 								.description(rs.getString(Work.DESC_COLUMN))
 								.rating(rs.getDouble(Work.RATING_COLUMN) )
 								.viewCount(rs.getInt(Work.VIEW_COLUMN))
 								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
+					query = "SELECT * FROM genre WHERE work = ? AND workClass = ? AND isVerified = 1";
+					ps = c.prepareStatement(query);
+					ps.setString(1, w.getTitle() );
+					ps.setString(2, w.getClassification() );
+					ResultSet rs2 = ps.executeQuery();
+					while( rs2.next() ) {
+						w.addGenre( rs2.getString("genre") );
+					}
+					query = "SELECT * FROM keyword WHERE work = ? AND workClass = ? AND isVerified = 1";
+					ps = c.prepareStatement(query);
+					ps.setString(1, w.getTitle() );
+					ps.setString(2, w.getClassification() );
+					rs2 = ps.executeQuery();
+					while( rs2.next() ) {
+						w.addKeyword( rs2.getString("keyword") );
+					}
+					return w;
 				}
 			} catch(SQLException se) {
 				se.printStackTrace();
@@ -107,9 +144,10 @@ public class WorkDAO {
 		public static int getRatingCount( String title, String classification )
 			throws IllegalArgumentException {
 			String query = "SELECT COUNT(rating) ratings FROM rating WHERE title = ? AND titleclass = ?";
+			Connection c = DBConnection.getConnection();
 			
 			try {
-				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				PreparedStatement ps = c.prepareStatement(query);
 				ps.setString( 1, title );
 				ps.setString( 2, classification );
 				ResultSet rs = ps.executeQuery();
@@ -127,6 +165,7 @@ public class WorkDAO {
 	public static int getCount(int criteria)
 			throws IllegalArgumentException {
 			String query = null;
+			Connection c = DBConnection.getConnection();
 			
 			switch( criteria ) {
 				case PROPOSAL:
@@ -137,7 +176,7 @@ public class WorkDAO {
 			}
 			
 			try {
-				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				PreparedStatement ps = c.prepareStatement(query);
 				ResultSet rs = ps.executeQuery();
 				
 				rs.next();
@@ -152,6 +191,7 @@ public class WorkDAO {
 		public static ArrayList<Work> get(int criteria, int sort)
 			throws IllegalArgumentException {
 			String query = null;
+			Connection c = DBConnection.getConnection();
 			
 			switch( criteria ) {
 				case PROPOSAL:
@@ -178,7 +218,7 @@ public class WorkDAO {
 			ArrayList<Work> works = new ArrayList<Work>();
 			
 			try {
-				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				PreparedStatement ps = c.prepareStatement(query);
 				ResultSet rs = ps.executeQuery();
 				
 				while( rs.next() ) {
@@ -188,6 +228,23 @@ public class WorkDAO {
 								.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
 								.viewCount(rs.getInt(Work.VIEW_COLUMN))
 								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
+					query = "SELECT * FROM genre WHERE work = ? AND workClass = ? AND isVerified = 1";
+					ps = c.prepareStatement(query);
+					ps.setString(1, w.getTitle() );
+					ps.setString(2, w.getClassification() );
+					ResultSet rs2 = ps.executeQuery();
+					while( rs2.next() ) {
+						w.addGenre( rs2.getString("genre") );
+					}
+					query = "SELECT * FROM keyword WHERE work = ? AND workClass = ? AND isVerified = 1";
+					ps = c.prepareStatement(query);
+					ps.setString(1, w.getTitle() );
+					ps.setString(2, w.getClassification() );
+					rs2 = ps.executeQuery();
+					while( rs2.next() ) {
+						w.addKeyword( rs2.getString("keyword") );
+					}
+					works.add( w );
 					works.add( w );
 				}
 			} catch(SQLException se) {
@@ -200,6 +257,7 @@ public class WorkDAO {
 		public static ArrayList<Work> search(String searchStr, int criteria, int sort)
 				throws IllegalArgumentException {
 				String query = "SELECT * FROM ";
+				Connection c = DBConnection.getConnection();
 				
 				switch( criteria ) {
 					case PROPOSAL:
@@ -235,7 +293,7 @@ public class WorkDAO {
 				ArrayList<Work> works = new ArrayList<Work>();
 				
 				try {
-					PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+					PreparedStatement ps = c.prepareStatement(query);
 					ps.setString( 1, "%" + searchStr + "%" );
 					ps.setString( 2, "%" + searchStr + "%" );
 					ps.setString( 3, "%" + searchStr + "%" );
@@ -250,6 +308,23 @@ public class WorkDAO {
 									.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
 									.viewCount(rs.getInt(Work.VIEW_COLUMN))
 									.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
+						query = "SELECT * FROM genre WHERE work = ? AND workClass = ? AND isVerified = 1";
+						ps = c.prepareStatement(query);
+						ps.setString(1, w.getTitle() );
+						ps.setString(2, w.getClassification() );
+						ResultSet rs2 = ps.executeQuery();
+						while( rs2.next() ) {
+							w.addGenre( rs2.getString("genre") );
+						}
+						query = "SELECT * FROM keyword WHERE work = ? AND workClass = ? AND isVerified = 1";
+						ps = c.prepareStatement(query);
+						ps.setString(1, w.getTitle() );
+						ps.setString(2, w.getClassification() );
+						rs2 = ps.executeQuery();
+						while( rs2.next() ) {
+							w.addKeyword( rs2.getString("keyword") );
+						}
+						works.add( w );
 						works.add( w );
 					}
 				} catch(SQLException se) {
@@ -261,9 +336,10 @@ public class WorkDAO {
 		
 	public static void approveWork( String title, String classification ) {
 		String pstmst = "UPDATE work SET isVerified = 1 WHERE title = ? AND class = ?";
+		Connection c = DBConnection.getConnection();
 		
 		try {
-			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);
+			PreparedStatement ps = c.prepareStatement(pstmst);
 			ps.setString(1, title );
 			ps.setString(2, classification );
 			ps.execute();
@@ -275,15 +351,46 @@ public class WorkDAO {
 	
 	public static void incrementView( String title, String classification ) {
 		String pstmst = "UPDATE work SET viewCount = viewCount + 1 WHERE title = ? AND class = ?";
+		Connection c = DBConnection.getConnection();
 		
 		try {
-			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);
+			PreparedStatement ps = c.prepareStatement(pstmst);
 			ps.setString(1, title );
 			ps.setString(2, classification );
 			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public static void proposeGenre( String title, String classification, String genre ) throws SQLException {
+		String stmt = "INSERT INTO genre(work,workclass,genre) VALUES (?,?,?)";
+		Connection c = DBConnection.getConnection();
+		
+		try {
+			PreparedStatement pstmt = c.prepareStatement(stmt);
+			pstmt.setString( 1, title );
+			pstmt.setString( 2, classification );
+			pstmt.setString( 3, genre );
+			pstmt.execute();
+		} catch( SQLException e ) {
+			throw e;
+		}
+	}
+	
+	public static void proposeKeyword( String title, String classification, String keyword ) throws SQLException {
+		String stmt = "INSERT INTO keyword(work,workclass,keyword) VALUES (?,?,?)";
+		Connection c = DBConnection.getConnection();
+		
+		try {
+			PreparedStatement pstmt = c.prepareStatement(stmt);
+			pstmt.setString( 1, title );
+			pstmt.setString( 2, classification );
+			pstmt.setString( 3, keyword );
+			pstmt.execute();
+		} catch( SQLException e ) {
+			throw e;
 		}
 	}
 }

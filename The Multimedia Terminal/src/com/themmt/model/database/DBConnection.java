@@ -1,71 +1,52 @@
 package com.themmt.model.database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-
 public class DBConnection {
-	private BasicDataSource ds;
 	private String driverName;
 	private String database;
 	private String address;
 	private String username;
 	private String password;
 	
-	private static DBConnection con;
+	private static Connection con = null;
 	
 	private DBConnection() {
 		driverName = "com.mysql.jdbc.Driver";
-		username = "root";
-		password = "put your password here";
-		address = "jdbc:mysql://127.0.0.1:3306/";
 		database = "tmi";
-		ds = new BasicDataSource();
-		ds.setDriverClassName( driverName );
-		ds.setUrl( ( address ) + (database) );
-		ds.setUsername( username );
-		ds.setPassword( password );
+		address = "jdbc:mysql://127.0.0.1:3306/";
+		username = "root";
+		
+		try {
+			Class.forName(driverName);
+			con = DriverManager.getConnection( address + database, username, password);
+		} catch( SQLException sqle ) {
+			sqle.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public static Connection getConnection() 
-			throws SQLException {
+	public static Connection getConnection() {
 		if( con == null ) {
-			con = new DBConnection();
+			new DBConnection();
 		} 
 		
-		return con.ds.getConnection();
+		return con;
 	}
-
-	public String getDriverName() {
-		return driverName;
-	}
-
-	public void setDriverName(String driverName) {
-		this.driverName = driverName;
-	}
-
-	public String getDatabase() {
-		return database;
-	}
-
-	public void setDatabase(String database) {
-		this.database = database;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	
+	public static void close() {
+		if( con != null ) {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			con = null;
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.themmt.model;
 
+import java.util.ArrayList;
+
 public class Work {
 	public static final String TITLE_COLUMN = "title";
 	public static final String CLASS_COLUMN = "class";
@@ -18,6 +20,8 @@ public class Work {
 	private double rating;
 	private int viewCount;
 	private boolean isVerified;
+	private ArrayList<String> genres;
+	private ArrayList<String> keywords;
 	
 	public static class WorkBuilder {
 		private String title;
@@ -88,6 +92,8 @@ public class Work {
 		rating = wb.rating;
 		viewCount = wb.viewCount;
 		isVerified = wb.isVerified;
+		genres = new ArrayList<String>();
+		keywords = new ArrayList<String>();
 	}
 
 	public double getRating() {
@@ -132,5 +138,21 @@ public class Work {
 
 	public int getViewCount() {
 		return viewCount;
+	}
+
+	public ArrayList<String> getGenres() {
+		return genres;
+	}
+
+	public ArrayList<String> getKeywords() {
+		return keywords;
+	}
+	
+	public void addGenre( String genre ) {
+		genres.add( genre );
+	}
+	
+	public void addKeyword( String keyword ) {
+		keywords.add( keyword ); 
 	}
 }
