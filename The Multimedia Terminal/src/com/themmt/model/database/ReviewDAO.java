@@ -1,11 +1,11 @@
 package com.themmt.model.database;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import java.sql.PreparedStatement;
 import com.themmt.model.Review;
 
 public class ReviewDAO {
@@ -30,6 +30,23 @@ public class ReviewDAO {
 			// TODO Auto-generated catch block
 			throw e;
 		}
+	}
+	
+	public static void flag(String username, String title, String titleClass) throws SQLException
+	{
+		String query = "UPDATE review SET isFlagged = 1 WHERE review.username = ? AND review.title =? AND review.titleclass=?";
+		try {
+				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
+				ps.setString(1, username);
+				ps.setString(2, title);
+				ps.setString(3, titleClass);
+			    ps.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				throw e;
+			}
+		
+	
 	}
 	
 	public static Iterator get( String title, String classification )

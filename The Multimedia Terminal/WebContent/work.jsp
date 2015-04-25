@@ -58,6 +58,50 @@
 					flags[type] = true;
 				});
 				
+				$("span[id $= \"flagUser\"]").click(function() {
+					//var str = $(this).attr("id");
+
+					console.log("It's supposed to flag people...");
+					var id = $(this).attr("id");
+					var username =$(this).attr("username");
+										$.ajax({
+					   url : "flag",
+					   method : "post",
+					   data : { "id" : id, "username": username},
+					  // dataType : "json",
+					   success : function(a) {
+					      $("#"+ a.id).text("Flagged");
+					      $("#"+ a.id).addClass('flagged');
+					       $("#"+ a.id).removeClass(/*whatever the class was*/);
+					   }
+					});
+
+			
+				});
+				
+				$("span[id $= \"flagReview\"]").click(function() {
+					//var str = $(this).attr("id");
+
+					console.log("It's supposed to flag reviews...");
+					var id = $(this).attr("id");
+					var username =$(this).attr("username");
+					var title = $(this).attr("title");
+					var titleClass =$(this).attr("titleClass");
+										$.ajax({
+					   url : "flag",
+					   method : "post",
+					   data : { "id" : id,"username":username, "title":title, "titleClass":titleClass},
+					  // dataType : "json",
+					   success : function(a) {
+					      $("#"+ a.id).text("Flagged");
+					      $("#"+ a.id).addClass('flagged');
+					       $("#"+ a.id).removeClass(/*whatever the class was*/);
+					   }
+					});
+
+			
+				});
+				
 				$("button[id^=\"cancel\"]").click(function() {
 					var str = $(this).attr("id");
 					var type = str.substring(6,str.length).toLowerCase();
@@ -136,8 +180,6 @@
 						<div class="content" id="workReviewCont"><br />
 						<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />
 							<%Iterator revItr = (Iterator)request.getSession().getAttribute("reviews"); %>
-						
-						
 						<% 
 							while(revItr.hasNext() ) {
 								Review rev= (Review)revItr.next();
@@ -154,6 +196,11 @@
 									</span> <!-- end of rating --> 
 										<b><%=rev.getUsername()%></b>
 										<p><%=rev.getReview() %></p>
+										<div class=flagPanel align="right">
+											<img src="Website Assets/red_flag.png"/>
+											<span id="flagUser" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">Person </span>|
+											<span id="flagReview" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">Review</span>
+										</div>
 								</div> <!-- end of review -->
 						<%}%>
 						<br>
@@ -162,7 +209,6 @@
 						
 					</div> <!-- end of workReviewCont -->
 					</form>
-					
 					<div class="workSection" id="workRec" data-visible="false">
 						<span>Recommendations</span>
 						<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
@@ -210,12 +256,14 @@
 								</div>	
 							<%} %>	
 							
-							<%if(session.getAttribute("username")!=null){%>
-							
-							<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
-							<%}else{ %>
-							Login first to recommend a work
-							<%} %>
+							<c:choose>
+								<c:when test="${not empty sessionScope.username}">
+									<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
+								</c:when>
+								<c:otherwise>
+									Login first to recommend a work
+								</c:otherwise>
+							</c:choose>
 						</div> <!-- end of reco -->
 						<div id="unreco">
 							<h3>Unrecommended</h3>
@@ -258,17 +306,17 @@
 								<a href="work?t=<%=rw.getTitle()%>&c=<%=rw.getClassification()%>">Tell Me More</a>
 							</div> <!-- end of link -->
 								</div>	
-							<%} %>	
-							
-							
-							<%if(session.getAttribute("username")!=null){%>
-							
-							<img src="Website Assets/Plus Sign.png" id="unrecommend"/> Make an Unrecommendation<br /><br />
-							<%}else{ %>
-							Login first to unrecommend a work
 							<%} %>
-						</div> <!-- end of unreco -->
-					</div> <!-- end of workRecContent -->
+							<c:choose>
+								<c:when test="${not empty sessionScope.username}">
+									<img src="Website Assets/Plus Sign.png" id="unrecommend"/> Make an Unrecommendation<br /><br />
+								</c:when>
+								<c:otherwise>
+									Login first to unrecommend a work
+								</c:otherwise>
+							</c:choose>
+						</div> <!-- end of unrecommended -->
+					</div> <!--  end of workRecCont -->
 				</c:when>
 				<c:otherwise>
 					<h1>Work does not exist</h1>
