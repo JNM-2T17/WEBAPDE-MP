@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.themmt.model.database.GenreDAO;
+import com.themmt.model.database.KeywordDAO;
 import com.themmt.model.database.WorkDAO;
 
 /**
@@ -31,6 +33,8 @@ public class AdminApprovalServlet extends HttpServlet {
 		request.getSession().setAttribute("proposal0",WorkDAO.get(WorkDAO.PROPOSAL,WorkDAO.TYPE));
 		request.getSession().setAttribute("proposal1",WorkDAO.get(WorkDAO.PROPOSAL,WorkDAO.ALPHA));
 		request.getSession().setAttribute("proposal2",WorkDAO.get(WorkDAO.PROPOSAL,WorkDAO.DATE));
+		request.getSession().setAttribute("proposal3",GenreDAO.get());
+		request.getSession().setAttribute("proposal4",KeywordDAO.get());
 		request.getRequestDispatcher("adminApproval.jsp").forward(request, response);
 	}
 
