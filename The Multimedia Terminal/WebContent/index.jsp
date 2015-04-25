@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -74,55 +76,54 @@
 				});
 			});
 		</script>
-		<%@page import="com.themmt.model.Work,java.util.Iterator,java.text.DecimalFormat" %>
 	</head>
 	<body>
-		<%!
-			DecimalFormat df = new DecimalFormat();
-		%>
-		<%
-			df.setMaximumFractionDigits(2);
-			df.setMinimumFractionDigits(2);
-		%>
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
-			<%Iterator itr = (Iterator)request.getSession().getAttribute("home"); %>
 			<h1>Trending</h1>
 			<div id="trendingAll" class="trendingContent">
-				<% 
-					while(itr.hasNext() ) {
-						Work w = (Work)itr.next();
-				%>
-				<div class="work">
-					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
-					<div class="rating">
-						<%
-							int n = (int)Math.round(w.getRating());
-							int i = 0;
-							for( ; i < n; i++ ) { 
-						%>
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<%
-							}
-							for( ; i < 5; i++ ) {
-						%>
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<%
-							}
-						%>
-						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
-					</div> <!-- end of rating -->
-					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
-					<div class="description">
-						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="link">
-						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-				<%
-					}
-				%>
+				<c:forEach var="w" items="${sessionScope.home}">
+					<div class="work">
+						<div class="img">
+							<c:choose>
+								<c:when test="${empty w.cover}">
+									<img src="Website Assets/blank.png" />
+								</c:when>
+								<c:otherwise>
+									<img src="${w.cover}" />
+								</c:otherwise>
+							</c:choose>
+						</div>		
+						<div class="rating">
+							<c:forEach varStatus="i" begin="1" end="5">
+								<c:choose>
+									<c:when test="${i.index <= w.rating}">
+										<img src="Website Assets/Filled Star.png" class="star" />
+									</c:when>
+									<c:otherwise>
+										<img src="Website Assets/Empty Star.png" class="star" />
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<br />
+							<c:choose>
+								<c:when test="${w.rating == 0}">
+									No Rating
+								</c:when>
+								<c:otherwise>
+									<fmt:formatNumber value="${w.rating}" maxFractionDigits="1" minFractionDigits="1" />
+								</c:otherwise>
+							</c:choose>
+						</div> <!-- end of rating -->
+						<span>${w.title} (${w.releaseYear} ${w.classification})</span>
+						<div class="description">
+							<p><c:if test="${not empty w.description}">${w.description}</c:if></p>
+						</div> <!-- end of description -->
+						<div class="link">
+							<a href="work?t=${w.title}&c=${w.classification}">Tell Me More</a>
+						</div> <!-- end of link -->
+					</div> <!-- end of work -->
+				</c:forEach>
 			</div> <!-- end of trendingAll -->
 		</div> <!-- end of mainContent -->
 	</body>

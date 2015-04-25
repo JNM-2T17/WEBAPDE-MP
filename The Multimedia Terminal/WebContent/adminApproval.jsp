@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -53,11 +54,30 @@
 					}
 				});
 			});
+			
+			function approve(title,classif,id) {
+				if( $('#'+ id + ' input[type="submit"]').val() != 'Approved' ) {
+					$.ajax({
+						url : 'approvedWork',
+						method : 'POST',
+						data : {
+							'title' : title,
+							'class' : classif
+						},
+						success : function(a) {
+							switchClass( $('#'+ id ), 'approvedLink', 'wideLink' );
+							switchClass( $('#'+ id + ' input[type="submit"]' ), 'greyBox', 'orangeBox' );
+							$('#' + id + ' input[type="submit"]').val('Approved');
+							console.log(a);
+						}
+					});
+				}
+				
+				return false;
+			}
 		</script>
-		<%@ page import="java.util.Iterator,com.themmt.model.Work"%>
 	</head>
 	<body>
-		<%Iterator itr = (Iterator)request.getSession().getAttribute("proposal0"); %>
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<h1 class="info">Work Proposals</h1>
@@ -68,79 +88,94 @@
 				<li id="date" class="filterCritInactive">Date</li>
 			</ul> <!--  end of filterMenu -->
 			<div id="approveType" class="approveContent">
-				<%
-					while( itr.hasNext() ) {
-						Work w = (Work)itr.next();
-				%>
-				<div class="apprWork">
-					<div class="img">
-						<img src="<%= w.getCover() == null ? "Website Assets/blank.png":w.getCover()%>" />
-					</div>
-					<span class="info"><%=w.getClassification()%> Proposal</span>
-					<div class="apprDesc">
-						<p><%=w.getTitle()%> (<%=w.getReleaseYear() %>)</p>
-						<p><%=w.getDescription()==null?"":w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="wideLink">
-						<form action = "workApprove" method = "post">
-							<button class="orangeBox">View</button>
-							<input type="hidden" value = "<%=w.getTitle()%>" name="title" />
-							<input type="hidden" value = "<%=w.getReleaseYear()%>" name="releaseYear" />
-							<input type="hidden" value = "<%=w.getDescription()%>" name="description" />
-							<input type="hidden" value = "<%=w.getClassification()%>" name="class" />
-							
-						</form>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-				<%
-					}
-				%>
+				<c:forEach var="w" items="${sessionScope.proposal0}" varStatus="i">
+					<div class="apprWork">	
+						<div class="img">
+							<c:choose>
+								<c:when test="${empty w.cover}">
+									<img src="Website Assets/blank.png" />
+								</c:when>
+								<c:otherwise>
+									<img src="${w.cover}" />
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<span class="info">${w.classification} Proposal</span>
+						<div class="apprDesc">
+							<p>${w.title} (${w.releaseYear})</p>
+							<p class="desc">
+								<c:if test="${not empty w.description}">
+									${w.description}
+								</c:if>
+							</p>
+						</div> <!-- end of description -->
+						<div class="wideLink" id="type${i.index}">
+							<form action="approvedWork" method="post" id="type${i.index}" onSubmit="return approve('${w.title}','${w.classification}','type${i.index}');">
+								<input type="submit" class="orangeBox" value="Approve" />
+							</form>
+						</div> <!-- end of link -->
+					</div> <!-- end of work -->
+				</c:forEach>
 			</div> <!-- end of approveType -->
-			<%itr = (Iterator)request.getSession().getAttribute("proposal1"); %>
 			<div id="approveAlphabetical" class="approveContent">
-				<%
-					while( itr.hasNext() ) {
-						Work w = (Work)itr.next();
-				%>
-				<div class="apprWork">
-					<div class="img">
-						<img src="<%= w.getCover() == null ? "Website Assets/blank.png":w.getCover()%>" />
-					</div>
-					<span class="info"><%=w.getClassification()%> Proposal</span>
-					<div class="apprDesc">
-						<p><%=w.getTitle()%> (<%=w.getReleaseYear() %>)</p>
-						<p><%=w.getDescription()==null?"":w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="wideLink">
-						<a href="workApprove?t=<%=w.getTitle()%>">View</a>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-				<%
-					}
-				%>
+				<c:forEach var="w" items="${sessionScope.proposal1}" varStatus="i">
+					<div class="apprWork">
+						<div class="img">
+							<c:choose>
+								<c:when test="${empty w.cover}">
+									<img src="Website Assets/blank.png" />
+								</c:when>
+								<c:otherwise>
+									<img src="${w.cover}" />
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<span class="info">${w.classification} Proposal</span>
+						<div class="apprDesc">
+							<p>${w.title} (${w.releaseYear})</p>
+							<p class="desc">
+								<c:if test="${not empty w.description}">
+									${w.description}
+								</c:if>
+							</p>
+						</div> <!-- end of description -->
+						<div class="wideLink" id="alpha${i.index}">
+							<form action="approvedWork" method="post" id="alpha${i.index}" onSubmit="return approve('${w.title}','${w.classification}','alpha${i.index}');">
+								<input type="submit" class="orangeBox" value="Approve" />
+							</form>
+						</div> <!-- end of link -->
+					</div> <!-- end of work -->
+				</c:forEach>
 			</div> <!-- end of approveAlphabetical -->
-			<%itr = (Iterator)request.getSession().getAttribute("proposal2"); %>
 			<div id="approveDate" class="approveContent">
-				<%
-					while( itr.hasNext() ) {
-						Work w = (Work)itr.next();
-				%>
-				<div class="apprWork">
-					<div class="img">
-						<img src="<%= w.getCover() == null ? "Website Assets/blank.png":w.getCover()%>" />
-					</div>
-					<span class="info"><%=w.getClassification()%> Proposal</span>
-					<div class="apprDesc">
-						<p><%=w.getTitle()%> (<%=w.getReleaseYear() %>)</p>
-						<p><%=w.getDescription()==null?"":w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="wideLink">
-						<a href="workApprove?t=<%=w.getTitle()%>">View</a>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-				<%
-					}
-				%>
+				<c:forEach var="w" items="${sessionScope.proposal2}" varStatus="i">
+					<div class="apprWork">
+						<div class="img">
+							<c:choose>
+								<c:when test="${empty w.cover}">
+									<img src="Website Assets/blank.png" />
+								</c:when>
+								<c:otherwise>
+									<img src="${w.cover}" />
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<span class="info">${w.classification} Proposal</span>
+						<div class="apprDesc">
+							<p>${w.title} (${w.releaseYear})</p>
+							<p class="desc">
+								<c:if test="${not empty w.description}">
+									${w.description}
+								</c:if>
+							</p>
+						</div> <!-- end of description -->
+						<div class="wideLink" id="date${i.index}">
+							<form action="approvedWork" method="post" id="date${i.index}" onSubmit="return approve('${w.title}','${w.classification}','date${i.index}');">
+								<input type="submit" class="orangeBox" value="Approve" />
+							</form>
+						</div> <!-- end of link -->
+					</div> <!-- end of work -->
+				</c:forEach>
 			</div> <!-- end of approveDate -->
 		</div> <!-- end of mainContent -->
 	</body>

@@ -10,11 +10,27 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/start</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/work</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/recommend</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
-    <url-pattern>/start</url-pattern>
+    <url-pattern>/approvedWork</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>ToReview</servlet-name>
@@ -47,14 +63,6 @@
   <servlet-mapping>
     <servlet-name>Work</servlet-name>
     <url-pattern>/work</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>com.themmt.controller.LoginServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Search</servlet-name>

@@ -19,7 +19,7 @@
 				var filter = $("li#media");
 				
 				$("#homeLink").click(function() {
-					setLoc("start");
+					setLoc("/");
 				});
 				
 				$("span#searchBar img").click(function() {

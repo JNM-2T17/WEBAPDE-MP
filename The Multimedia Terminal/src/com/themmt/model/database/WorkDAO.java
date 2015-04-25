@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.themmt.model.Work;
 
@@ -43,7 +42,7 @@ public class WorkDAO {
 		}
 	}
 	
-	public static Iterator get(int criteria)
+	public static ArrayList<Work> get(int criteria)
 			throws IllegalArgumentException {
 			String query = "SELECT * FROM ";
 			
@@ -77,7 +76,7 @@ public class WorkDAO {
 				se.printStackTrace();
 			}
 			
-			return works.iterator();
+			return works;
 		}
 		
 	public static Work get( String title, String classification )
@@ -150,7 +149,7 @@ public class WorkDAO {
 			return 0;
 		}
 	
-		public static Iterator get(int criteria, int sort)
+		public static ArrayList<Work> get(int criteria, int sort)
 			throws IllegalArgumentException {
 			String query = null;
 			
@@ -195,10 +194,10 @@ public class WorkDAO {
 				se.printStackTrace();
 			}
 			
-			return works.iterator();
+			return works;
 		}
 		
-		public static Iterator search(String searchStr, int criteria, int sort)
+		public static ArrayList<Work> search(String searchStr, int criteria, int sort)
 				throws IllegalArgumentException {
 				String query = "SELECT * FROM ";
 				
@@ -257,6 +256,21 @@ public class WorkDAO {
 					se.printStackTrace();
 				}
 				
-				return works.iterator();
+				return works;
 			}
+		
+	public static void approveWork( String title, String classification ) {
+		String pstmst = "UPDATE work SET isVerified = 1 WHERE title = ? AND class = ?";
+		
+		try {
+			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);
+			ps.setString(1, title );
+			ps.setString(2, classification );
+			ps.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

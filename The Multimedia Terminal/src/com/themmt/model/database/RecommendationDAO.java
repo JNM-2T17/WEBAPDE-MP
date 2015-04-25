@@ -11,13 +11,12 @@ import com.themmt.model.User;
 import com.themmt.model.Work;
 
 public class RecommendationDAO {
-	public static Iterator get(int isRec)
+	public static ArrayList<Recommendation> get(int isRec)
 			throws IllegalArgumentException {
 		
 			int z=0;
 			String query = "SELECT * FROM tmi.recommendations Where isRec ="+isRec;
-
-						ArrayList<Recommendation> recommendations = new ArrayList<Recommendation>();
+			ArrayList<Recommendation> recommendations = new ArrayList<Recommendation>();
 			
 			try {
 				PreparedStatement ps = DBConnection.getConnection().prepareStatement(query);
@@ -35,50 +34,43 @@ public class RecommendationDAO {
 				System.out.println("Error retrieving recommendations from the database");
 			}
 			
-			return recommendations.iterator();
+			return recommendations;
 		}
 	
-	public static Iterator getRecommended( String workName)
-		{
-		Iterator iterator = RecommendationDAO.get(1);
+	public static ArrayList<Work> getRecommended( String workName) {
+		ArrayList<Recommendation> recos = RecommendationDAO.get(1);
 		ArrayList<Work> works = new ArrayList<Work>();
 		
-		while(iterator.hasNext()) {
-			Recommendation temp = (Recommendation)iterator.next();
-			if(temp.getRecommendationTo()!=null)
-				{
-				if(temp.getTitle().equals(workName))
-					{
+		for( Recommendation temp: recos ) {
+			if(temp.getRecommendationTo()!=null) {
+				if(temp.getTitle().equals(workName)) {
 					//System.out.println(temp.getTitle() + "recommends " + temp.getRecommendationTo()+" ("+temp.getRecommendationToClassification()  +")");
 					Work tempwork = WorkDAO.get(temp.getRecommendationTo(), temp.getRecommendationToClassification());
 					//System.out.println("What tempwork has bestowed: "+ tempwork.getTitle());
 					works.add(tempwork);
-					}
-	
 				}
 			}
-		return works.iterator();
 		}
-	public static Iterator getUnrecommended( String workName)
-	{
-	Iterator iterator = RecommendationDAO.get(0);
-	ArrayList<Work> works = new ArrayList<Work>();
+		
+		return works;
+	}
 	
-	while(iterator.hasNext()) {
-		Recommendation temp = (Recommendation)iterator.next();
-		if(temp.getRecommendationTo()!=null)
-			{
-			if(temp.getTitle().equals(workName))
-				{
-				//System.out.println(temp.getTitle() + "recommends " + temp.getRecommendationTo()+" ("+temp.getRecommendationToClassification()  +")");
-				Work tempwork = WorkDAO.get(temp.getRecommendationTo(), temp.getRecommendationToClassification());
-				//System.out.println("What tempwork has bestowed: "+ tempwork.getTitle());
-				works.add(tempwork);
+	public static ArrayList<Work> getUnrecommended( String workName) {
+		ArrayList<Recommendation> recos = RecommendationDAO.get(0);
+		ArrayList<Work> works = new ArrayList<Work>();
+		
+		for( Recommendation temp: recos ) {
+			if(temp.getRecommendationTo()!=null) {
+				if(temp.getTitle().equals(workName)) {
+					//System.out.println(temp.getTitle() + "recommends " + temp.getRecommendationTo()+" ("+temp.getRecommendationToClassification()  +")");
+					Work tempwork = WorkDAO.get(temp.getRecommendationTo(), temp.getRecommendationToClassification());
+					//System.out.println("What tempwork has bestowed: "+ tempwork.getTitle());
+					works.add(tempwork);
 				}
-
 			}
 		}
-	return works.iterator();
+		
+		return works;
 	}
 
 	

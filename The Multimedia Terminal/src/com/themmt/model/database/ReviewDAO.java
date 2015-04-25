@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.themmt.model.Review;
 
@@ -49,7 +48,7 @@ public class ReviewDAO {
 	
 	}
 	
-	public static Iterator get( String title, String classification )
+	public static ArrayList<Review> get( String title, String classification )
 			throws IllegalArgumentException {
 		String query = "SELECT Re.title, Re.titleclass, Re.username, Re.review,  Re.isFlagged, IFNULL(AVG(Ra.Rating),0) Rating FROM review RE LEFT JOIN rating RA ON RE.title = RA.title AND RE.titleclass = RA.titleclass AND RE.username = RA.username WHERE RE.title = ? AND Re.titleclass = ? GROUP BY Re.title, Re.titleclass, RE.username";
 		ArrayList<Review> reviews = new ArrayList<Review>();
@@ -70,7 +69,7 @@ public class ReviewDAO {
 			se.printStackTrace();
 		}
 		
-		return reviews.iterator();
+		return reviews;
 	}
 	
 }

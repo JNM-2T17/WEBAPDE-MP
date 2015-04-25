@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.themmt.model.Work,com.themmt.model.Review,java.util.Iterator,java.text.DecimalFormat" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>The Multimedia Terminal</title>
 		<link rel="stylesheet" href="tmi.css" />
+		<c:set var="w" value="${sessionScope.work}" />
+		<c:set var="rateCtr" value="${sessionScope.rateCtr}" />
 		<script src="jquery-2.1.1.js"></script>
 		<script src="tmi.js"></script>
 		<script>
@@ -15,7 +18,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("start");
+					setLoc("/");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -114,20 +117,12 @@
 					flags[type] = true;
 				});
 				
-				<% 
-					Work w = (Work)request.getSession().getAttribute("work");
-					int rateCtr = ((Integer)request.getSession().getAttribute("rateCtr")).intValue();
-					DecimalFormat df = new DecimalFormat();
-					df.setMinimumFractionDigits(2);
-					df.setMaximumFractionDigits(2);
-				%>
-				
 				$("img[id $= \"recommend\"]").click(function() {
-					setLoc("recommend" + "?t=${sessionScope.work.title}&c=${sessionScope.work.classification}&isRec=1" );
+					setLoc("recommend" + "?t=${w.title}&c=${w.classification}&isRec=1" );
 				});
 				
 				$("img[id $= \"unrecommend\"]").click(function() {
-					setLoc("recommend" + "?t=${sessionScope.work.title}&c=${sessionScope.work.classification}&isRec=0" );
+					setLoc("recommend" + "?t=${w.title}&c=${w.classification}&isRec=0" );
 				});
 				
 				
@@ -138,35 +133,47 @@
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<c:choose>
-				<c:when test="${ not empty sessionScope.work}">
-					<h1><%=w.getTitle() + "(" + w.getReleaseYear() + " " + w.getClassification() + ")" %></h1>
+				<c:when test="${not empty w}">
+					<h1>${w.title}(${w.releaseYear} ${w.classification})</h1>
 					<span class="rating">
-						<%	
-							int n = (int)Math.round(w.getRating());
-							int i = 0;
-							for( ; i < n; i++ ) { 
-						%>
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<%
-							}
-							for( ; i < 5; i++ ) {
-						%>
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<%
-							}
-						%>
-						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
+						<c:forEach varStatus="i" begin="1" end="5">
+							<c:choose>
+								<c:when test="${ i.index <= w.rating }" >
+									<img src="Website Assets/Filled Star.png" class="star" />
+								</c:when>
+								<c:otherwise>
+									<img src="Website Assets/Empty Star.png" class="star" />
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>	
+						<br />
+						<c:choose>
+							<c:when test="${w.rating == 0}">
+								No Rating
+							</c:when> 
+							<c:otherwise>
+								<fmt:formatNumber value="${w.rating}" maxFractionDigits="1" minFractionDigits="1" />
+							</c:otherwise>
+						</c:choose>
 					</span> <!-- end of rating --><br />
-					<h4 id="ratingCtr"><%=rateCtr %> ratings</h4><br /><br />
-					<div id="screenshots"><img src="<%=w.getCover()==null?"Website Assets/Screenshots.png":w.getCover() %>" /></div><br />
-					
+					<h4 id="ratingCtr">${rateCtr} ratings</h4><br /><br />
+					<div id="screenshots">
+						<c:choose>
+							<c:when test="${empty w.cover}">
+								<img src="Website Assets/Screenshots.png" />
+							</c:when>
+							<c:otherwise>
+								<img src="${w.cover}" />
+							</c:otherwise>
+						</c:choose>
+					</div><br />
 					<div class="workSection" id="workDesc" data-visible="false">
 						<span>Description</span>
 						<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 						<div class="orangeLine"></div>
 					</div> <!-- end of workDesc --> <br />
 					<div class="content" id="workDescCont">
-						<p><%=w.getDescription() %></p>
+						<p>${w.description}</p>
 					</div> <!-- end of workDescCont -->
 					<div class="workSection" id="workReview" data-visible="false">
 						<span>Reviews</span>
@@ -175,38 +182,34 @@
 					</div> <!-- end of workReview --> <br />
 					
 					<form action="review" id="reviewForm">
-						<input type="hidden" value = "<%=w.getClassification()%>" name="titleclass" />
-						<input type="hidden" value = "<%=w.getTitle()%>" name="title" />
+						<input type="hidden" value = "${w.classification}" name="titleclass" />
+						<input type="hidden" value = "${w.title}" name="title" />
 						<div class="content" id="workReviewCont"><br />
-						<a href="review?t=<%=w.getTitle() %>&c=<%=w.getClassification() %>" id="writeRev">Write a Review</a><br />
-							<%Iterator revItr = (Iterator)request.getSession().getAttribute("reviews"); %>
-						<% 
-							while(revItr.hasNext() ) {
-								Review rev= (Review)revItr.next();
-						%>
-								<div class="review">
-									<span class="rating">
-										<%
-											for( i = 0; i < (int)rev.getRating(); i++) { %>	
-										<img src="Website Assets/Filled Star.png" class="star" />
-										<%} 
-											for( ; i < 5; i++ ) { %>
-										<img src="Website Assets/Empty Star.png" class="star" />
-										<%}%>
-									</span> <!-- end of rating --> 
-										<b><%=rev.getUsername()%></b>
-										<p><%=rev.getReview() %></p>
-										<div class=flagPanel align="right">
-											<img src="Website Assets/red_flag.png"/>
-											<span id="flagUser" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">Person </span>|
-											<span id="flagReview" username ="<%=rev.getUsername() %>" title ="<%=w.getTitle() %>" titleClass ="<%=w.getClassification() %>">Review</span>
-										</div>
-								</div> <!-- end of review -->
-						<%}%>
-						<br>
-										
-						
-						
+						<a href="review?t=${w.title}&c=${w.classification}%>" id="writeRev">Write a Review</a><br />
+						<c:forEach var="rev" items="${sessionScope.reviews}" >
+							<div class="review">
+								<span class="rating">
+									<c:forEach varStatus="i" begin="1" end="5">
+										<c:choose>
+											<c:when test="${i.index <= rev.rating}">
+												<img src="Website Assets/Filled Star.png" class="star" />
+											</c:when>
+											<c:otherwise>
+												<img src="Website Assets/Empty Star.png" class="star" />
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</span> <!-- end of rating --> 
+								<b>${rev.username}</b>
+								<p>${rev.review }</p>
+								<div class=flagPanel align="right">
+									<img src="Website Assets/red_flag.png"/>
+									<span id="flagUser" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Person </span>|
+									<span id="flagReview" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Review</span>
+								</div>
+							</div> <!-- end of review -->
+							<br />
+						</c:forEach>
 					</div> <!-- end of workReviewCont -->
 					</form>
 					<div class="workSection" id="workRec" data-visible="false">
@@ -217,102 +220,117 @@
 					<div class="content" id="workRecCont">
 						<div id="reco" >
 							<h3>Recommended</h3>
-						<%Iterator itr = (Iterator)request.getSession().getAttribute("recommendations"); %>
-						
-						<% 
-							while(itr.hasNext() ) {
-								Work rw= (Work)itr.next();
-								System.out.println("Summoned: "+rw.getTitle());
-						%>
-						
-								<div class="work">
-								<%=rw.getTitle()%>
-								<div class="img"><img src="<%=rw.getCover() == null?"Website Assets/blank.png":rw.getCover()%>" /></div>
-								
-								
-								<div class="rating">
-								
-								<%
-									int nx = (int)Math.round(rw.getRating());
-									int ix = 0;
-									for( ; ix < nx; ix++ ) { 
-								%>
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<%
-									}
-									for( ; ix < 5; ix++ ) {
-								%>
-								<img src="Website Assets/Empty Star.png" class="star" />
-								<%
-									}
-								%>
-								<br /><%=rw.getRating() == 0 ? "No Rating" : df.format(rw.getRating())%>
-							</div> <!-- end of rating -->
-								</br>
-								<%=rw.getDescription()%>
-								<div class="link">
-								<a href="work?t=<%=rw.getTitle()%>&c=<%=rw.getClassification()%>">Tell Me More</a>
-							</div> <!-- end of link -->
-								</div>	
-							<%} %>	
-							
 							<c:choose>
 								<c:when test="${not empty sessionScope.username}">
-									<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation<br /><br />
+									<img src="Website Assets/Plus Sign.png" id="recommend"/> Make a Recommendation
 								</c:when>
 								<c:otherwise>
 									Login first to recommend a work
+								</c:otherwise>
+							</c:choose><br />
+							<c:choose>
+								<c:when test="${fn:length(sessionScope.recommendations) gt 0}">
+									<br />
+									<c:forEach var="rw" items="${sessionScope.recommendations}">
+										<div class="workSmall" data-link="work?t=${rw.title}&c=${rw.classification}">
+											<div class="recImg">
+												<c:choose>
+													<c:when test="${empty rw.cover}">
+														<img src="Website Assets/blank.png" />
+													</c:when>
+													<c:otherwise>
+														<img src="${rw.cover}" />
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<span>${rw.title} (${rw.releaseYear} ${rw.classification})</span>
+											<div class="rating">
+												<c:forEach varStatus="i" begin="1" end="5">
+													<c:choose>
+														<c:when test="${i.index <= rw.rating}">
+															<img src="Website Assets/Filled Star.png" class="star" />
+														</c:when>
+														<c:otherwise>
+															<img src="Website Assets/Empty Star.png" class="star" />
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												<br />
+												<c:choose>
+													<c:when test="${rw.rating == 0}">
+														No Rating
+													</c:when> 
+													<c:otherwise>
+														<fmt:formatNumber value="${rw.rating}" maxFractionDigits="1" minFractionDigits="1" />
+													</c:otherwise>
+												</c:choose>
+											</div> <!-- end of rating -->
+											<div class="description">
+												<p>${rw.description}</p>
+											</div> <!-- end of description -->
+										</div> <!-- end of work -->
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<h4>No Recommendations</h4>
 								</c:otherwise>
 							</c:choose>
 						</div> <!-- end of reco -->
 						<div id="unreco">
 							<h3>Unrecommended</h3>
-							
-							
-							
-							<%itr = (Iterator)request.getSession().getAttribute("unrecommendations"); %>
-						
-						<% 
-							while(itr.hasNext() ) {
-								Work rw= (Work)itr.next();
-								System.out.println("Summoned: "+rw.getTitle());
-						%>
-						
-								<div class="work">
-								<%=rw.getTitle()%>
-								<div class="img"><img src="<%=rw.getCover() == null?"Website Assets/blank.png":rw.getCover()%>" /></div>
-								
-								
-								<div class="rating">
-								<%
-									int nx = (int)Math.round(rw.getRating());
-									int ix = 0;
-									for( ; ix < nx; ix++ ) { 
-								%>
-								<img src="Website Assets/Filled Star.png" class="star" />
-								<%
-									}
-									for( ; ix < 5; ix++ ) {
-								%>
-								<img src="Website Assets/Empty Star.png" class="star" />
-								<%
-									}
-								%>
-								<br /><%=rw.getRating() == 0 ? "No Rating" : df.format(rw.getRating())%>
-							</div> <!-- end of rating -->
-								</br>
-								<%=rw.getDescription()%>
-								<div class="link">
-								<a href="work?t=<%=rw.getTitle()%>&c=<%=rw.getClassification()%>">Tell Me More</a>
-							</div> <!-- end of link -->
-								</div>	
-							<%} %>
 							<c:choose>
 								<c:when test="${not empty sessionScope.username}">
-									<img src="Website Assets/Plus Sign.png" id="unrecommend"/> Make an Unrecommendation<br /><br />
+									<img src="Website Assets/Plus Sign.png" id="recommend"/> Make an Unrecommendation
 								</c:when>
 								<c:otherwise>
 									Login first to unrecommend a work
+								</c:otherwise>
+							</c:choose><br />
+							<c:choose>
+								<c:when test="${fn:length(sessionScope.unrecommendations) gt 0}">
+									<br />
+									<c:forEach var="rw" items="${sessionScope.unrecommendations}">
+										<div class="workSmall" data-link="work?t=${rw.title}&c=${rw.classification}">
+											<div class="recImg">
+												<c:choose>
+													<c:when test="${empty rw.cover}">
+														<img src="Website Assets/blank.png" />
+													</c:when>
+													<c:otherwise>
+														<img src="${rw.cover}" />
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<span>${rw.title} (${rw.releaseYear} ${rw.classification})</span>
+											<div class="rating">
+												<c:forEach varStatus="i" begin="1" end="5">
+													<c:choose>
+														<c:when test="${i.index <= rw.rating}">
+															<img src="Website Assets/Filled Star.png" class="star" />
+														</c:when>
+														<c:otherwise>
+															<img src="Website Assets/Empty Star.png" class="star" />
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												<br />	
+												<c:choose>
+													<c:when test="${rw.rating == 0}">
+														No Rating
+													</c:when> 
+													<c:otherwise>
+														<fmt:formatNumber value="${rw.rating}" maxFractionDigits="1" minFractionDigits="1" />
+													</c:otherwise>
+												</c:choose>
+											</div> <!-- end of rating -->
+											<div class="description">
+												<p>${rw.description}</p>
+											</div> <!-- end of description -->
+										</div> <!-- end of work -->
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<h4>No Unrecommendations</h4>
 								</c:otherwise>
 							</c:choose>
 						</div> <!-- end of unrecommended -->
@@ -323,7 +341,5 @@
 				</c:otherwise>
 			</c:choose>
 		</div><!-- end of mainContent -->
-
-		
 	</body>
 </html>

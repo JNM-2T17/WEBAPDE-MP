@@ -43,6 +43,12 @@ div#userinfo {
     text-align:center;
 }
 
+#loginLink {
+	position:relative;
+	top:10px;
+	font-weight:bold;
+}
+
 img#logo {
 	margin: 2px 0;
 }
@@ -497,6 +503,18 @@ div#formButtons {
 	left:6px;
 }
 
+.greyBox {
+	color:#FFF;
+	border:none;
+	background-color:#272727;
+	font-size:1em;
+	padding:5px 10px;
+	margin:3px;
+	margin-right:0;
+	position:relative;
+	left:6px;
+}
+
 /*for proposals*/
 
 p#proposeTitle {
@@ -557,9 +575,13 @@ td.info {
 	text-align:right;
 }
 
-/*for admin apporve*/
-div.apprDesc p {
-	margin:0;	
+.apprDesc p {
+	margin:0;
+}
+
+/*for admin approve*/
+div.apprDesc p.desc {
+	margin-bottom:50px;	
 }
 
 div.apprWork {
@@ -588,6 +610,16 @@ div.apprWork span.info {
 
 div.wideLink {
 	background-color:#EC6C25;
+	padding:5px 50px;
+	margin:20px 5px 0 5px;
+	position:absolute;
+	bottom:10px;
+	right:5px;
+}
+
+div.approvedLink {
+	background-color:#272727;
+	color:#FFF;
 	padding:5px 50px;
 	margin:20px 5px 0 5px;
 	position:absolute;
