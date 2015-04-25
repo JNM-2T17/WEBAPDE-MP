@@ -41,20 +41,12 @@ public class WorkServlet extends HttpServlet {
 		
 		int rateCtr = WorkDAO.getRatingCount(request.getParameter("t"), request.getParameter("c") );
 		request.getSession().setAttribute("work", w );
-		request.getSession().setAttribute("recommendations", RecommendationDAO.getRecommended(w.getTitle()));
-		request.getSession().setAttribute("unrecommendations", RecommendationDAO.getUnrecommended(w.getTitle()));
+		if( w != null ) {
+			request.getSession().setAttribute("recommendations", RecommendationDAO.getRecommended(w.getTitle()));
+			request.getSession().setAttribute("unrecommendations", RecommendationDAO.getUnrecommended(w.getTitle()));
+			request.getSession().setAttribute("reviews",ReviewDAO.get(request.getParameter("t"), request.getParameter("c") ) );
+		}
 		request.getSession().setAttribute("rateCtr", rateCtr );
-		request.getSession().setAttribute("reviews",ReviewDAO.get(request.getParameter("t"), request.getParameter("c") ) );
-		/*Iterator rev = ReviewDAO.get();
-		System.out.println(rev);
-		while(rev.hasNext())
-			{
-			Review tempura =(Review) rev.next();
-			System.out.println(tempura.getTitle());
-			}
-			*/
-		
-		
 		request.getRequestDispatcher("work.jsp").forward(request, response);
 	}
 

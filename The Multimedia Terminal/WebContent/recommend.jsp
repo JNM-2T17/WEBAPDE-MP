@@ -92,7 +92,7 @@
 				<li id="date" class="filterCritInactive">Date</li>
 			</ul> <!--  end of filterMenu -->
 			<div class = "recoHead" align = "center">
-				<h1>Recommend For: <%=request.getParameter("title")%></h1>
+				<h1>Recommend For: <%=request.getParameter("t")%></h1>
 			</div><!-- end of recoHead -->
 			<div id="searchMedia" class="searchContent">
 				<div class="work">
