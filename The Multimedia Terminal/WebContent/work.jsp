@@ -185,7 +185,18 @@
 						<input type="hidden" value = "${w.classification}" name="titleclass" />
 						<input type="hidden" value = "${w.title}" name="title" />
 						<div class="content" id="workReviewCont"><br />
-						<a href="review?t=${w.title}&c=${w.classification}" id="writeRev">Write a Review</a><br />
+						
+						<c:choose>
+							<c:when test="${not empty sessionScope.username}">
+								<a href="review?t=${w.title}&c=${w.classification}" id="writeRev">Write a Review</a><br />
+							</c:when>
+						</c:choose>
+						
+						
+						
+						
+						
+						
 						<c:forEach var="rev" items="${sessionScope.reviews}" >
 							<div class="review">
 								<span class="rating">
@@ -211,7 +222,7 @@
 											</div>
 										</c:when>
 										<c:otherwise>
-											<font size="3">Login first to flag a user or review</font>
+											<font size="3">Login first to write reviews and flag content</font>
 										</c:otherwise>
 									</c:choose>
 								
