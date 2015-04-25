@@ -16,9 +16,8 @@
 			<img id="logo" /><br />
 			<div id="homeLink"><a href="/The_Multimedia_Terminal">Home</a></div>
 			<div id="menubar">
-				<form name="search" action="search">
+				<form id="searchForm" name="search" action="search">
 					<ul id="menu">
-						
 						<li class="menuitem"><a href="favorites.jsp">Favorites</a></li>
 						<li class="menuitem"><a href="propose">Propose Media</a></li>
 						<c:if test="${not empty user && admin}">

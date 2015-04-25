@@ -1,13 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<title>The Multimedia Terminal</title>
 		<link rel="stylesheet" href="tmi.css" />
+		<c:set var="res" value="${sessionScope.search}" />
 		<script src="jquery-2.1.1.js"></script>
 		<script src="tmi.js"></script>
 		<script>
+			var results;
+			
+			function setResults(res) {
+				results = [];
+				var htmlStr = '';
+				
+				for( w in res ) {
+					w = res[w];
+					results.push(w);
+					htmlStr += '<div class="work">' +
+					'<div class="img"><img src="' + (w.cover == null ? 'Website Assets/blank.png' : w.cover) + '" /></div>\n' + 
+					'<div class="rating">\n';
+					for( var i = 0; i < 5; i++ ) {
+						if( i < w.rating ) {
+							htmlStr += '<img src="Website Assets/Filled Star.png" class="star" />\n';
+						} else {
+							htmlStr += '<img src="Website Assets/Empty Star.png" class="star" />\n';
+						}
+					}
+					htmlStr += '<br />' + (w.rating == 0 ? 'No Rating' : Number(w.rating).toFixed(1)) + '\n' + 
+						'</div> <!-- end of rating -->\n' +
+						'<span>' + w.title + ' (' + w.releaseYear + ' ' + w.classification + ')</span>\n' +
+						'<div class="description">\n' + 
+							'<p>' + (w.description == null ? '' : w.description) + '</p>\n' +
+						'</div> <!-- end of description -->\n' + 
+						'<div class="link">\n' +
+							'<a href="work?t=' + w.title + '&c=' + w.classification + '">Tell Me More</a>\n' +
+						'</div> <!-- end of link -->\n' +
+					'</div> <!-- end of work -->\n';
+				}
+				console.log(results);
+				$("#searchContent").html(htmlStr);
+			}
+			
+			function search(crit) {
+				$.ajax({
+					url : 'search',
+					method : 'POST',
+					data : {"s" : crit},
+					dataType : "json",
+					success : function(a) {
+						setResults(a)
+					}
+				});
+			}
+			
+			search( '${crit}' );
+			
 			$(document).ready(function() {
 				randomizeLogo();
 				
@@ -26,53 +77,87 @@
 					document.search.submit();
 				});
 				
+				$("#searchForm").submit(function() {
+					
+					search($("input#search").val());
+					return false;
+				});
+				
 				$("li#media").click(function() {
+					if( filter.attr("id") != "media" ) {
+						results.sort(function(a,b) {
+							if( a.classification.localeCompare(b.classification) != 0 ) {
+								return a.classification.localeCompare(b.classification);
+							} else if( a.title.localeCompare( b.title ) != 0 ) {
+								return a.title.localeCompare( b.title );
+							} else if( a.releaseYear != b.releaseYear ) {
+								return ( b.releaseYear - a.releaseYear );
+							} else return ( b.rating - a.rating );
+						});
+						setResults(results);
+					}
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchMedia" ) {
-						active.hide();
-						active = $("#searchMedia").show();
-					}
 				});
 				
 				$("li#alphabetical").click(function() {
+					if( filter.attr("id") != "alphabetical" ) {
+						results.sort(function(a,b) {
+							if( a.title.localeCompare( b.title ) != 0 ) {
+								return a.title.localeCompare( b.title );
+							} else if( a.classification.localeCompare(b.classification) != 0 ) {
+								return a.classification.localeCompare(b.classification);
+							} else if( a.releaseYear != b.releaseYear ) {
+								return ( b.releaseYear - a.releaseYear );
+							} else return ( b.rating - a.rating );
+						});
+						setResults(results);
+					}
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchAlphabetical" ) {
-						active.hide();
-						active = $("#searchAlphabetical").show();
-					}
 				});
 				
 				$("li#rating").click(function() {
+					if( filter.attr("id") != "rating" ) {
+						results.sort(function(a,b) {
+							if( a.rating != b.rating ) {
+								return (b.rating - a.rating);
+							} else if( a.title.localeCompare( b.title ) != 0 ) {
+								return a.title.localeCompare( b.title );
+							} else if( a.classification.localeCompare(b.classification) != 0 ) {
+								return a.classification.localeCompare(b.classification);
+							} else {
+								return ( a.releaseYear - b.releaseYear );
+							}
+						});
+						setResults(results);
+					}
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchRating" ) {
-						active.hide();
-						active = $("#searchRating").show();
-					}
 				});
 				
 				$("li#date").click(function() {
+					if( filter.attr("id") != "date" ) {
+						results.sort(function(a,b) {
+							if( a.releaseYear != b.releaseYear ) {
+								return (b.releaseYear - a.releaseYear);
+							} else if( a.title.localeCompare( b.title ) != 0 ) {
+								return a.title.localeCompare( b.title );
+							} else if( a.classification.localeCompare(b.classification) != 0 ) {
+								return a.classification.localeCompare(b.classification);
+							} else {
+								return ( a.rating - b.rating );
+							}
+						});
+						setResults(results);
+					}
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "searchDate" ) {
-						active.hide();
-						active = $("#searchDate").show();
-					}
 				});
 			});
 		</script>
-		<%@page import="java.util.Iterator,java.text.DecimalFormat,com.themmt.model.Work" %>
 	</head>
 	<body>
-		<%!
-			DecimalFormat df = new DecimalFormat();
-		%>
-		<%
-			df.setMaximumFractionDigits(2);
-			df.setMinimumFractionDigits(2);
-		%>
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<h1>Search</h1>
@@ -83,170 +168,7 @@
 				<li id="rating" class="filterCritInactive">Rating</li>
 				<li id="date" class="filterCritInactive">Date</li>
 			</ul> <!--  end of filterMenu -->
-			<div id="searchMedia" class="searchContent">
-			<% 
-				Iterator itr = (Iterator)request.getSession().getAttribute("search0");
-				if( itr.hasNext() ) {
-					while( itr.hasNext() ) {
-						Work w = (Work)itr.next();
-			%>
-				<div class="work">
-					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
-					<div class="rating">
-						<%
-							int n = (int)Math.round(w.getRating());
-							int i = 0;
-							for( ; i < n; i++ ) { 
-						%>
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<%
-							}
-							for( ; i < 5; i++ ) {
-						%>
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<%
-							}
-						%>
-						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
-					</div> <!-- end of rating -->
-					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
-					<div class="description">
-						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="link">
-						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-			<%
-					}
-				} else {
-			%>	
-				<div>No Results to Show</div>
-			<% } %>
-			</div> <!-- end of searchMedia -->
-			<div id="searchAlphabetical" class="searchContent">
-			<% 
-				itr = (Iterator)request.getSession().getAttribute("search1");
-				if( itr.hasNext() ) {
-					while( itr.hasNext() ) {
-						Work w = (Work)itr.next();
-			%>
-				<div class="work">
-					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
-					<div class="rating">
-						<%
-							int n = (int)Math.round(w.getRating());
-							int i = 0;
-							for( ; i < n; i++ ) { 
-						%>
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<%
-							}
-							for( ; i < 5; i++ ) {
-						%>
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<%
-							}
-						%>
-						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
-					</div> <!-- end of rating -->
-					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
-					<div class="description">
-						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="link">
-						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-			<%
-					}
-				} else {
-			%>	
-				<div>No Results to Show</div>
-			<% } %>
-			</div> <!-- end of searchAlphabetical -->
-			<div id="searchRating" class="searchContent">
-			<% 
-				itr = (Iterator)request.getSession().getAttribute("search2");
-				if( itr.hasNext() ) {
-					while( itr.hasNext() ) {
-						Work w = (Work)itr.next();
-			%>
-				<div class="work">
-					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
-					<div class="rating">
-						<%
-							int n = (int)Math.round(w.getRating());
-							int i = 0;
-							for( ; i < n; i++ ) { 
-						%>
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<%
-							}
-							for( ; i < 5; i++ ) {
-						%>
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<%
-							}
-						%>
-						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
-					</div> <!-- end of rating -->
-					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
-					<div class="description">
-						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="link">
-						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-			<%
-					}
-				} else {
-			%>	
-				<div>No Results to Show</div>
-			<% } %>
-			</div> <!-- end of searchRating -->
-			<div id="searchDate" class="searchContent">
-			<% 
-				itr = (Iterator)request.getSession().getAttribute("search3");
-				if( itr.hasNext() ) {
-					while( itr.hasNext() ) {
-						Work w = (Work)itr.next();
-			%>
-				<div class="work">
-					<div class="img"><img src="<%=w.getCover() == null?"Website Assets/blank.png":w.getCover()%>" /></div>
-					<div class="rating">
-						<%
-							int n = (int)Math.round(w.getRating());
-							int i = 0;
-							for( ; i < n; i++ ) { 
-						%>
-						<img src="Website Assets/Filled Star.png" class="star" />
-						<%
-							}
-							for( ; i < 5; i++ ) {
-						%>
-						<img src="Website Assets/Empty Star.png" class="star" />
-						<%
-							}
-						%>
-						<br /><%=w.getRating() == 0 ? "No Rating" : df.format(w.getRating())%>
-					</div> <!-- end of rating -->
-					<span><%=w.getTitle() %> (<%=w.getReleaseYear() + " " + w.getClassification()%>)</span>
-					<div class="description">
-						<p><%=w.getDescription() == null ? "" : w.getDescription()%></p>
-					</div> <!-- end of description -->
-					<div class="link">
-						<a href="work?t=<%=w.getTitle()%>&c=<%=w.getClassification()%>">Tell Me More</a>
-					</div> <!-- end of link -->
-				</div> <!-- end of work -->
-			<%
-					}
-				} else {
-			%>	
-				<div>No Results to Show</div>
-			<% } %>
-			</div> <!-- end of searchDate -->
+			<div id="searchContent"></div> <!-- end of searchContent -->
 		</div> <!-- end of mainContent -->
 	</body>
 </html>

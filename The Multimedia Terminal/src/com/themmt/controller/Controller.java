@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.themmt.model.User;
 import com.themmt.model.Work;
 import com.themmt.model.database.RecommendationDAO;
@@ -28,6 +29,12 @@ public class Controller extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    @SuppressWarnings("unused")
+	private String getSearch( String searchStr ) {
+    	String str = new Gson().toJson(WorkDAO.search(searchStr, WorkDAO.ALL,WorkDAO.TYPE));
+    	return str;
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -62,6 +69,10 @@ public class Controller extends HttpServlet {
 			case "/logout":
 				request.getSession().setAttribute("username", null);
 				request.getRequestDispatcher("start").forward(request, response);
+				break;
+			case "/search":
+				request.setAttribute( "crit", request.getParameter("s") );
+				request.getRequestDispatcher("search.jsp").forward(request,response);
 				break;
 			default:
 		}
@@ -100,6 +111,10 @@ public class Controller extends HttpServlet {
 			case "/approvedWork":
 				WorkDAO.approveWork( request.getParameter("title"), request.getParameter("class") );
 				response.getWriter().println("SUCCESS");
+				break;
+			case "/search":
+				System.out.println( getSearch( request.getParameter("s") ) );
+				response.getWriter().println( getSearch( request.getParameter("s") ) );
 				break;
 			default:
 		}

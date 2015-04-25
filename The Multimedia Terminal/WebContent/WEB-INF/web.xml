@@ -26,6 +26,10 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/recommend</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -60,18 +64,6 @@
     <servlet-name>Work</servlet-name>
     <servlet-class>com.themmt.controller.WorkServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>Work</servlet-name>
-    <url-pattern>/work</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>Search</servlet-name>
-    <servlet-class>com.themmt.controller.SearchServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Search</servlet-name>
-    <url-pattern>/search</url-pattern>
-  </servlet-mapping>
   <servlet>
     <servlet-name>AdminApproval</servlet-name>
     <servlet-class>com.themmt.controller.AdminApprovalServlet</servlet-class>
