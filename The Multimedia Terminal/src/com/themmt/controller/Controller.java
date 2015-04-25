@@ -52,9 +52,19 @@ public class Controller extends HttpServlet {
     }
     
 	private String getSearch( String searchStr ) {
-    	String str = new Gson().toJson(WorkDAO.search(searchStr, WorkDAO.ALL,WorkDAO.TYPE));
+		String str = new Gson().toJson(WorkDAO.search(searchStr, WorkDAO.ALL,WorkDAO.TYPE));
     	return str;
     }
+	
+	private String getFavorites( String username ) {
+		String str = new Gson().toJson(WorkDAO.getFavorites(username));
+    	return str;
+	}
+	
+	private String getTaste( String username ) {
+		String str = new Gson().toJson(WorkDAO.getTasteRecommendations(username));
+    	return str;
+	}
 	
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Cookie c = CookieFinder.findCookie(request, "username");
@@ -75,15 +85,22 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		restoreUser(request, response);
+		
 		switch( request.getServletPath() ) {
+			case "/logout":
+				logout(request, response);
+				//fall-through
 			case "/start":
-				restoreUser( request, response );
 				start(request, response);
 				break;
 			case "/work":
 				Work w = WorkDAO.get(request.getParameter("t"), request.getParameter("c") );
 				int rateCtr = WorkDAO.getRatingCount(request.getParameter("t"), request.getParameter("c") );
 				WorkDAO.incrementView(request.getParameter("t"), request.getParameter("c") );
+				if( request.getSession().getAttribute("username") != null ) {
+					WorkDAO.setFavorite( w, request.getSession().getAttribute("username").toString() );
+				}
 				request.getSession().setAttribute("work", w );
 				if( w != null ) {
 					request.getSession().setAttribute("recommendations", RecommendationDAO.getRecommended(w.getTitle()));
@@ -103,10 +120,6 @@ public class Controller extends HttpServlet {
 				request.getSession().setAttribute("isAdmin", false);
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 				break;
-			case "/logout":
-				logout(request, response);
-				start( request, response );
-				break;
 			case "/search":
 				request.setAttribute( "crit", request.getParameter("s") );
 				request.getRequestDispatcher("search.jsp").forward(request,response);
@@ -120,6 +133,9 @@ public class Controller extends HttpServlet {
 					request.getRequestDispatcher("work.jsp").forward(request, response);
 				}
 				break;
+			case "/favorite":
+				request.getRequestDispatcher("favorites.jsp").forward(request,response);
+				break;
 			default:
 		}
 	}
@@ -129,9 +145,10 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		restoreUser(request, response);
+		
 		switch( request.getServletPath() ) {
 			case "/start":
-				restoreUser( request, response );
 				start(request, response);
 				break;
 			case "/login":
@@ -181,8 +198,6 @@ public class Controller extends HttpServlet {
 				Rating r = new Rating(username, workTitle, ratingu, titleclass);
 						
 				try {
-					System.out.println( r.getUsername() + " " + request.getSession().getAttribute("username").toString() );
-					System.out.println( "SHIT" );
 					RatingDAO.add(r);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -218,8 +233,19 @@ public class Controller extends HttpServlet {
 					response.getWriter().print("The keyword " + request.getParameter("keyword") + " is already proposed.");
 				}
 				break;
+			case "/favorite":
+				if( Boolean.parseBoolean(request.getParameter("init") ) ) {
+					response.getWriter().print(getFavorites(request.getSession().getAttribute("username").toString()));
+				} else {
+					WorkDAO.favorite(request.getParameter("title"),request.getParameter("class"),
+										request.getSession().getAttribute("username").toString(),
+										Boolean.parseBoolean(request.getParameter("fav")));
+					response.getWriter().print("");
+				}
+				break;
+			case "/taste":
+				response.getWriter().print(getTaste(request.getSession().getAttribute("username").toString()));
 			default:
 		}
 	}
-
 }

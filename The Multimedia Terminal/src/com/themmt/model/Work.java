@@ -22,6 +22,7 @@ public class Work {
 	private boolean isVerified;
 	private ArrayList<String> genres;
 	private ArrayList<String> keywords;
+	private boolean favorited;
 	
 	public static class WorkBuilder {
 		private String title;
@@ -154,5 +155,13 @@ public class Work {
 	
 	public void addKeyword( String keyword ) {
 		keywords.add( keyword ); 
+	}
+
+	public boolean isFavorited() {
+		return favorited;
+	}
+
+	public void setFavorited(boolean favorited) {
+		this.favorited = favorited;
 	}
 }

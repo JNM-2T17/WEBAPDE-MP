@@ -185,6 +185,11 @@ img.star {
 	width:15px;
 }
 
+#fav a {
+	color:#FFF;
+	text-decoration:none;
+}
+
 div.description {
 	margin-bottom:40px;
 }

@@ -182,6 +182,25 @@
 					
 					return false;
 				});
+				
+				$('#fav').mousedown(function() {
+					console.log( $('#favLabel').text());
+					console.log( $("#favLabel").text() == 'Favorite' );
+					$.ajax({
+						url : "favorite",
+						method : "POST",
+						data : { 
+							'title': '${w.title}',
+							'class' : '${w.classification}',
+							'init' : 'false',
+							'fav' : ($("#favLabel").text() == 'Favorite')
+						},
+						success : function(a) {
+							$("#favLabel").text( $("#favLabel").text() == 'Favorite' ? "Unfavorite" : "Favorite" );
+							console.log( '${w.title} ' + ($("#favLabel").text() == 'Favorite' ? 'unfavorited' : 'favorited') );
+						}
+					});
+				});
 			});
 		</script>
 	</head>
@@ -212,7 +231,22 @@
 							</c:otherwise>
 						</c:choose>
 					</span> <!-- end of rating --><br />
-					<h4 id="ratingCtr">${rateCtr} ratings</h4><br /><br />
+					<h4 id="ratingCtr">${rateCtr} ratings</h4>
+					<c:if test="${user}">
+						<div id="fav">
+							<a href="#">
+								<img src="Website Assets/FavStar.png">&nbsp;&nbsp;
+								<c:choose>
+									<c:when test="${w.favorited}">
+										<span id="favLabel">Unfavorite</span>
+									</c:when>
+									<c:otherwise>
+										<span id="favLabel">Favorite</span>
+									</c:otherwise>
+								</c:choose>
+							</a>
+						</div>
+					</c:if><br /><br />
 					<div id="screenshots">
 						<c:choose>
 							<c:when test="${empty w.cover}">

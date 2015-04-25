@@ -73,22 +73,6 @@ public class WorkDAO {
 								.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
 								.viewCount(rs.getInt(Work.VIEW_COLUMN))
 								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
-					query = "SELECT * FROM genre WHERE work = ? AND workClass = ? AND isVerified = TRUE";
-					ps = c.prepareStatement(query);
-					ps.setString(1, w.getTitle() );
-					ps.setString(2, w.getClassification() );
-					ResultSet rs2 = ps.executeQuery();
-					while( rs2.next() ) {
-						w.addGenre( rs2.getString("genre") );
-					}
-					query = "SELECT * FROM keyword WHERE work = ? AND workClass = ? AND isVerified = TRUE";
-					ps = c.prepareStatement(query);
-					ps.setString(1, w.getTitle() );
-					ps.setString(2, w.getClassification() );
-					rs2 = ps.executeQuery();
-					while( rs2.next() ) {
-						w.addKeyword( rs2.getString("keyword") );
-					}
 					works.add( w ); 
 				}
 			} catch(SQLException se) {
@@ -192,29 +176,6 @@ public class WorkDAO {
 			throws IllegalArgumentException {
 			String query = null;
 			Connection c = DBConnection.getConnection();
-			
-			switch( criteria ) {
-				case PROPOSAL:
-					query = "SELECT * FROM `proposals`";
-					break;
-				default:
-						throw new IllegalArgumentException("Invalid criteria");
-			}
-			
-			switch( sort ) {
-				case TYPE:
-					query += " ORDER BY class, title, releaseYear";
-					break;
-				case ALPHA:
-					query += " ORDER BY title, class, releaseYear";
-					break;
-				case DATE:
-					query += " ORDER BY releaseYear, class, title";
-					break;
-				default:
-					throw new IllegalArgumentException("Invalid sort column");
-			}
-			
 			ArrayList<Work> works = new ArrayList<Work>();
 			
 			try {
@@ -228,23 +189,75 @@ public class WorkDAO {
 								.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
 								.viewCount(rs.getInt(Work.VIEW_COLUMN))
 								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
-					query = "SELECT * FROM genre WHERE work = ? AND workClass = ? AND isVerified = 1";
+					
+					works.add( w );
+				}
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+			
+			return works;
+		}
+		
+		public static ArrayList<Work> getFavorites( String username ) {
+			String query = "SELECT * FROM `All Works` AW, favorites F WHERE F.title = AW.title AND F.titleclass = AW.class AND username = ?";
+			Connection c = DBConnection.getConnection();
+			ArrayList<Work> works = new ArrayList<Work>();
+			
+			try {
+				PreparedStatement ps = c.prepareStatement(query);
+				ps.setString(1, username);
+				ResultSet rs = ps.executeQuery();
+				
+				while( rs.next() ) {
+					Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+								.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
+								.description(rs.getString(Work.DESC_COLUMN))
+								.rating(rs.getDouble(Work.RATING_COLUMN))
+								.viewCount(rs.getInt(Work.VIEW_COLUMN))
+								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
+					works.add( w );
+				}
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+			
+			return works;
+		}
+		
+		public static ArrayList<Work> getTasteRecommendations( String username ) {
+			String query = "SELECT workTo `Title`, workToClass `Class`, COUNT(*) `Recommendations`, releaseYear, cover, description, rating, viewCount " +  
+						   "FROM recommendation R, favorites F, `All Works` AW " + 
+						   "WHERE R.workFrom = F.title AND R.workFromClass = F.titleclass AND AW.title = R.workTo AND AW.class = R.workToClass AND F.username = ? AND isVerified = TRUE " +
+						   "AND AW.title NOT IN (SELECT title FROM favorites F2 WHERE F2.username = F.username ) " + 
+						   "GROUP BY 1,2";
+			Connection c = DBConnection.getConnection();
+			ArrayList<Work> works = new ArrayList<Work>();
+			
+			try {
+				PreparedStatement ps = c.prepareStatement(query);
+				ps.setString(1, username);
+				ResultSet rs = ps.executeQuery();
+				
+				while( rs.next() ) {
+					Work w = new Work.WorkBuilder(rs.getString(Work.TITLE_COLUMN),rs.getString(Work.CLASS_COLUMN))
+								.releaseYear(rs.getString(Work.YEAR_COLUMN)).cover(rs.getString(Work.COVER_COLUMN))
+								.description(rs.getString(Work.DESC_COLUMN))
+								.rating(rs.getDouble(Work.RATING_COLUMN))
+								.viewCount(rs.getInt(Work.VIEW_COLUMN))
+								.isVerified(true).build();
+					query = "SELECT workFrom, workFromClass " + 
+							"FROM recommendation R, favorites F " + 
+							"WHERE workFrom = F.title AND workFromClass = F.titleclass AND F.username = ? AND workTo = ? AND workToClass = ?";
 					ps = c.prepareStatement(query);
-					ps.setString(1, w.getTitle() );
-					ps.setString(2, w.getClassification() );
+					ps.setString(1, username );
+					ps.setString(2, w.getTitle() );
+					ps.setString(3, w.getClassification() );
 					ResultSet rs2 = ps.executeQuery();
 					while( rs2.next() ) {
-						w.addGenre( rs2.getString("genre") );
+						w.addKeyword( rs2.getString("workFrom") + "(" + rs2.getString("workFromClass")  + ")" );
+						System.out.println( rs2.getString("workFrom") + "(" + rs2.getString("workFromClass")  + ")" );
 					}
-					query = "SELECT * FROM keyword WHERE work = ? AND workClass = ? AND isVerified = 1";
-					ps = c.prepareStatement(query);
-					ps.setString(1, w.getTitle() );
-					ps.setString(2, w.getClassification() );
-					rs2 = ps.executeQuery();
-					while( rs2.next() ) {
-						w.addKeyword( rs2.getString("keyword") );
-					}
-					works.add( w );
 					works.add( w );
 				}
 			} catch(SQLException se) {
@@ -308,23 +321,6 @@ public class WorkDAO {
 									.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
 									.viewCount(rs.getInt(Work.VIEW_COLUMN))
 									.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
-						query = "SELECT * FROM genre WHERE work = ? AND workClass = ? AND isVerified = 1";
-						ps = c.prepareStatement(query);
-						ps.setString(1, w.getTitle() );
-						ps.setString(2, w.getClassification() );
-						ResultSet rs2 = ps.executeQuery();
-						while( rs2.next() ) {
-							w.addGenre( rs2.getString("genre") );
-						}
-						query = "SELECT * FROM keyword WHERE work = ? AND workClass = ? AND isVerified = 1";
-						ps = c.prepareStatement(query);
-						ps.setString(1, w.getTitle() );
-						ps.setString(2, w.getClassification() );
-						rs2 = ps.executeQuery();
-						while( rs2.next() ) {
-							w.addKeyword( rs2.getString("keyword") );
-						}
-						works.add( w );
 						works.add( w );
 					}
 				} catch(SQLException se) {
@@ -391,6 +387,39 @@ public class WorkDAO {
 			pstmt.execute();
 		} catch( SQLException e ) {
 			throw e;
+		}
+	}
+	
+	public static void favorite( String title, String classification, String user, boolean fav ) {
+		String stmt = fav ? "INSERT INTO favorites(title,titleclass,username) VALUES (?,?,?)" : 
+							"DELETE FROM favorites WHERE title = ? AND titleclass = ? AND username = ?";
+		Connection c = DBConnection.getConnection();
+		
+		try {
+			PreparedStatement pstmt = c.prepareStatement(stmt);
+			pstmt.setString( 1, title );
+			pstmt.setString( 2, classification );
+			pstmt.setString( 3, user );
+			pstmt.execute();
+		} catch( SQLException e ) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setFavorite( Work w, String username ) {
+		String stmt = "SELECT * FROM favorites WHERE username = ? AND title = ? AND titleclass = ?";
+		Connection c = DBConnection.getConnection();
+		
+		try {
+			PreparedStatement pstmt = c.prepareStatement(stmt);
+			pstmt.setString( 1, username );
+			pstmt.setString( 2, w.getTitle() );
+			pstmt.setString( 3, w.getClassification() );
+			ResultSet rs = pstmt.executeQuery();
+			
+			w.setFavorited(rs.next());
+		} catch( SQLException e ) {
+			e.printStackTrace();
 		}
 	}
 }

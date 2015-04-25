@@ -38,6 +38,14 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/favorite</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/taste</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
