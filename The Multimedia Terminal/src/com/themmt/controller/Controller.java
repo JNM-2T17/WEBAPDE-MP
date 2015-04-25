@@ -34,8 +34,8 @@ public class Controller extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-    private void start(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+    private void restoreUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Cookie c = CookieFinder.findCookie(request, "username");
 		if( c != null ) {
 			request.getSession().setAttribute("username", c.getValue() );
@@ -44,7 +44,10 @@ public class Controller extends HttpServlet {
 		if( c != null ) {
 			request.getSession().setAttribute("isAdmin", Boolean.parseBoolean(c.getValue()) );
 		}
-		request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
+    }
+
+    private void start(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.getSession().setAttribute("home",WorkDAO.get(WorkDAO.HOME));
 		request.getRequestDispatcher("index.jsp").forward(request, response);
     }
     
@@ -74,6 +77,7 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		switch( request.getServletPath() ) {
 			case "/start":
+				restoreUser( request, response );
 				start(request, response);
 				break;
 			case "/work":
@@ -101,7 +105,7 @@ public class Controller extends HttpServlet {
 				break;
 			case "/logout":
 				logout(request, response);
-				request.getRequestDispatcher("start").forward(request, response);
+				start( request, response );
 				break;
 			case "/search":
 				request.setAttribute( "crit", request.getParameter("s") );
@@ -127,11 +131,12 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		switch( request.getServletPath() ) {
 			case "/start":
+				restoreUser( request, response );
 				start(request, response);
 				break;
 			case "/login":
 				if( request.getSession().getAttribute("registered") != null && 
-					(Boolean)request.getSession().getAttribute("registered") ) {
+				(Boolean)request.getSession().getAttribute("registered") ) {
 					User u = (User)(request.getSession().getAttribute("user"));
 					request.getSession().setAttribute("username", u.getUsername() );
 					request.getRequestDispatcher("login.jsp").forward(request, response);	
