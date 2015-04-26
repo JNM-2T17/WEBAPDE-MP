@@ -154,6 +154,27 @@ public class Controller extends HttpServlet {
 			case "/adminCreatorAppro":
 				request.getSession().setAttribute("proposal5",CreatorDAO.get());
 				request.getRequestDispatcher("adminCreatorAppro.jsp").forward(request, response);
+				break;
+			case "/propose":
+				//prevent alert from showing
+				request.getSession().setAttribute("noProposal", true);
+				
+				//initialize proposalSuccess
+				request.getSession().setAttribute("proposalSuccess",true);
+				
+				//forward to proposal page
+		        request.getRequestDispatcher("propose.jsp").forward(request, response);
+		        break;
+			case "/register":
+		        request.getSession().setAttribute("fail", false);
+				request.getRequestDispatcher("register.jsp").forward(request, response);
+				break;
+			case "/admin":
+				request.setAttribute("propCount", WorkDAO.getCount(WorkDAO.PROPOSAL));
+				request.setAttribute("KeyGenCount", GenreDAO.getNotVerCount() + KeywordDAO.getNotVerCount());
+				request.setAttribute("CreatorCount", CreatorDAO.getNotVerCount());
+				request.getRequestDispatcher("admin.jsp").forward(request, response);
+				break;
 			default:
 		}
 	}
@@ -233,19 +254,19 @@ public class Controller extends HttpServlet {
 				
 				double ratingu = Double.parseDouble(rating);
 				
-				Rating r = new Rating(username, workTitle, ratingu, titleclass);
+				Rating ra = new Rating(username, workTitle, ratingu, titleclass);
 						
 				try {
-					RatingDAO.add(r);
+					RatingDAO.add(ra);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
-				Review u = new Review(username, workTitle, review, isFlagged, titleclass, ratingu);
+				Review re = new Review(username, workTitle, review, isFlagged, titleclass, ratingu);
 				
 				try { //try adding Review
-					ReviewDAO.add(u);
+					ReviewDAO.add(re);
 					request.getRequestDispatcher("start").forward(request, response);
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -271,6 +292,10 @@ public class Controller extends HttpServlet {
 					response.getWriter().print("The keyword " + request.getParameter("keyword") + " is already proposed.");
 				}
 				break;
+			case "/approveGenre":
+				break;
+			case "/approveKey":
+				break;	
 			case "/favorite":
 				if( Boolean.parseBoolean(request.getParameter("init") ) ) {
 					response.getWriter().print(getFavorites(request.getSession().getAttribute("username").toString()));
@@ -283,7 +308,111 @@ public class Controller extends HttpServlet {
 				break;
 			case "/taste":
 				response.getWriter().print(getTaste(request.getSession().getAttribute("username").toString()));
-			default:
+				break;
+			case "/propose":
+				//allow alerts to show
+				request.getSession().setAttribute("noProposal", false);
+				
+				//get parameters from form
+				String title = request.getParameter("title");
+				String releaseYear = request.getParameter("releaseYear");
+				String cover = null;
+				String classification = request.getParameter("classification");
+				String description = request.getParameter("description");
+				int viewCount = 0;
+				isVerified = false;
+				
+				//generate work
+				Work w = new Work.WorkBuilder(title,classification).releaseYear(releaseYear)
+							.cover(cover).description(description).viewCount(viewCount)
+							.isVerified(isVerified).build();
+				try { //try adding work
+					WorkDAO.add(w);
+					
+					//mark as success
+					request.getSession().setAttribute("proposalSuccess", true );
+				} catch (SQLException e) {
+					e.printStackTrace();
+					//mark proposal as false
+					request.getSession().setAttribute("proposalSuccess", false );
+					
+					//define proposal error
+					request.getSession().setAttribute("proposalError", 
+							e.getErrorCode() == 1062 ? "\"" + title + "\" already exists as " + 
+												( ( classification.charAt(0) == 'a' ||
+												  classification.charAt(0) == 'e' ||
+												  classification.charAt(0) == 'i' ||
+												  classification.charAt(0) == 'o' ||
+												  classification.charAt(0) == 'u' ) ? "an " : "a " )
+												+ classification + "." : 
+											   "Failed to add \"" + title + "\"." );
+					
+					//set values
+					request.getSession().setAttribute("releaseYear", releaseYear );
+					request.getSession().setAttribute("classification", classification );
+					request.getSession().setAttribute("description",description);
+				} finally {
+					
+					//set title
+					request.getSession().setAttribute("title", title );
+				}
+				
+				//return to propose page
+				request.getRequestDispatcher("propose.jsp").forward(request,response);
+				break;
+			case "/register":
+				username = request.getParameter("username");
+				String fname = request.getParameter("fname");
+				String lname = request.getParameter("lname");
+				String email = request.getParameter("email");
+				password = request.getParameter("password");
+				String gender = request.getParameter("gender");
+				description = request.getParameter("description");
+				String profpic = "default";
+				isFlagged = false;
+
+				User u = new User(username, fname, lname, gender,
+								  email, password, profpic, description, isFlagged);
+				
+				try { //try adding User
+					UserDAO.add(u);
+					request.getSession().setAttribute("user", u);
+					request.getSession().setAttribute("registered", true);
+					request.getRequestDispatcher("login").forward(request, response);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					request.getSession().setAttribute("fail", true);
+					request.getSession().setAttribute("uname", username);
+					request.getSession().setAttribute("fname", fname);
+					request.getSession().setAttribute("lname", lname);
+					request.getSession().setAttribute("gender", gender);
+					request.getSession().setAttribute("email", email);
+					request.getSession().setAttribute("password", password);
+					System.out.println("It failed!!!!!");
+					request.getRequestDispatcher("register.jsp").forward(request, response);	
+					//Mod page or make a popup window to indicate that the user already exists
+				}	
+				break;
+			case "/flag":
+				switch(request.getParameter("id")) {
+					case "flagUser":
+						try {
+							UserDAO.flag(request.getParameter("username"));
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						break;
+					case "flagReview": 
+						try {
+							ReviewDAO.flag(request.getParameter("username"),request.getParameter("title"),request.getParameter("titleClass") );
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					   break;
+					default:
+				}
 		}
 	}
 }
