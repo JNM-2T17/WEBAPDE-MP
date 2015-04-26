@@ -1,10 +1,9 @@
 package com.themmt.model.database;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.sql.PreparedStatement;
 
 import com.themmt.model.Keyword;
 
@@ -89,7 +88,7 @@ public class KeywordDAO {
 		}
 	
 	public static void approveKeyword( String title, String classification, String keyword ) {
-		String pstmst = "UPDATE keyword SET isVerified = 1 WHERE title = ? AND class = ? AND keyword = ?";
+		String pstmst = "UPDATE keyword SET isVerified = TRUE WHERE work = ? AND workclass = ? AND keyword = ?";
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);

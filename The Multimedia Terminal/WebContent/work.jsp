@@ -144,7 +144,6 @@
 									$('input#genre').val('');
 									$('#genreForm').hide();
 									$('#addGenre').show();
-									alert('The genre ' + genre + ' was proposed!');
 								} else {
 									alert( a );
 								}
@@ -172,7 +171,6 @@
 									$('input#key').val('');
 									$('#keyForm').hide();
 									$('#addKey').show();
-									alert('The keyword "' + key + '" was proposed!');
 								} else {
 									alert( a );
 								}
@@ -258,71 +256,72 @@
 						</c:choose>
 					</div><br />
 					<div class="workSection" id="workGenres" data-visible="false">
-				<span>Genres</span>
-				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
-					<div class="orangeLine"></div>
-				</div> <!-- end of workGenres -->
-				<div class="content" id="workGenresCont">
-					<div id="addGenre">
-						<c:choose>
-							<c:when test="${user}">
-								<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Propose Genre
-							</c:when>
-							<c:otherwise>
-								Log in to propose genres.
-							</c:otherwise>
-						</c:choose>	
-					</div>
-					<div class="addList">
-						<c:forEach var="g" items="${w.genres}" varStatus="i">
-							${g}
-							<c:if test="${!i.last}">
-								<span class="info">|</span>
-							</c:if>
-						</c:forEach>
-					</div><br /> 
-					<div id="genreForm">
-						<form name="genre" class="workAdd" id="genre" method="post">
-							<input type="text" name="g" id="genre" />
-							<input type="submit" value="Propose Genre" class="orangeBox">
-						</form>
-						<button id="cancelGenre" class="orangeBox">Cancel</button>
-					</div>
-				</div> <!-- end of workGenresCont --><br />
-				<div class="workSection" id="workKeys" data-visible="false">
-					<span>Keywords</span>
+					<span>Genres</span>
 					<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
-					<div class="orangeLine"></div>
-				</div> <!-- end of workKeys --> <br />
-				<div class="content" id="workKeysCont">
-					<div id="addKey">
-						<c:choose>
-							<c:when test="${user}">
-								<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Propose Keyword
-							</c:when>
-							<c:otherwise>
-								Log in to propose keywords.
-							</c:otherwise>	
-						</c:choose>
-					</div>
-					<div class="addList">
-						<c:forEach var="k" items="${w.keywords}" varStatus="i">
-							${k}
-							<c:if test="${!i.last}">
-								<span class="info">|</span>
-							</c:if>
-						</c:forEach>
-					</div>
-					<div id="keyForm">
-						<form name="key" class="workAdd" id="key" method="post">
-							<input type="text" name="k" id="key" />
-							<input type="submit" value="Propose Keyword" class="orangeBox">
-						</form>
-						<button id="cancelKey" class="orangeBox">Cancel</button>
-					</div>
-					<br /> 
-				</div> <!-- end of workKeysCont -->
-				<div class="workSection" id="workDesc" data-visible="false">
+						<div class="orangeLine"></div>
+					</div> <!-- end of workGenres --> 
+					<div class="content" id="workGenresCont">
+						<br />
+						<div id="addGenre">
+							<c:choose>
+								<c:when test="${user}">
+									<img src="Website Assets/Plus Sign.png" id="addGenre" />&nbsp;Propose Genre
+								</c:when>
+								<c:otherwise>
+									Log in to propose genres.
+								</c:otherwise>
+							</c:choose>	
+						</div>
+						<div class="addList">
+							<c:forEach var="g" items="${w.genres}" varStatus="i">
+								${g}
+								<c:if test="${!i.last}">
+									<span class="info">|</span>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div id="genreForm">
+							<form name="genre" class="workAdd" id="genre" method="post">
+								<input type="text" name="g" id="genre" />
+								<input type="submit" value="Propose Genre" class="orangeBox">
+							</form>
+							<button id="cancelGenre" class="orangeBox">Cancel</button>
+						</div>
+					</div> <!-- end of workGenresCont --><br />
+					<div class="workSection" id="workKeys" data-visible="false">
+						<span>Keywords</span>
+						<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
+						<div class="orangeLine"></div>
+					</div> <!-- end of workKeys --> 
+					<div class="content" id="workKeysCont">
+						<br />
+						<div id="addKey">
+							<c:choose>
+								<c:when test="${user}">
+									<img src="Website Assets/Plus Sign.png" id="addKey" />&nbsp;Propose Keyword
+								</c:when>
+								<c:otherwise>
+									Log in to propose keywords.
+								</c:otherwise>	
+							</c:choose>
+						</div>
+						<div class="addList">
+							<c:forEach var="k" items="${w.keywords}" varStatus="i">
+								${k}
+								<c:if test="${!i.last}">
+									<span class="info">|</span>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div id="keyForm">
+							<form name="key" class="workAdd" id="key" method="post">
+								<input type="text" name="k" id="key" />
+								<input type="submit" value="Propose Keyword" class="orangeBox">
+							</form>
+							<button id="cancelKey" class="orangeBox">Cancel</button>
+						</div>
+					</div> <!-- end of workKeysCont --> <br /> 
+					<div class="workSection" id="workDesc" data-visible="false">
 						<span>Description</span>
 						<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 						<div class="orangeLine"></div>
@@ -335,12 +334,10 @@
 						<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 						<div class="orangeLine"></div>
 					</div> <!-- end of workReview --> <br />
-					
 					<form action="review" id="reviewForm">
 						<input type="hidden" value = "${w.classification}" name="titleclass" />
 						<input type="hidden" value = "${w.title}" name="title" />
 						<div class="content" id="workReviewCont">
-						
 						<c:choose>
 							<c:when test="${user}">
 								<br /><a href="review?t=${w.title}&c=${w.classification}" id="writeRev">Write a Review</a><br />
@@ -402,7 +399,7 @@
 							</c:choose>
 							<c:choose>
 								<c:when test="${fn:length(sessionScope.recommendations) gt 0}">
-									<br />
+									<br /><br />	
 									<c:forEach var="rw" items="${sessionScope.recommendations}">
 										<div class="workSmall" data-link="work?t=${rw.title}&c=${rw.classification}">
 											<div class="recImg">
@@ -460,7 +457,7 @@
 							</c:choose><br />
 							<c:choose>
 								<c:when test="${fn:length(sessionScope.unrecommendations) gt 0}">
-									<br />
+									<br /><br />	
 									<c:forEach var="rw" items="${sessionScope.unrecommendations}">
 										<div class="workSmall" data-link="work?t=${rw.title}&c=${rw.classification}">
 											<div class="recImg">

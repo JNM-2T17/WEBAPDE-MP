@@ -296,8 +296,12 @@ public class Controller extends HttpServlet {
 				}
 				break;
 			case "/approveGenre":
+				GenreDAO.approveGenre(request.getParameter("title"), request.getParameter("classif"), request.getParameter("genre") );
+				response.getWriter().println("");
 				break;
 			case "/approveKey":
+				KeywordDAO.approveKeyword(request.getParameter("title"), request.getParameter("classif"), request.getParameter("key") );
+				response.getWriter().println("");
 				break;	
 			case "/favorite":
 				if( Boolean.parseBoolean(request.getParameter("init") ) ) {

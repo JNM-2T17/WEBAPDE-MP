@@ -1,10 +1,9 @@
 package com.themmt.model.database;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.sql.PreparedStatement;
 
 import com.themmt.model.Genre;
 
@@ -89,7 +88,7 @@ public class GenreDAO {
 		}
 	
 	public static void approveGenre( String title, String classification, String genre ) {
-		String pstmst = "UPDATE genre SET isVerified = 1 WHERE title = ? AND class = ? AND genre = ?";
+		String pstmst = "UPDATE genre SET isVerified = 1 WHERE work = ? AND workclass = ? AND genre = ?";
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);

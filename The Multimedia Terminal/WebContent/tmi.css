@@ -441,6 +441,10 @@ div.recImg {
 	margin-right:10px;
 }
 
+.recImg img {
+	height:110px;
+}
+
 /*for review*/
 form#reviewForm {
 	font-size:1.5em;

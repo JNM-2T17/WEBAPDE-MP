@@ -23,41 +23,49 @@
 				});
 				
 				$("button[id^='key']").click(function() {
-					var id = $(this).attr('id');
-					var title = $("form#" + id + " .title").val();
-					var classif = $("form#" + id + " .class").val();
-					var key = $("form#" + id + " .key").val();
-					$.ajax({
-						url : "approveKey",
-						method : "POST",
-						data : {
-							'title' : title,
-							'classif' : classif,
-							'key' : genre
-						},
-						success : function() {
-							alert( "Keyword " + key + " approved!" );
-						}
-					});
+					if( $(this).text() != 'Approved' ) {
+						var id = $(this).attr('id');
+						var title = $("form#" + id + " .title").val();
+						var classif = $("form#" + id + " .class").val();
+						var key = $("form#" + id + " .key").val();
+						$.ajax({
+							url : "approveKey",
+							method : "POST",
+							data : {
+								'title' : title,
+								'classif' : classif,
+								'key' : key
+							},
+							success : function() {
+								switchClass( $("button#" + id), 'greyBox', 'orangeBox' );
+								switchClass( $("div#" + id), 'approvedLink', 'wideLink' );
+								$("button#" + id).text("Approved");
+							}
+						});
+					}
 				});
 				
 				$("button[id^='genre']").click(function() {
-					var id = $(this).attr('id');
-					var title = $("form#" + id + " .title").val();
-					var classif = $("form#" + id + " .class").val();
-					var genre = $("form#" + id + " .genre").val();
-					$.ajax({
-						url : "approveGenre",
-						method : "POST",
-						data : {
-							'title' : title,
-							'classif' : classif,
-							'genre' : genre
-						},
-						success : function() {
-							alert( "Genre " + genre + " approved!" );
-						}
-					});
+					if( $(this).text() != 'Approved' ) {
+						var id = $(this).attr('id');
+						var title = $("form#" + id + " .title").val();
+						var classif = $("form#" + id + " .class").val();
+						var genre = $("form#" + id + " .genre").val();
+						$.ajax({
+							url : "approveGenre",
+							method : "POST",
+							data : {
+								'title' : title,
+								'classif' : classif,
+								'genre' : genre
+							},
+							success : function() {
+								switchClass( $("button#" + id), 'greyBox', 'orangeBox' );
+								switchClass( $("div#" + id), 'approvedLink', 'wideLink' );
+								$("button#" + id).text("Approved");
+							}
+						});
+					}
 				});
 			});
 		</script>
@@ -76,7 +84,7 @@
 							<div class="apprDesc">
 								<span>${k.title} (${k.titleclass})</span>
 							</div> <!-- end of description -->
-							<div class="wideLink">
+							<div class="wideLink" id="key${i.index}">
 								<form method = "post" id="key${i.index}" onSubmit="return false;">
 									<button class="orangeBox" id="key${i.index}">Approve</button>
 									<input type="hidden" value = "${k.title}" name="title" class="title" />
@@ -103,7 +111,7 @@
 							<div class="apprDesc">
 								<span>${g.title} (${g.titleclass})</span>
 							</div> <!-- end of description -->
-							<div class="wideLink">
+							<div class="wideLink" id="genre${i.index}">
 								<form method = "post" id="genre${i.index}" onSubmit="return false;">
 									<button class="orangeBox" id="genre${i.index}">Approve</button>
 									<input type="hidden" value = "${g.title}" name="title" class="title"/>
