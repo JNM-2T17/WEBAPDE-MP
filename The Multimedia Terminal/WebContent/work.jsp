@@ -78,16 +78,12 @@
 				});
 				
 				$("span[id $= \"flagUser\"]").click(function() {
-					//var str = $(this).attr("id");
-
-					console.log("It's supposed to flag people...");
 					var id = $(this).attr("id");
 					var username =$(this).attr("username");
-										$.ajax({
+					$.ajax({
 					   url : "flag",
 					   method : "post",
 					   data : { "id" : id, "username": username},
-					  // dataType : "json",
 					   success : function(a) {
 					      $("#"+ a.id).text("Flagged");
 					      $("#"+ a.id).addClass('flagged');
@@ -104,27 +100,24 @@
 					var username =$(this).attr("username");
 					var title = $(this).attr("title");
 					var titleClass =$(this).attr("titleClass");
-										$.ajax({
+					$.ajax({
 					   url : "flag",
 					   method : "post",
 					   data : { "id" : id,"username":username, "title":title, "titleClass":titleClass},
-					  // dataType : "json",
 					   success : function(a) {
 					      $("#"+ a.id).text("Flagged");
 					      $("#"+ a.id).addClass('flagged');
 					       $("#"+ a.id).removeClass(/*whatever the class was*/);
 					   }
 					});
-
-			
 				});
 				
 				$("img[id = \"recommend\"]").click(function() {
-					setLoc("recommend" + "?t=${w.title}&c=${w.classification}&isRec=1" );
+					setLoc("recommend?t=${w.title}&c=${w.classification}&isRec=1" );
 				});
 				
 				$("img[id = \"unrecommend\"]").click(function() {
-					setLoc("recommend" + "?t=${w.title}&c=${w.classification}&isRec=0" );
+					setLoc("recommend?t=${w.title}&c=${w.classification}&isRec=0" );
 				});
 				
 				$("form#genre").submit(function addGenre() {
@@ -366,8 +359,8 @@
 										<c:when test="${user}">
 											<div class=flagPanel align="right">
 												<img src="Website Assets/red_flag.png"/>
-												<span id="flagUser" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Person </span>|
-												<span id="flagReview" username ="${rev.username}" title ="${w.title}" titleClass ="${w.classification}">Review</span>
+												<span id="flagUser" username ="${rev.username}" data-title ="${w.title}" data-class ="${w.classification}">Person </span>|
+												<span id="flagReview" username ="${rev.username}" data-title ="${w.title}" data-class ="${w.classification}">Review</span>
 											</div>
 										</c:when>
 										<c:otherwise>

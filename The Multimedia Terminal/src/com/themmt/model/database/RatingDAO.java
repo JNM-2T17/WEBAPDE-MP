@@ -17,7 +17,7 @@ public class RatingDAO {
 	public static void add( Rating rating ) throws SQLException {
 		
 		//INSERT INTO `tmi`.`rating` 
-		String stmt = "INSERT INTO rating VALUES (?,?,?,?)";
+		String stmt = "REPLACE INTO rating VALUES (?,?,?,?)";
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(stmt);
 			ps.setString(1, rating.getUsername() );

@@ -66,6 +66,23 @@
 					$("input#ratingVal").val("" + n);
 					ratingSet = true;
 				});
+				
+				$("#reviewForm").submit(function() {
+					$.ajax({
+						'url' : 'review',
+						'method' : 'POST',
+						'data' : {
+							'title' : '${t}',
+							'titleclass' : '${c}',
+							'reviewContent' : $("textarea.reviewField").text(),
+							'r' : $("input#ratingVal").val()
+						},
+						'success' : function(a) {
+							setLoc(a);
+						}
+					});
+					return false;
+				});
 			});
 		</script>
 	</head>
@@ -74,7 +91,7 @@
 		<div id="mainContent">
 			<h1>Write a Review</h1>
 			<div class="orangeLine"></div>
-			<h1>${t}</h1>
+			<h1>${t} (${c})</h1>
 			<div id="reviewSpace">
 				<form action="review" id="reviewForm" method = "post">
 					<div id="reviewRating">

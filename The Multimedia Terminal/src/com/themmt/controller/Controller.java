@@ -280,7 +280,8 @@ public class Controller extends HttpServlet {
 				
 				try { //try adding Review
 					ReviewDAO.add(re);
-					request.getRequestDispatcher("start").forward(request, response);
+					System.out.println( "work?t=" + workTitle + "&c=" + titleclass );
+					response.getWriter().println("work?t=" + workTitle + "&c=" + titleclass);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

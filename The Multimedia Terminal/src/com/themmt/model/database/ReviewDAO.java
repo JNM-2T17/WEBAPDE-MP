@@ -16,7 +16,7 @@ public class ReviewDAO {
 	public static void add( Review review ) throws SQLException {
 		
 		//INSERT INTO `tmi`.`review` 
-		String stmt = "UPDATE INTO review VALUES (?,?,?,?,?)";
+		String stmt = "REPLACE INTO review VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(stmt);
 			ps.setString(1, review.getUsername() );
