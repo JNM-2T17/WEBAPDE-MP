@@ -11,6 +11,10 @@ public class Rating {
 	private double rating;
 	private String titleclass;
 	
+	public Rating() {
+		super();
+	}
+
 	public Rating(String username, String title, double rating, String titleclass) {
 		this.title = title;
 		this.username = username;

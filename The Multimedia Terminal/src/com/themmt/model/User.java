@@ -23,21 +23,13 @@ public class User {
 	private boolean flagged;
 	private boolean isAdmin;
 	
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
 	public User() {
 		super();
 	}
 
 	public User( String username, String fname, String lname, String gender,
-				 String email, String password, String profpic, String description, 
-				 boolean flagged ) {
+			 String email, String password, String profpic, String description, 
+			 boolean flagged ) {
 		super();
 		this.username = username;
 		this.fname = fname;
@@ -50,7 +42,15 @@ public class User {
 		this.flagged = flagged;
 		this.isAdmin= false;
 	}
-	
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public String getUsername() {
 		return username;
 	}

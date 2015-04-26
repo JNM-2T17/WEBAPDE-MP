@@ -14,8 +14,6 @@ public class Recommendation {
 	public static final String RATING_COLUMN = "rating";
 	public static final String RELEASEYEAR_COLUMN = "releaseYear";
 
-	
-
 	private String title;
 	private String createdBy;
 	private String recommendationTo;
@@ -29,12 +27,9 @@ public class Recommendation {
 	private float rating;
 	private int releaseYear;
 	
-	public String getRecommendationFromClassification() {
-		return recommendationFromClassification;
-	}
-	public void setRecommendationFromClassification(
-			String recommendationFromClassification) {
-		this.recommendationFromClassification = recommendationFromClassification;
+	public Recommendation() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Recommendation(String title, String createdBy,
@@ -56,9 +51,14 @@ public class Recommendation {
 		this.rating = rating;
 		this.releaseYear = releaseYear;
 	}
-	public Recommendation() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+	public String getRecommendationFromClassification() {
+		return recommendationFromClassification;
+	}
+	
+	public void setRecommendationFromClassification(
+			String recommendationFromClassification) {
+		this.recommendationFromClassification = recommendationFromClassification;
 	}
 
 	public String getTitle() {

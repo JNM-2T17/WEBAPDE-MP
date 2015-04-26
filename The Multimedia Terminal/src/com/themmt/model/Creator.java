@@ -11,6 +11,10 @@ public class Creator {
 	private String trivia;
 	private boolean verified;
 	
+	public Creator() {
+		super();
+	}
+
 	public Creator(String name, String bio, String trivia, boolean verified) {
 		this.name = name;
 		this.bio = bio;

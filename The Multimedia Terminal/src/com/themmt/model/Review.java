@@ -15,6 +15,10 @@ public class Review {
 	private String titleclass;
 	private double rating;
 	
+	public Review() {
+		super();
+	}
+
 	public Review(String username, String title, String review, boolean isFlagged, String titleclass, double rating) {
 		this.title = title;
 		this.username = username;

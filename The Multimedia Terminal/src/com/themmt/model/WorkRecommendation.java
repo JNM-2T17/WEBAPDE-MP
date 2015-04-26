@@ -9,9 +9,6 @@ public class WorkRecommendation {
 	public static final String WORKFROMCLASS_COLUMN = "workFromClass";
 	public static final String WORKTOCLASS_COLUMN = "workToClass";
 	
-	
-	
-	
 	private String username;
 	private String workFrom;
 	private String workTo;
@@ -23,6 +20,7 @@ public class WorkRecommendation {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public WorkRecommendation(String username, String workFrom, String workTo,
 			int isRec, String workFromClass, String workToClass) {
 		super();
