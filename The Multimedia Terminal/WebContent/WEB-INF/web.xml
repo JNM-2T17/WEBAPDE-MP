@@ -38,6 +38,14 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/approveGenre</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/approveKey</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/favorite</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -64,32 +72,20 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/approvedWork</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Register</servlet-name>
-    <servlet-class>com.themmt.controller.RegisterServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
-    <servlet-name>Register</servlet-name>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/propose</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Work</servlet-name>
-    <servlet-class>com.themmt.controller.WorkServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>Admin</servlet-name>
-    <servlet-class>com.themmt.controller.AdminServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
-    <servlet-name>Admin</servlet-name>
-    <url-pattern>/admin</url-pattern>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/flag</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>Propose</servlet-name>
-    <servlet-class>com.themmt.controller.ProposeServlet</servlet-class>
-  </servlet>
   <servlet-mapping>
-    <servlet-name>Propose</servlet-name>
-    <url-pattern>/propose</url-pattern>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/admin</url-pattern>
   </servlet-mapping>
 </web-app>
