@@ -297,7 +297,7 @@
 						<li id="date" class="filterCritInactive">Date</li>
 					</ul> <!--  end of filterMenu -->
 					<div id="favContent"></div> <!-- end of searchContent -->
-					<br /><br /><br /><br />
+					<br /><div class = "orangeLine"></div><br />
 					<h1>Recommendations for ${user}</h1>
 					<ul id="filterMenu">
 						<li id="filterLabel">Filter By: </li>

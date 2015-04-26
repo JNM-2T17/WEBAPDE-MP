@@ -259,7 +259,7 @@ public class WorkDAO {
 		public static ArrayList<Work> getTasteRecommendations( String username ) {
 			String query = "SELECT workTo `Title`, workToClass `Class`, COUNT(*) `Recommendations`, releaseYear, cover, description, rating, viewCount " +  
 						   "FROM recommendation R, favorites F, `All Works` AW " + 
-						   "WHERE R.workFrom = F.title AND R.workFromClass = F.titleclass AND AW.title = R.workTo AND AW.class = R.workToClass AND F.username = ? AND isVerified = TRUE " +
+						   "WHERE R.workFrom = F.title AND R.workFromClass = F.titleclass AND AW.title = R.workTo AND AW.class = R.workToClass AND F.username = ? AND isVerified = TRUE AND isRec = TRUE " +
 						   "AND AW.title NOT IN (SELECT title FROM favorites F2 WHERE F2.username = F.username ) " + 
 						   "GROUP BY 1,2";
 			Connection c = DBConnection.getConnection();

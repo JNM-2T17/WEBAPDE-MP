@@ -30,10 +30,13 @@ public static void add( WorkRecommendation recommendation, boolean add) throws S
 			ps.execute();
 			System.out.println( ps );
 		
-			ps.setString(5, recommendation.getWorkFrom() );
-			ps.setString(6, recommendation.getWorkTo() );
-			ps.setString(2, recommendation.getWorkFromClass() );
-			ps.setString(3, recommendation.getWorkToClass() );
+			ps = DBConnection.getConnection().prepareStatement(stmt);
+			ps.setString(1, recommendation.getUsername() );
+			ps.setString(2, recommendation.getWorkTo() );
+			ps.setString(3, recommendation.getWorkFrom() );
+			ps.setInt(4, recommendation.getIsRec() );
+			ps.setString(5, recommendation.getWorkToClass() );
+			ps.setString(6, recommendation.getWorkFromClass() );
 			ps.execute();
 			System.out.println( ps );
 		} catch (SQLException e) {
