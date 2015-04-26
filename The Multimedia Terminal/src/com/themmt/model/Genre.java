@@ -1,10 +1,10 @@
 package com.themmt.model;
 
 public class Genre {
-	public static final String TITLE_COLUMN = "title";
+	public static final String TITLE_COLUMN = "work";
 	public static final String GENRE_COLUMN = "genre";
 	public static final String ISVERIFIED_COLUMN = "isVerified";
-	public static final String TITLECLASS_COLUMN = "titleclass";
+	public static final String TITLECLASS_COLUMN = "workclass";
 	
 	private String genre;
 	private String title;

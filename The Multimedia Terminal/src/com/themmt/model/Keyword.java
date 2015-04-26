@@ -2,9 +2,9 @@ package com.themmt.model;
 
 public class Keyword {
 	public static final String KEYWORD_COLUMN = "keyword";
-	public static final String TITLE_COLUMN = "title";
+	public static final String TITLE_COLUMN = "work";
 	public static final String ISVERIFIED_COLUMN = "isVerified";
-	public static final String TITLECLASS_COLUMN = "titleclass";
+	public static final String TITLECLASS_COLUMN = "workclass";
 	
 	private String keyword;
 	private String title;
