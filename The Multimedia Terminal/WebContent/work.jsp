@@ -207,7 +207,7 @@
 		<div id="mainContent">
 			<c:choose>
 				<c:when test="${not empty w}">
-					<h1>${w.title}(${w.releaseYear} ${w.classification})</h1>
+					<h1>${w.title} (${w.releaseYear} ${w.classification})</h1>
 					<span class="rating">
 						<c:forEach varStatus="i" begin="1" end="5">
 							<c:choose>
