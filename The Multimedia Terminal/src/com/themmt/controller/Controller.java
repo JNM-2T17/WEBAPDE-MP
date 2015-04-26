@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.themmt.model.CookieFinder;
+import com.themmt.model.Creator;
 import com.themmt.model.Rating;
 import com.themmt.model.Review;
 import com.themmt.model.User;
@@ -198,6 +199,22 @@ public class Controller extends HttpServlet {
 			case "/approvedWork":
 				WorkDAO.approveWork( request.getParameter("title"), request.getParameter("class") );
 				response.getWriter().println("SUCCESS");
+				break;
+			case "/proposeCreator":
+				System.out.println("yahallo");
+				String name = request.getParameter("name");
+				String bio = request.getParameter("bio");
+				String trivia = request.getParameter("trivia");
+				boolean isVerified = false;
+				
+				Creator c = new Creator(name, bio, trivia, isVerified);
+				
+				try { //try adding Creator
+					CreatorDAO.add(c);
+					request.getRequestDispatcher("start").forward(request, response);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				break;
 			case "/approveCreator":
 				CreatorDAO.approveCreator( request.getParameter("name"), request.getParameter("bio"), request.getParameter("trivia") );
