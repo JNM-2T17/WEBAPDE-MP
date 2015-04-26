@@ -15,6 +15,7 @@ import com.themmt.model.Rating;
 import com.themmt.model.Review;
 import com.themmt.model.User;
 import com.themmt.model.Work;
+import com.themmt.model.database.CreatorDAO;
 import com.themmt.model.database.GenreDAO;
 import com.themmt.model.database.KeywordDAO;
 import com.themmt.model.database.RatingDAO;
@@ -149,6 +150,9 @@ public class Controller extends HttpServlet {
 				request.getSession().setAttribute("proposal4",KeywordDAO.get());
 				request.getRequestDispatcher("adminKeyGenAppro.jsp").forward(request, response);
 				break;
+			case "/adminCreatorAppro":
+				request.getSession().setAttribute("proposal5",CreatorDAO.get());
+				request.getRequestDispatcher("adminCreatorAppro.jsp").forward(request, response);
 			default:
 		}
 	}
