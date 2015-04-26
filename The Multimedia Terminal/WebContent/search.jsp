@@ -45,19 +45,70 @@
 				$("#searchContent").html(htmlStr);
 			}
 			
-			function search(crit) {
+			function search(crit,sort) {
 				$.ajax({
 					url : 'search',
 					method : 'POST',
 					data : {"s" : crit},
 					dataType : "json",
 					success : function(a) {
-						setResults(a)
+						switch( sort ) {
+							case 'media':
+								a.sort(function(a,b) {
+									if( a.classification.localeCompare(b.classification) != 0 ) {
+										return a.classification.localeCompare(b.classification);
+									} else if( a.title.localeCompare( b.title ) != 0 ) {
+										return a.title.localeCompare( b.title );
+									} else if( a.releaseYear != b.releaseYear ) {
+										return ( b.releaseYear - a.releaseYear );
+									} else return ( b.rating - a.rating );
+								});
+								break;
+							case 'alphabetical':
+								a.sort(function(a,b) {
+									if( a.title.localeCompare( b.title ) != 0 ) {
+										return a.title.localeCompare( b.title );
+									} else if( a.classification.localeCompare(b.classification) != 0 ) {
+										return a.classification.localeCompare(b.classification);
+									} else if( a.releaseYear != b.releaseYear ) {
+										return ( b.releaseYear - a.releaseYear );
+									} else return ( b.rating - a.rating );
+								});
+								break;
+							case 'rating':
+								a.sort(function(a,b) {
+									if( a.rating != b.rating ) {
+										return (b.rating - a.rating);
+									} else if( a.title.localeCompare( b.title ) != 0 ) {
+										return a.title.localeCompare( b.title );
+									} else if( a.classification.localeCompare(b.classification) != 0 ) {
+										return a.classification.localeCompare(b.classification);
+									} else {
+										return ( a.releaseYear - b.releaseYear );
+									}
+								});
+								break;
+							case 'date':
+								a.sort(function(a,b) {
+									if( a.releaseYear != b.releaseYear ) {
+										return (b.releaseYear - a.releaseYear);
+									} else if( a.title.localeCompare( b.title ) != 0 ) {
+										return a.title.localeCompare( b.title );
+									} else if( a.classification.localeCompare(b.classification) != 0 ) {
+										return a.classification.localeCompare(b.classification);
+									} else {
+										return ( a.rating - b.rating );
+									}
+								});
+								break;
+							default:
+						}
+						setResults(a);
 					}
 				});
 			}
 			
-			search( '${crit}' );
+			search( '${crit}', 'media' );
 			
 			$(document).ready(function() {
 				randomizeLogo();
@@ -66,7 +117,6 @@
 				$("#searchRating").hide();
 				$("#searchDate").hide();
 				
-				var active = $("#searchMedia");
 				var filter = $("li#media");
 				
 				$("#homeLink").click(function() {
@@ -79,8 +129,12 @@
 				
 				$("#searchForm").submit(function() {
 					
-					search($("input#search").val());
+					search($("input#search").val(),filter.attr('id'));
 					return false;
+				});
+				
+				$("input#search").on('input', function() {
+					search($(this).val(),filter.attr('id'));
 				});
 				
 				$("li#media").click(function() {

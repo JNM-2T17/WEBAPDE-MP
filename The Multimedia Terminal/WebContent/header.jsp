@@ -18,8 +18,10 @@
 			<div id="menubar">
 				<form id="searchForm" name="search" action="search">
 					<ul id="menu">
-						<li class="menuitem"><a href="favorite">Favorites</a></li>
-						<li class="menuitem"><a href="propose">Propose</a></li>
+						<c:if test="${not empty user}">
+							<li class="menuitem"><a href="favorite">Favorites</a></li>
+							<li class="menuitem"><a href="propose">Propose</a></li>
+						</c:if>
 						<c:if test="${not empty user && admin}">
 							<li class="menuitem"><a href="admin">Admin</a></li>
 						</c:if>
