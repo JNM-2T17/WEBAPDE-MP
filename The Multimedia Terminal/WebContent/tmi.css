@@ -417,6 +417,7 @@ div.review {
 
 div.workSmall {
 	font-size:0.8em;
+	min-height:115px;
 	padding:5px;
 	padding-bottom:1px;
 	background-color:#404040;
