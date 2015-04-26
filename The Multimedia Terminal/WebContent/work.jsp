@@ -20,7 +20,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("/");
+					setLoc("start/");
 				});
 				
 				$("span#searchBar img").click(function() {
@@ -253,7 +253,7 @@
 								<img src="Website Assets/Screenshots.png" />
 							</c:when>
 							<c:otherwise>
-								<img src="${w.cover}" />
+								<img src="${w.cover}"/>
 							</c:otherwise>
 						</c:choose>
 					</div><br />
@@ -261,7 +261,7 @@
 				<span>Genres</span>
 				<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 					<div class="orangeLine"></div>
-				</div> <!-- end of workGenres --> <br />
+				</div> <!-- end of workGenres -->
 				<div class="content" id="workGenresCont">
 					<div id="addGenre">
 						<c:choose>
@@ -280,7 +280,7 @@
 								<span class="info">|</span>
 							</c:if>
 						</c:forEach>
-					</div>
+					</div><br /> 
 					<div id="genreForm">
 						<form name="genre" class="workAdd" id="genre" method="post">
 							<input type="text" name="g" id="genre" />
@@ -320,14 +320,15 @@
 						</form>
 						<button id="cancelKey" class="orangeBox">Cancel</button>
 					</div>
-				</div> <!-- end of workKeysCont --><br /> 
+					<br /> 
+				</div> <!-- end of workKeysCont -->
 				<div class="workSection" id="workDesc" data-visible="false">
 						<span>Description</span>
 						<div class="arrow"><img src="Website Assets/Down Arrow.png" /></div>
 						<div class="orangeLine"></div>
 					</div> <!-- end of workDesc --> <br />
 					<div class="content" id="workDescCont">
-						<p>${w.description}</p>
+						<p>${w.description}</p></br>
 					</div> <!-- end of workDescCont -->
 					<div class="workSection" id="workReview" data-visible="false">
 						<span>Reviews</span>
@@ -398,7 +399,7 @@
 								<c:otherwise>
 									Login first to recommend a work
 								</c:otherwise>
-							</c:choose><br />
+							</c:choose>
 							<c:choose>
 								<c:when test="${fn:length(sessionScope.recommendations) gt 0}">
 									<br />
