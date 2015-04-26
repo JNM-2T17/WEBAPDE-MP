@@ -156,6 +156,7 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher("adminCreatorAppro.jsp").forward(request, response);
 				break;
 			case "/propose":
+			case "/proposeMedia":
 				//prevent alert from showing
 				request.getSession().setAttribute("noProposal", true);
 				
@@ -163,7 +164,9 @@ public class Controller extends HttpServlet {
 				request.getSession().setAttribute("proposalSuccess",true);
 				
 				//forward to proposal page
-		        request.getRequestDispatcher("propose.jsp").forward(request, response);
+		        request
+		        	.getRequestDispatcher(request.getServletPath().equals("/propose") ? "propose.jsp" : "proposeMedia.jsp" )
+		        	.forward(request, response);
 		        break;
 			case "/register":
 		        request.getSession().setAttribute("fail", false);
@@ -358,7 +361,7 @@ public class Controller extends HttpServlet {
 				}
 				
 				//return to propose page
-				request.getRequestDispatcher("propose.jsp").forward(request,response);
+				request.getRequestDispatcher("proposeMedia.jsp").forward(request,response);
 				break;
 			case "/register":
 				username = request.getParameter("username");

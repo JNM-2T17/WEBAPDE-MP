@@ -174,8 +174,39 @@ public class WorkDAO {
 	
 		public static ArrayList<Work> get(int criteria, int sort)
 			throws IllegalArgumentException {
-			String query = null;
+			String query = "SELECT * FROM ";
 			Connection c = DBConnection.getConnection();
+			
+			switch( criteria ) {
+				case PROPOSAL:
+					query += "`proposals`";
+					break;
+				case ALL:
+					query += "`All Works`";
+					break;
+				case HOME:
+					query += "`Home Page`";
+				default:
+						throw new IllegalArgumentException("Invalid criteria");
+			}
+			
+			switch( sort ) {
+				case TYPE:
+					query += " ORDER BY class, title, releaseYear";
+					break;
+				case ALPHA:
+					query += " ORDER BY title, class, releaseYear";
+					break;
+				case DATE:
+					query += " ORDER BY releaseYear, class, title";
+					break;
+				case RATING:
+					query += " ORDER BY rating DESC, class, title, releaseYear";
+					break;
+				default:
+					throw new IllegalArgumentException("Invalid sort column");
+			}
+			
 			ArrayList<Work> works = new ArrayList<Work>();
 			
 			try {
@@ -256,7 +287,6 @@ public class WorkDAO {
 					ResultSet rs2 = ps.executeQuery();
 					while( rs2.next() ) {
 						w.addKeyword( rs2.getString("workFrom") + "(" + rs2.getString("workFromClass")  + ")" );
-						System.out.println( rs2.getString("workFrom") + "(" + rs2.getString("workFromClass")  + ")" );
 					}
 					works.add( w );
 				}
