@@ -20,7 +20,7 @@
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
-					setLoc("start/");
+					setLoc("/start");
 				});
 				
 				$("span#searchBar img").click(function() {
