@@ -119,11 +119,11 @@
 			
 				});
 				
-				$("img[id $= \"recommend\"]").click(function() {
+				$("img[id = \"recommend\"]").click(function() {
 					setLoc("recommend" + "?t=${w.title}&c=${w.classification}&isRec=1" );
 				});
 				
-				$("img[id $= \"unrecommend\"]").click(function() {
+				$("img[id = \"unrecommend\"]").click(function() {
 					setLoc("recommend" + "?t=${w.title}&c=${w.classification}&isRec=0" );
 				});
 				
@@ -449,7 +449,7 @@
 							<h3>Unrecommended</h3>
 							<c:choose>
 								<c:when test="${not empty sessionScope.username}">
-									<img src="Website Assets/Plus Sign.png" id="recommend"/> Make an Unrecommendation
+									<img src="Website Assets/Plus Sign.png" id="unrecommend"/> Make an Unrecommendation
 								</c:when>
 								<c:otherwise>
 									Login first to unrecommend a work

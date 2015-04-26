@@ -16,6 +16,7 @@ import com.themmt.model.Rating;
 import com.themmt.model.Review;
 import com.themmt.model.User;
 import com.themmt.model.Work;
+import com.themmt.model.WorkRecommendation;
 import com.themmt.model.database.CreatorDAO;
 import com.themmt.model.database.GenreDAO;
 import com.themmt.model.database.KeywordDAO;
@@ -24,6 +25,7 @@ import com.themmt.model.database.RecommendationDAO;
 import com.themmt.model.database.ReviewDAO;
 import com.themmt.model.database.UserDAO;
 import com.themmt.model.database.WorkDAO;
+import com.themmt.model.database.WorkRecommendationDAO;
 
 /**
  * Servlet implementation class Controller
@@ -115,6 +117,14 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher("work.jsp").forward(request, response);
 				break;
 			case "/recommend":
+				String title = request.getParameter("t");
+				String classif = request.getParameter("c");
+				int isRec = Integer.parseInt(request.getParameter("isRec"));
+				request.setAttribute("t", title);
+				request.setAttribute("c", classif);
+				request.setAttribute("isRec", isRec == 1);
+				request.setAttribute("recs", WorkRecommendationDAO.get(title, classif, request.getSession().getAttribute("username").toString(), isRec));
+				request.setAttribute("unrecs", WorkRecommendationDAO.get(title, classif, request.getSession().getAttribute("username").toString(), 1 - isRec));
 				request.getRequestDispatcher("recommend.jsp").forward(request, response);
 				break;
 			case "/login":
@@ -399,6 +409,25 @@ public class Controller extends HttpServlet {
 					request.getRequestDispatcher("register.jsp").forward(request, response);	
 					//Mod page or make a popup window to indicate that the user already exists
 				}	
+				break;
+			case "/recommend":
+				try {
+					WorkRecommendationDAO.add( new WorkRecommendation(request.getSession().getAttribute("username").toString(), 
+							request.getParameter("workFrom"), 
+							request.getParameter("workTo"), 
+							(request.getParameter("isRec").equals("true") ? 1 : 0), 
+							request.getParameter("workFromClass"), 
+							request.getParameter("workToClass")),
+							Boolean.parseBoolean(request.getParameter("add")));
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		
+				
+				response.getWriter().println("");
 				break;
 			case "/flag":
 				switch(request.getParameter("id")) {
