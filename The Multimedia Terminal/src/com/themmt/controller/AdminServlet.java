@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
+import com.themmt.model.database.CreatorDAO;
 import com.themmt.model.database.GenreDAO;
 import com.themmt.model.database.KeywordDAO;
 import com.themmt.model.database.WorkDAO;
@@ -33,6 +34,7 @@ public class AdminServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setAttribute("propCount", WorkDAO.getCount(WorkDAO.PROPOSAL));
 		request.setAttribute("KeyGenCount", GenreDAO.getNotVerCount() + KeywordDAO.getNotVerCount());
+		request.setAttribute("CreatorCount", CreatorDAO.getNotVerCount());
 		request.getRequestDispatcher("admin.jsp").forward(request, response);
 	}
 

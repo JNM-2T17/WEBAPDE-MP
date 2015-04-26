@@ -39,6 +39,12 @@
 				</div> <!-- end of link -->
 				Keyword / Genre Proposals <span class="info">(${KeyGenCount})</span>
 			</div>
+			<div class = "adminBox">
+				<div class="adminLink">
+					<a href="adminCreatorAppro">View</a>
+				</div> <!-- end of link -->
+				Creator Proposals <span class="info">(${CreatorCount})</span>
+			</div>
 			<div class = "orangeLine"></div><br />
 			<div class = "adminBox">
 				<div class="adminLink">
