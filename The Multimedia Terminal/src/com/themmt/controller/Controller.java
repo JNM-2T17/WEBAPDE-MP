@@ -199,6 +199,10 @@ public class Controller extends HttpServlet {
 				WorkDAO.approveWork( request.getParameter("title"), request.getParameter("class") );
 				response.getWriter().println("SUCCESS");
 				break;
+			case "/approveCreator":
+				CreatorDAO.approveCreator( request.getParameter("name"), request.getParameter("bio"), request.getParameter("trivia") );
+				response.getWriter().println("SUCCESS");
+				break;
 			case "/search":
 				response.getWriter().println( getSearch( request.getParameter("s") ) );
 				break;

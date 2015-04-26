@@ -42,7 +42,7 @@
 									<span>${c.bio}</span>
 								</div> <!-- end of description -->
 								<div class="wideLink">
-									<form action = "adminApprove" method = "post" id="key${i.index}">
+									<form action = "approveCreator" method = "post" id="key${i.index}">
 										<button class="orangeBox" id="key${i.index}">Approve</button>
 										<input type="hidden" value = "${c.name}" name="name" class="name" />
 										<input type="hidden" value = "${c.bio}" name="bio" class="bio" />
