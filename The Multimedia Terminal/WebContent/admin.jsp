@@ -35,12 +35,6 @@
 			</div>
 			<div class = "adminBox">
 				<div class="adminLink">
-					<a href="adminPageModify.html">View</a>
-				</div> <!-- end of link -->
-				Page Modifications <span class="info">(3)</span>
-			</div>
-			<div class = "adminBox">
-				<div class="adminLink">
 					<a href="adminKeyGenAppro">View</a>
 				</div> <!-- end of link -->
 				Keyword / Genre Proposals <span class="info">(${KeyGenCount})</span>

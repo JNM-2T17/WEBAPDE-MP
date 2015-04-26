@@ -31,7 +31,7 @@ public class KeywordDAO {
 		}
 	}
 	
-	public static Iterator get()
+	public static ArrayList<Keyword> get()
 			throws IllegalArgumentException {
 		String query = "SELECT * FROM keyword";
 		ArrayList<Keyword> keywords = new ArrayList<Keyword>();
@@ -49,7 +49,7 @@ public class KeywordDAO {
 			se.printStackTrace();
 		}
 		
-		return keywords.iterator();
+		return keywords;
 	}
 	
 	public static int getCount()
@@ -88,13 +88,14 @@ public class KeywordDAO {
 			return 0;
 		}
 	
-	public static void approveKeyword( String title, String classification ) {
-		String pstmst = "UPDATE keyword SET isVerified = 1 WHERE title = ? AND class = ?";
+	public static void approveKeyword( String title, String classification, String keyword ) {
+		String pstmst = "UPDATE keyword SET isVerified = 1 WHERE title = ? AND class = ? AND keyword = ?";
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);
 			ps.setString(1, title );
 			ps.setString(2, classification );
+			ps.setString(3, keyword );
 			ps.execute();
 			
 		} catch (SQLException e) {

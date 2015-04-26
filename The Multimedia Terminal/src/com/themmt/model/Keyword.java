@@ -8,13 +8,17 @@ public class Keyword {
 	
 	private String keyword;
 	private String title;
-	private boolean isVerified;
+	private boolean verified;
 	private String titleclass;
 	
+	public Keyword() {
+		super();
+	}
+
 	public Keyword(String keyword, String title, boolean isVerified, String titleclass) {
 		this.keyword = keyword;
 		this.title = title;
-		this.isVerified = isVerified;
+		this.verified = isVerified;
 		this.titleclass = titleclass;
 	}	
 	
@@ -35,11 +39,11 @@ public class Keyword {
 	}
 
 	public boolean isVerified() {
-		return isVerified;
+		return verified;
 	}
 
-	public void setVerified(boolean isVerified) {
-		this.isVerified = isVerified;
+	public void setVerified(boolean verified) {
+		this.verified = verified;
 	}
 
 	public String getTitleclass() {

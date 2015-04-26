@@ -46,6 +46,14 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/adminApproval</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/adminKeyGenAppro</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -68,14 +76,6 @@
     <servlet-name>Work</servlet-name>
     <servlet-class>com.themmt.controller.WorkServlet</servlet-class>
   </servlet>
-  <servlet>
-    <servlet-name>AdminApproval</servlet-name>
-    <servlet-class>com.themmt.controller.AdminApprovalServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdminApproval</servlet-name>
-    <url-pattern>/adminApproval</url-pattern>
-  </servlet-mapping>
   <servlet>
     <servlet-name>Admin</servlet-name>
     <servlet-class>com.themmt.controller.AdminServlet</servlet-class>

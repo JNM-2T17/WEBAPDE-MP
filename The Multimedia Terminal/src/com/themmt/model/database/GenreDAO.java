@@ -31,7 +31,7 @@ public class GenreDAO {
 		}
 	}
 	
-	public static Iterator get()
+	public static ArrayList<Genre> get()
 			throws IllegalArgumentException {
 		String query = "SELECT * FROM genre";
 		ArrayList<Genre> genres = new ArrayList<Genre>();
@@ -49,7 +49,7 @@ public class GenreDAO {
 			se.printStackTrace();
 		}
 		
-		return genres.iterator();
+		return genres;
 	}
 	
 	public static int getCount()
@@ -88,13 +88,14 @@ public class GenreDAO {
 			return 0;
 		}
 	
-	public static void approveGenre( String title, String classification ) {
-		String pstmst = "UPDATE genre SET isVerified = 1 WHERE title = ? AND class = ?";
+	public static void approveGenre( String title, String classification, String genre ) {
+		String pstmst = "UPDATE genre SET isVerified = 1 WHERE title = ? AND class = ? AND genre = ?";
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);
 			ps.setString(1, title );
 			ps.setString(2, classification );
+			ps.setString(3, genre );
 			ps.execute();
 			
 		} catch (SQLException e) {

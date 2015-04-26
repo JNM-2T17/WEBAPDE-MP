@@ -15,6 +15,8 @@ import com.themmt.model.Rating;
 import com.themmt.model.Review;
 import com.themmt.model.User;
 import com.themmt.model.Work;
+import com.themmt.model.database.GenreDAO;
+import com.themmt.model.database.KeywordDAO;
 import com.themmt.model.database.RatingDAO;
 import com.themmt.model.database.RecommendationDAO;
 import com.themmt.model.database.ReviewDAO;
@@ -135,6 +137,17 @@ public class Controller extends HttpServlet {
 				break;
 			case "/favorite":
 				request.getRequestDispatcher("favorites.jsp").forward(request,response);
+				break;
+			case "/adminApproval":
+				request.getSession().setAttribute("proposal0",WorkDAO.get(WorkDAO.PROPOSAL,WorkDAO.TYPE));
+				request.getSession().setAttribute("proposal1",WorkDAO.get(WorkDAO.PROPOSAL,WorkDAO.ALPHA));
+				request.getSession().setAttribute("proposal2",WorkDAO.get(WorkDAO.PROPOSAL,WorkDAO.DATE));
+				request.getRequestDispatcher("adminApproval.jsp").forward(request, response);
+				break;
+			case "/adminKeyGenAppro":
+				request.getSession().setAttribute("proposal3",GenreDAO.get());
+				request.getSession().setAttribute("proposal4",KeywordDAO.get());
+				request.getRequestDispatcher("adminKeyGenAppro.jsp").forward(request, response);
 				break;
 			default:
 		}
