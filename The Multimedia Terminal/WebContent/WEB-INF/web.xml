@@ -46,6 +46,10 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
+    <url-pattern>/approveCreator</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/favorite</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
@@ -79,6 +83,14 @@
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
     <url-pattern>/proposeMedia</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/proposeCreator</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/adminCreatorAppro</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>

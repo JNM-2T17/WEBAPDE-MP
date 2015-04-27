@@ -43,6 +43,7 @@ public class CreatorDAO {
 			while( rs.next() ) {
 				Creator u = new Creator(rs.getString(Creator.NAME_COLUMN),rs.getString(Creator.BIO_COLUMN),
 						rs.getString(Creator.TRIVIA_COLUMN), rs.getBoolean(Creator.VERIFIED_COLUMN));
+				//System.out.println( u.getName() );
 				creators.add(u);
 			}
 		} catch(SQLException se) {
@@ -88,16 +89,14 @@ public class CreatorDAO {
 			return 0;
 		}
 	
-	public static void approveCreator( String name, String bio, String trivia ) {
-		String pstmst = "UPDATE creator SET isVerified = 1 WHERE name = ? AND bio = ? AND trivia = ?";
+	public static void approveCreator( String name, boolean approve ) {
+		String pstmst = approve ? "UPDATE creator SET isVerified = 1 " : "DELETE FROM creator ";
+		pstmst += "WHERE name = ?";
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);
-			ps.setString(1, name );
-			ps.setString(2, bio );
-			ps.setString(3, trivia );
+			ps.setString( 1, name );
 			ps.execute();
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

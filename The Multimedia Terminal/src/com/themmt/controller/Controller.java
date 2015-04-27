@@ -167,7 +167,8 @@ public class Controller extends HttpServlet {
 				break;
 			case "/propose":
 			case "/proposeMedia":
-				//prevent alert from showing
+			case "/proposeCreator":
+					//prevent alert from showing
 				request.getSession().setAttribute("noProposal", true);
 				
 				//initialize proposalSuccess
@@ -175,7 +176,9 @@ public class Controller extends HttpServlet {
 				
 				//forward to proposal page
 		        request
-		        	.getRequestDispatcher(request.getServletPath().equals("/propose") ? "propose.jsp" : "proposeMedia.jsp" )
+		        	.getRequestDispatcher(request.getServletPath().equals("/propose") ? "propose.jsp" : 
+		        							( request.getServletPath().equals("/proposeMedia") ? "proposeMedia.jsp"
+		        									:"proposeCreator.jsp") )
 		        	.forward(request, response);
 		        break;
 			case "/register":
@@ -235,24 +238,34 @@ public class Controller extends HttpServlet {
 				response.getWriter().println("SUCCESS");
 				break;
 			case "/proposeCreator":
-				System.out.println("yahallo");
+				//allow alerts to show
+				request.getSession().setAttribute("noProposal", false);
+				
+				//get parameters from form
 				String name = request.getParameter("name");
 				String bio = request.getParameter("bio");
 				String trivia = request.getParameter("trivia");
 				boolean isVerified = false;
 				
+				//generate work
 				Creator c = new Creator(name, bio, trivia, isVerified);
-				
-				try { //try adding Creator
+				try { //try adding work
 					CreatorDAO.add(c);
-					request.getRequestDispatcher("start").forward(request, response);
+
+					request.getSession().setAttribute("name", name );
+					//mark as success
+					request.getSession().setAttribute("proposalSuccess", true );
 				} catch (SQLException e) {
 					e.printStackTrace();
+					//mark proposal as false
+					request.getSession().setAttribute("proposalSuccess", false );
+					
+					//define proposal error
+					request.getSession().setAttribute("proposalError", 
+							e.getErrorCode() == 1062 ? "\"" + name + "\" already exists" : 
+											   "Failed to add \"" + name + "\"." );
 				}
-				break;
-			case "/approveCreator":
-				CreatorDAO.approveCreator( request.getParameter("name"), request.getParameter("bio"), request.getParameter("trivia") );
-				response.getWriter().println("SUCCESS");
+				request.getRequestDispatcher("proposeCreator.jsp").forward(request, response);
 				break;
 			case "/search":
 				response.getWriter().println( getSearch( request.getParameter("s") ) );
@@ -314,6 +327,10 @@ public class Controller extends HttpServlet {
 				KeywordDAO.approveKeyword(request.getParameter("title"), request.getParameter("classif"), request.getParameter("key"), Boolean.parseBoolean(request.getParameter("approve")) );
 				response.getWriter().println("");
 				break;	
+			case "/approveCreator":
+				CreatorDAO.approveCreator(request.getParameter("name"), Boolean.parseBoolean(request.getParameter("approve")));
+				response.getWriter().println("");
+				break;
 			case "/favorite":
 				if( Boolean.parseBoolean(request.getParameter("init") ) ) {
 					response.getWriter().print(getFavorites(request.getSession().getAttribute("username").toString()));

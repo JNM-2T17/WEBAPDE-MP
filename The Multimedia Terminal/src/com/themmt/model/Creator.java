@@ -4,7 +4,7 @@ public class Creator {
 	public static final String NAME_COLUMN = "name";
 	public static final String BIO_COLUMN = "bio";
 	public static final String TRIVIA_COLUMN = "trivia";
-	public static final String VERIFIED_COLUMN = "verified";
+	public static final String VERIFIED_COLUMN = "isVerified";
 
 	private String name;
 	private String bio;

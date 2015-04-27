@@ -22,8 +22,50 @@
 					document.search.submit();
 				});
 				
-				$("button[id^='key']").click(function() {
-					
+				$("button[id^='crea']").click(function() {
+					if( $(this).text() == 'Approve' ) {
+						var id = $(this).attr("id");
+						var id2 = 'rejectC' + id.substring(1);
+						$.ajax({
+							url : 'approveCreator',
+							method : 'POST',
+							data : { 
+								'approve' : true,
+								'name' : $("form#" + id)
+							},
+							success : function(a) {
+								switchClass($("button#" + id),'greyBox','orangeBox').text("Approved");
+								$("button#" + id2).remove();
+							}
+						});
+					}
+				});
+				
+				$("button[id^='reject']").click(function() {
+					var id = 'c' + $(this).attr("id").substring(7);
+					$.ajax({
+						url : 'approveCreator',
+						method : 'POST',
+						data : {
+							'approve' : false,
+							'name' : $("form#" + id)
+						},
+						success : function(a) {
+							$("div#" + id).remove();
+							var html = $("#approveType").html();
+							var empty = true;
+							var i = 0;
+							while( i < html.length && empty ) {
+								if( Number(html[i]) != 0 ) {
+									empty = false;
+								}
+								i++;
+							}
+							if( empty ) {
+								$("#approveType").html("No creator proposals<br/><br/>")
+							}
+						}
+					});
 				});
 			});
 		</script>
@@ -32,28 +74,32 @@
 		<jsp:include page="header.jsp" />
 		<div id="mainContent">
 			<h1 class="info">Creator Proposals</h1>
-			<c:if test="${fn:length(sessionscope.proposal5) > 0}">
-				<div id="approveType" class="approveContent">
-					<c:forEach var="c" items="${sessionScope.proposal5}" varStatus="i">
-						<c:if test="${!c.verified}">
-							<div class="apprWork">
-								<span class="info">${c.name}</span>
-								<div class="apprDesc">
-									<span>${c.bio}</span>
-								</div> <!-- end of description -->
-								<div class="wideLink">
-									<form action = "approveCreator" method = "post" id="key${i.index}">
-										<button class="orangeBox" id="key${i.index}">Approve</button>
-										<input type="hidden" value = "${c.name}" name="name" class="name" />
-										<input type="hidden" value = "${c.bio}" name="bio" class="bio" />
-										<input type="hidden" value = "${c.trivia}" name="trivia" class="trivia" />
-									</form>
-								</div>
-							</div> <!-- end of apprWork -->
-						</c:if>
-					</c:forEach>
-				</div>
-			</c:if>
+			<c:set var="ctr" value="0" /> 
+			<div id="approveType" class="approveContent">
+				<c:forEach var="c" items="${sessionScope.proposal5}" varStatus="i">
+					<c:if test="${!c.verified}">
+						<div class="apprWork" id="crea${i.index}">
+							<span class="info">${c.name}</span>
+							<div class="apprDesc">
+								<span>${c.bio}</span>
+							</div> <!-- end of description -->
+							<div class="plainLink">
+								<form action = "approveCreator" method = "post" id="crea${i.index}">
+									<button class="orangeBox" id="crea${i.index}">Approve</button>
+									<button class="greyBox" id="rejectCrea${i.index}">Reject</button>
+									<input type="hidden" value = "${c.name}" name="name" class="name" />
+									<input type="hidden" value = "${c.bio}" name="bio" class="bio" />
+									<input type="hidden" value = "${c.trivia}" name="trivia" class="trivia" />
+								</form>
+							</div>
+						</div> <!-- end of apprWork -->
+						<c:set var="ctr" value="${ctr + 1}" />
+					</c:if>
+				</c:forEach>
+				<c:if test="${ctr == 0}">
+					No Creator Proposals
+				</c:if>
+			</div>
 		</div>
 	</body>
 </html>

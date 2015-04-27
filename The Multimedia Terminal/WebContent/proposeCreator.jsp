@@ -12,7 +12,24 @@
 		<c:set var="success" value="${sessionScope.proposalSuccess}" />
 		<c:set var="np" value="${sessionScope.noProposal}" />
 		<script>
-			$(document).ready(function() {				
+			$(document).ready(function() {
+				<c:if test="${!np}">
+					<c:choose>
+						<c:when test="${success}">
+							alert('Adding "${sessionScope.name}" successful!');
+						</c:when>
+						<c:otherwise>
+							alert('${sessionScope.proposalError}');  
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				var success = ${success};
+				<c:if test="${!success}">
+					$("#title").val('${sessionScope.title}');
+					$("#releaseYear").val('${sessionScope.releaseYear}');
+					$("#class option[value='${sessionScope.classification}']").prop('selected',true);
+				</c:if>
+				
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
@@ -35,20 +52,13 @@
 					<span class="info">Name:&nbsp;</span>
 					<input class="formField" type="text" name="name" id="name" required />
 					<br /><br />
-					<div><img src="Website Assets/Upload Photo.png" /></div>
 				</div>	
 				<div class="proposeDesc">
 					<div class="info">Biography: <br />
-						<textarea id="descBox" class="formField" name="bio">${sessionScope.bio}</textarea>
+						<textarea id="descBox" class="formField" name="bio">${sessionScope.bio}</textarea><br />
+						Trivia: <br />
+						<textarea id="descBox2" class="formField" name="trivia">${sessionScope.trivia}</textarea>
 					</div>
-					<table id="proposeForm">
-						<tr>
-							<td class="info">Trivia:</td>
-							<td><input class="formField" type="text" name="trivia" 
-										id="trivia" 
-										required /></td>
-						</tr>
-					</table>
 					<div id="formButtons">
 						<input type="submit" class="orangeBox" />
 						<button class="orangeBox">Cancel</button>

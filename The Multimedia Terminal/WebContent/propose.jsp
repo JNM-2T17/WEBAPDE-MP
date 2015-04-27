@@ -33,7 +33,7 @@
 			</div>
 			<div class = "adminBox">
 				<div class="adminLink">
-					<a href="proposeCreator.jsp">Go</a>
+					<a href="proposeCreator">Go</a>
 				</div> <!-- end of link -->
 				Propose Creator
 			</div>

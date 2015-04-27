@@ -367,8 +367,6 @@
 											<font size="3">Login first to write reviews and flag content</font>
 										</c:otherwise>
 									</c:choose>
-								
-								
 							</div> <!-- end of review -->
 							<br />
 						</c:forEach>
