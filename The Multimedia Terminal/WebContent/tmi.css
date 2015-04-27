@@ -584,23 +584,20 @@ div.apprDesc p.desc {
 }
 
 div.apprWork {
-	min-height:150px;
+	min-height:140px;
+	max-height:180px;
 	background-color:#404040;
+	min-width:600px;
 	width:600px;
-	padding:10px;
+	padding:15px;
 	margin-bottom:10px;
 	margin-top:5px;
-	position:relative
-}
-
-div.apprWork div.img img {
-	width:140px;
-	height:140px;
-	margin-right:20px;
+	position:relative;
+	overflow-y:hidden;
 }
 
 div.apprDesc {
-	margin-bottom:40px;
+	margin-bottom:70px;
 }
 
 div.apprWork span.info {

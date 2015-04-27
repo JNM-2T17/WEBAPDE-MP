@@ -14,7 +14,7 @@
 			$(document).ready(function() {
 				randomizeLogo();
 				
-				$("#approveAlphabetical").hide();
+				$("#approveAlpha").hide();
 				$("#approveDate").hide();
 				
 				var active = $("#approveType");
@@ -40,9 +40,9 @@
 				$("li#alphabetical").click(function() {
 					setFilterCrit(filter, false);
 					filter = setFilterCrit($(this),true);
-					if( active.attr("id") != "approveAlphabetical" ) {
+					if( active.attr("id") != "approveAlpha" ) {
 						active.hide();
-						active = $("#approveAlphabetical").show();
+						active = $("#approveAlpha").show();
 					}
 				});
 				
@@ -156,7 +156,7 @@
 							</div>
 						</c:forEach>
 					</div> <!-- end of approveType -->
-					<div id="approveAlphabetical" class="approveContent">
+					<div id="approveAlpha" class="approveContent">
 						<c:forEach var="w" items="${sessionScope.proposal1}" varStatus="i">
 							<div class="apprWork" id="alpha${i.index}" data-discriminator="${w.title}${w.classification}">
 								<div class="img">
@@ -188,7 +188,7 @@
 								</div> <!-- end of link -->
 							</div>
 						</c:forEach>
-					</div> <!-- end of approveAlphabetical -->
+					</div> <!-- end of approveAlpha -->
 					<div id="approveDate" class="approveContent">
 						<c:forEach var="w" items="${sessionScope.proposal2}" varStatus="i">
 							<div class="apprWork" id="workDate${i.index}" data-discriminator="${w.title}${w.classification}">
@@ -212,7 +212,7 @@
 									</p>
 								</div> <!-- end of description -->
 								<div class="plainLink" id="workDate${i.index}">
-									<form action="approvedWork" method="post" id="workType${i.index}" onSubmit="return false;">
+									<form action="approvedWork" method="post" id="workDate${i.index}" onSubmit="return false;">
 										<button class="orangeBox" id="workDate${i.index}">Approve</button>
 										<button class="greyBox" id="rejectDateType${i.index}">Reject</button>
 										<input type="hidden" id="title" value="${w.title}" />

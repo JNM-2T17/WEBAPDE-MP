@@ -179,7 +179,7 @@ public class WorkDAO {
 			
 			switch( criteria ) {
 				case PROPOSAL:
-					query += "`proposals`";
+					query += "`proposals` GROUP BY title, class";
 					break;
 				case ALL:
 					query += "`All Works`";
@@ -192,16 +192,16 @@ public class WorkDAO {
 			
 			switch( sort ) {
 				case TYPE:
-					query += " ORDER BY class, title, releaseYear";
+					query += " ORDER BY class, title, releaseYear DESC";
 					break;
 				case ALPHA:
-					query += " ORDER BY title, class, releaseYear";
+					query += " ORDER BY title, class, releaseYear DESC";
 					break;
 				case DATE:
-					query += " ORDER BY releaseYear, class, title";
+					query += " ORDER BY releaseYear DESC, class, title";
 					break;
 				case RATING:
-					query += " ORDER BY rating DESC, class, title, releaseYear";
+					query += " ORDER BY rating DESC, class, title, releaseYear DESC";
 					break;
 				default:
 					throw new IllegalArgumentException("Invalid sort column");
@@ -220,7 +220,6 @@ public class WorkDAO {
 								.rating(criteria==PROPOSAL ? 0 : rs.getDouble(Work.RATING_COLUMN) )
 								.viewCount(rs.getInt(Work.VIEW_COLUMN))
 								.isVerified(rs.getBoolean(Work.VERIFY_COLUMN)).build();
-					
 					works.add( w );
 				}
 			} catch(SQLException se) {
