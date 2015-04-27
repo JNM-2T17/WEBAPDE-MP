@@ -41,7 +41,6 @@
 						'</div> <!-- end of link -->\n' +
 					'</div> <!-- end of work -->\n';
 				}
-				console.log(results);
 				$("#searchContent").html(htmlStr);
 			}
 			
