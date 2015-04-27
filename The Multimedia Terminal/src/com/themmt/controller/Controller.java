@@ -295,7 +295,6 @@ public class Controller extends HttpServlet {
 				
 				try { //try adding Review
 					ReviewDAO.add(re);
-					System.out.println( "work?t=" + workTitle + "&c=" + titleclass );
 					response.getWriter().println("work?t=" + workTitle + "&c=" + titleclass);
 				} catch (SQLException e) {
 					e.printStackTrace();

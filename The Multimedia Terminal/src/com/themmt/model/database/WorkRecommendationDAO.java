@@ -28,8 +28,7 @@ public static void add( WorkRecommendation recommendation, boolean add) throws S
 			ps.setString(5, recommendation.getWorkFromClass() );
 			ps.setString(6, recommendation.getWorkToClass() );
 			ps.execute();
-			System.out.println( ps );
-		
+			
 			ps = DBConnection.getConnection().prepareStatement(stmt);
 			ps.setString(1, recommendation.getUsername() );
 			ps.setString(2, recommendation.getWorkTo() );
@@ -38,7 +37,6 @@ public static void add( WorkRecommendation recommendation, boolean add) throws S
 			ps.setString(5, recommendation.getWorkToClass() );
 			ps.setString(6, recommendation.getWorkFromClass() );
 			ps.execute();
-			System.out.println( ps );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw e;

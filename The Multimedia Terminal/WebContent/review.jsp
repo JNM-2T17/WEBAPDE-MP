@@ -74,7 +74,7 @@
 						'data' : {
 							'title' : '${t}',
 							'titleclass' : '${c}',
-							'reviewContent' : $("textarea.reviewField").text(),
+							'reviewContent' : $("textarea.reviewField").val(),
 							'r' : $("input#ratingVal").val()
 						},
 						'success' : function(a) {
