@@ -69,6 +69,9 @@
 						'<div class="description">\n' + 
 							'<p>' + (w.description == null ? '' : w.description) + '<br /><br />Because you favorited ';
 					for( var i in w.keywords ) {
+						if( i == w.keywords.length - 1 ) {
+							htmlStr += "and ";
+						}
 						htmlStr += w.keywords[i];
 						if( i < w.keywords.length - 1 ) {
 							htmlStr += ", ";

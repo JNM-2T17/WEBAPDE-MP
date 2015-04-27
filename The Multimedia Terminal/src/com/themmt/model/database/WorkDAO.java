@@ -261,7 +261,9 @@ public class WorkDAO {
 						   "FROM recommendation R, favorites F, `All Works` AW " + 
 						   "WHERE R.workFrom = F.title AND R.workFromClass = F.titleclass AND AW.title = R.workTo AND AW.class = R.workToClass AND F.username = ? AND isVerified = TRUE AND isRec = TRUE " +
 						   "AND AW.title NOT IN (SELECT title FROM favorites F2 WHERE F2.username = F.username ) " + 
-						   "GROUP BY 1,2";
+						   "GROUP BY 1,2 " + 
+						   "ORDER BY 3 DESC " + 
+						   "LIMIT 10";
 			Connection c = DBConnection.getConnection();
 			ArrayList<Work> works = new ArrayList<Work>();
 			
@@ -279,7 +281,9 @@ public class WorkDAO {
 								.isVerified(true).build();
 					query = "SELECT workFrom, workFromClass " + 
 							"FROM recommendation R, favorites F " + 
-							"WHERE workFrom = F.title AND workFromClass = F.titleclass AND F.username = ? AND workTo = ? AND workToClass = ?";
+							"WHERE workFrom = F.title AND workFromClass = F.titleclass AND F.username = ? AND workTo = ? AND workToClass = ? " + 
+							"GROUP BY 1, 2 " + 
+							"LIMIT 3";
 					ps = c.prepareStatement(query);
 					ps.setString(1, username );
 					ps.setString(2, w.getTitle() );
