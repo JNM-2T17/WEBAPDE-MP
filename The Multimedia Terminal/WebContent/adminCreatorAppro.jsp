@@ -31,7 +31,7 @@
 							method : 'POST',
 							data : { 
 								'approve' : true,
-								'name' : $("form#" + id)
+								'name' : $("form#" + id).val()
 							},
 							success : function(a) {
 								switchClass($("button#" + id),'greyBox','orangeBox').text("Approved");
@@ -48,7 +48,7 @@
 						method : 'POST',
 						data : {
 							'approve' : false,
-							'name' : $("form#" + id)
+							'name' : $("form#" + id).val()
 						},
 						success : function(a) {
 							$("div#" + id).remove();
@@ -84,7 +84,7 @@
 								<span>${c.bio}</span>
 							</div> <!-- end of description -->
 							<div class="plainLink">
-								<form action = "approveCreator" method = "post" id="crea${i.index}">
+								<form action = "approveCreator" method = "post" id="crea${i.index}" onSubmit="return false;">
 									<button class="orangeBox" id="crea${i.index}">Approve</button>
 									<button class="greyBox" id="rejectCrea${i.index}">Reject</button>
 									<input type="hidden" value = "${c.name}" name="name" class="name" />
