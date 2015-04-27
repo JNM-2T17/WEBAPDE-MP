@@ -87,8 +87,10 @@ public class KeywordDAO {
 			return 0;
 		}
 	
-	public static void approveKeyword( String title, String classification, String keyword ) {
-		String pstmst = "UPDATE keyword SET isVerified = TRUE WHERE work = ? AND workclass = ? AND keyword = ?";
+	public static void approveKeyword( String title, String classification, String keyword, boolean approve ) {
+		String pstmst = approve ? "UPDATE keyword SET isVerified = TRUE " : "DELETE FROM keyword ";
+		pstmst += "WHERE work = ? AND workclass = ? AND keyword = ?";
+							
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);

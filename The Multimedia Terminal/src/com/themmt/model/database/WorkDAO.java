@@ -364,8 +364,9 @@ public class WorkDAO {
 				return works;
 			}
 		
-	public static void approveWork( String title, String classification ) {
-		String pstmst = "UPDATE work SET isVerified = 1 WHERE title = ? AND class = ?";
+	public static void approveWork( String title, String classification, boolean approve ) {
+		String pstmst = approve ? "UPDATE work SET isVerified = 1 " : "DELETE FROM work ";
+		pstmst += "WHERE title = ? AND class = ?";
 		Connection c = DBConnection.getConnection();
 		
 		try {

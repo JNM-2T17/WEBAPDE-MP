@@ -231,7 +231,7 @@ public class Controller extends HttpServlet {
 				}
 				break;
 			case "/approvedWork":
-				WorkDAO.approveWork( request.getParameter("title"), request.getParameter("class") );
+				WorkDAO.approveWork( request.getParameter("title"), request.getParameter("class"), Boolean.parseBoolean(request.getParameter("approve"))  );
 				response.getWriter().println("SUCCESS");
 				break;
 			case "/proposeCreator":
@@ -307,11 +307,11 @@ public class Controller extends HttpServlet {
 				}
 				break;
 			case "/approveGenre":
-				GenreDAO.approveGenre(request.getParameter("title"), request.getParameter("classif"), request.getParameter("genre") );
+				GenreDAO.approveGenre(request.getParameter("title"), request.getParameter("classif"), request.getParameter("genre"), Boolean.parseBoolean(request.getParameter("approve")) );
 				response.getWriter().println("");
 				break;
 			case "/approveKey":
-				KeywordDAO.approveKeyword(request.getParameter("title"), request.getParameter("classif"), request.getParameter("key") );
+				KeywordDAO.approveKeyword(request.getParameter("title"), request.getParameter("classif"), request.getParameter("key"), Boolean.parseBoolean(request.getParameter("approve")) );
 				response.getWriter().println("");
 				break;	
 			case "/favorite":

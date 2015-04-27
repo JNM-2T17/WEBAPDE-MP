@@ -12,6 +12,7 @@ function randomizeLogo() {
 function switchClass(a, b, c) {
 	a.addClass(b);
 	a.removeClass(c);
+	return a;
 }
 
 function toggleRec( a, b ) {

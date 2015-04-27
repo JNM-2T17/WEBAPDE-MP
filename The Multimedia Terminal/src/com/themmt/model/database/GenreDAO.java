@@ -87,8 +87,9 @@ public class GenreDAO {
 			return 0;
 		}
 	
-	public static void approveGenre( String title, String classification, String genre ) {
-		String pstmst = "UPDATE genre SET isVerified = 1 WHERE work = ? AND workclass = ? AND genre = ?";
+	public static void approveGenre( String title, String classification, String genre, boolean approve ) {
+		String pstmst = approve ? "UPDATE genre SET isVerified = 1 " : "DELETE FROM genre ";
+		pstmst += "WHERE work = ? AND workclass = ? AND genre = ?";
 		
 		try {
 			PreparedStatement ps = DBConnection.getConnection().prepareStatement(pstmst);

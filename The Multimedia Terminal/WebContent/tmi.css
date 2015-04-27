@@ -607,8 +607,6 @@ div.apprWork span.info {
 	text-transform:capitalize;
 }
 
-
-
 .wideLink {
 	background-color:#EC6C25;
 	color:#FFF;
@@ -626,6 +624,18 @@ div.apprWork span.info {
 	color:#FFF;
 	font-weight:bold;
 	padding:5px 50px;
+	margin:20px 5px 0 5px;
+	border:none;
+	position:absolute;
+	bottom:10px;
+	right:5px;
+}
+
+.plainLink {
+	background-color:#404040;
+	color:#FFF;
+	padding:5px 50px;
+	font-weight:bold;
 	margin:20px 5px 0 5px;
 	border:none;
 	position:absolute;
