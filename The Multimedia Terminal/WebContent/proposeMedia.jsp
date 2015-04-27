@@ -27,7 +27,7 @@
 				<c:if test="${!success}">
 					$("#title").val('${sessionScope.title}');
 					$("#releaseYear").val('${sessionScope.releaseYear}');
-					$("#class option[value='${sessionScope.classification}']").attr('selected','selected');
+					$("#class option[value='${sessionScope.classification}']").prop('selected',true);
 				</c:if>
 					
 				randomizeLogo();
