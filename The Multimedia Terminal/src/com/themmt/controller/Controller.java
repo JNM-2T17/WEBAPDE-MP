@@ -211,6 +211,7 @@ public class Controller extends HttpServlet {
 				(Boolean)request.getSession().getAttribute("registered") ) {
 					User u = (User)(request.getSession().getAttribute("user"));
 					request.getSession().setAttribute("username", u.getUsername() );
+					request.getSession().setAttribute("registered",false);
 					request.getRequestDispatcher("login.jsp").forward(request, response);	
 					return;
 				}
@@ -229,6 +230,7 @@ public class Controller extends HttpServlet {
 					request.getRequestDispatcher("start").forward(request, response);
 				} else {
 					request.getSession().setAttribute("fail", true);
+					request.getSession().setAttribute("registered", false);
 					request.getSession().setAttribute("username", username);
 					request.getRequestDispatcher("login.jsp").forward(request, response);	
 				}
@@ -413,6 +415,7 @@ public class Controller extends HttpServlet {
 					UserDAO.add(u);
 					request.getSession().setAttribute("user", u);
 					request.getSession().setAttribute("registered", true);
+					request.getSession().setAttribute("fail", false);
 					request.getRequestDispatcher("login").forward(request, response);
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -448,25 +451,29 @@ public class Controller extends HttpServlet {
 				response.getWriter().println("");
 				break;
 			case "/flag":
-				switch(request.getParameter("id")) {
-					case "flagUser":
-						try {
-							UserDAO.flag(request.getParameter("username"));
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						break;
-					case "flagReview": 
-						try {
-							ReviewDAO.flag(request.getParameter("username"),request.getParameter("title"),request.getParameter("titleClass") );
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					   break;
-					default:
+				if( !request.getParameter("username").equals(request.getSession().getAttribute("username") ) ) {
+					switch(request.getParameter("id")) {
+						case "flagUser":
+							try {
+								UserDAO.flag(request.getParameter("username"));
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							break;
+						case "flagReview": 
+							try {
+								ReviewDAO.flag(request.getParameter("username"),request.getParameter("title"),request.getParameter("titleClass") );
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						   break;
+						default:
+					}
 				}
+				break;
+			default:
 		}
 	}
 }

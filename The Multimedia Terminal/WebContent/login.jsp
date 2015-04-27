@@ -12,17 +12,6 @@
 		<script>
 			$(document).ready(function() {
 				<c:set var="user" value="${sessionScope.username}" />
-				<c:choose>
-					<c:when test="${sessionScope.fail}">
-						$("#username").val('${user}');
-						alert( 'Incorrect Username/Password Combo');
-					</c:when>
-					<c:when test="${sessionScope.registered}">
-						$("#username").val('${user}');
-						<c:set target="sessionScope" value="false" />
-					</c:when>
-				</c:choose>
-				var reg = ${sessionScope.registered};
 				randomizeLogo();
 				
 				$("#homeLink").click(function() {
@@ -32,6 +21,17 @@
 				$("span#searchBar img").click(function() {
 					document.search.submit();
 				});
+				
+				<c:choose>
+					<c:when test="${sessionScope.fail}">
+						$("#username").val('${user}');
+						alert( 'Incorrect Username/Password Combo');
+					</c:when>
+					<c:when test="${sessionScope.registered}">
+						$("#username").val('${user}');
+					</c:when>
+				</c:choose>
+				var reg = ${sessionScope.registered};
 			});
 		</script>
 	</head>

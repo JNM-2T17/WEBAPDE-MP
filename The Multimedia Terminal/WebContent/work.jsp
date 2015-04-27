@@ -11,7 +11,8 @@
 		<link rel="stylesheet" href="tmi.css" />
 		<c:set var="w" value="${sessionScope.work}" />
 		<c:set var="rateCtr" value="${sessionScope.rateCtr}" />
-		<c:set var="user" value="${not empty sessionScope.username}" />
+		<c:set var="username" value="${sessionScope.username}" />
+		<c:set var="user" value="${not empty username}" />
 		<script src="jquery-2.1.1.js"></script>
 		<script src="tmi.js"></script>
 		<script>
@@ -356,16 +357,16 @@
 								<b>${rev.username}</b>
 								<p>${rev.review }</p>
 									<c:choose>
-										<c:when test="${user}">
+										<c:when test="${user && username != rev.username}">
 											<div class=flagPanel align="right">
 												<img src="Website Assets/red_flag.png"/>
 												<span id="flagUser" username ="${rev.username}" data-title ="${w.title}" data-class ="${w.classification}">Person </span>|
 												<span id="flagReview" username ="${rev.username}" data-title ="${w.title}" data-class ="${w.classification}">Review</span>
 											</div>
 										</c:when>
-										<c:otherwise>
-											<font size="3">Login first to write reviews and flag content</font>
-										</c:otherwise>
+										<c:when test="${!user}">
+											Login first to write reviews and flag content
+										</c:when>
 									</c:choose>
 							</div> <!-- end of review -->
 							<br />

@@ -74,7 +74,10 @@
 						}
 						htmlStr += w.keywords[i];
 						if( i < w.keywords.length - 1 ) {
-							htmlStr += ", ";
+							if( w.keywords.length > 2 ) {
+								htmlStr += ",";
+							}
+							htmlStr += " ";
 						}
 					}
 					htmlStr += '.</p>\n' +
