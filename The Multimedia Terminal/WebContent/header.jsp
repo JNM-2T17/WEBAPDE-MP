@@ -4,7 +4,7 @@
 			<c:set var="admin" value="${sessionScope.isAdmin}" />
 			<div id ="userinfo" >
 				<c:choose>
-					<c:when test="${not empty user}">
+					<c:when test="${not empty user && sessionScope.registered}">
 						Welcome, <c:if test="${admin}">Administrator</c:if> ${user}!<br />
 						<a href="logout"> Logout</a>
 			 		</c:when>

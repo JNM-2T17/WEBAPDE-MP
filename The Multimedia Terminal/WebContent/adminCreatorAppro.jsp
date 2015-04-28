@@ -31,10 +31,10 @@
 							method : 'POST',
 							data : { 
 								'approve' : true,
-								'name' : $("form#" + id).val()
+								'name' : $("form#" + id + " .name").val()
 							},
 							success : function(a) {
-								switchClass($("button#" + id),'greyBox','orangeBox').text("Approved");
+								switchClass($("button#" + id ),'greyBox','orangeBox').text("Approved");
 								$("button#" + id2).remove();
 							}
 						});
@@ -48,7 +48,7 @@
 						method : 'POST',
 						data : {
 							'approve' : false,
-							'name' : $("form#" + id).val()
+							'name' : $("form#" + id + " .name").val()
 						},
 						success : function(a) {
 							$("div#" + id).remove();

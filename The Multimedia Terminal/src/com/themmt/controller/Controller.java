@@ -220,6 +220,7 @@ public class Controller extends HttpServlet {
 				String password = request.getParameter("password");
 				if(UserDAO.isMatch(username, password)) {
 					request.getSession().setAttribute("username", username);
+					request.getSession().setAttribute("registered", true);
 					request.getSession().setAttribute("isAdmin", UserDAO.isAdmin(username));
 					Cookie c = new Cookie( "username", username );
 					c.setMaxAge( 604800 );
